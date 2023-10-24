@@ -19,8 +19,7 @@ public class Region {
 
     }
 
-    public Region(int region_id, String name) {
-        this.region_id = region_id;
+    public Region(String name) {
         this.name = name;
     }
 
