@@ -3,6 +3,9 @@ package com.pdabrowski.WeatherApp.entity;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="region")
 public class Region {
@@ -15,8 +18,44 @@ public class Region {
     @Column(name = "name")
     private String name;
 
+    @OneToMany(mappedBy = "regionId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    private List<City> cities;
+
+
+    @OneToMany(mappedBy = "region", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    private List<Alert> alerts;
+
     public Region(){
 
+    }
+
+    public void addCity(City newCity){
+
+        if(cities == null){
+            cities = new ArrayList<>();
+        }
+
+        cities.add(newCity);
+        newCity.setRegion(this);
+    }
+
+    public void addAlert(Alert newAlert){
+
+        if(alerts == null){
+            alerts = new ArrayList<>();
+        }
+
+        alerts.add(newAlert);
+        newAlert.setRegion(this);
+
+    }
+
+    public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
     }
 
     public Region(String name) {

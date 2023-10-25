@@ -17,23 +17,23 @@ public class Alert {
     @Column(name = "end_time")
     private int endTime;
 
-    @Column(name = "region_id")
-    private int regionId;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "region_id")
+    private Region region;
 
     @Column(name = "message")
     private String message;
 
     @Column(name = "alert_type")
-    private int aletrType;
+    private int alertType;
 
     public Alert(){}
 
-    public Alert(int startTime, int endTime, int regionId, String message, int aletrType) {
+    public Alert(int startTime, int endTime, String message, int alertType) {
         this.startTime = startTime;
         this.endTime = endTime;
-        this.regionId = regionId;
         this.message = message;
-        this.aletrType = aletrType;
+        this.alertType = alertType;
     }
 
     @Override
@@ -42,9 +42,57 @@ public class Alert {
                 "alertId=" + alertId +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
-                ", regionId=" + regionId +
+                ", regionId=" + region +
                 ", message='" + message + '\'' +
-                ", aletrType=" + aletrType +
+                ", aletrType=" + alertType +
                 '}';
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public int getAlertId() {
+        return alertId;
+    }
+
+    public void setAlertId(int alertId) {
+        this.alertId = alertId;
+    }
+
+    public int getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public int getAlertType() {
+        return alertType;
+    }
+
+    public void setAlertType(int alertType) {
+        this.alertType = alertType;
     }
 }

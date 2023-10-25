@@ -14,15 +14,18 @@ public class City {
     @Column(name = "city_name")
     private String cityName;
 
-    @Column(name = "region_id")
-    private int regionId;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "region_id")
+    private Region regionId;
 
     public City(){}
 
-    public City(String cityName, int regionId) {
+    public City(String cityName) {
         this.cityName = cityName;
-        this.regionId = regionId;
     }
+
+
+
 
     public int getCityId() {
         return cityId;
@@ -40,11 +43,11 @@ public class City {
         this.cityName = cityName;
     }
 
-    public int getRegionId() {
+    public Region getRegion() {
         return regionId;
     }
 
-    public void setRegionId(int regionId) {
+    public void setRegion(Region regionId) {
         this.regionId = regionId;
     }
 
