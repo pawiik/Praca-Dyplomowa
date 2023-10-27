@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CityDAOImplementation implements CityDAO{
@@ -34,5 +35,13 @@ public class CityDAOImplementation implements CityDAO{
         List<City> cities = query.getResultList();
 
         return cities;
+    }
+
+    @Override
+    public Optional<City> findById(int theId) {
+
+        City theCity = entityManager.find(City.class, theId);
+
+        return Optional.ofNullable(theCity);
     }
 }

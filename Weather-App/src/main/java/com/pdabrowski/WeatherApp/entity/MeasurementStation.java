@@ -10,8 +10,8 @@ public class MeasurementStation {
     @Column(name = "station_id")
     private int stationId;
 
-    @Column(name = "city_id")
-    private int cityId;
+//    @Column(name = "city_id")
+//    private int cityId;
 
     @Column(name = "address")
     private String address;
@@ -19,11 +19,14 @@ public class MeasurementStation {
     @Column(name = "region_id")
     private int regionId;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "city_id")
+    private City city;
+
     public MeasurementStation(){
     }
 
-    public MeasurementStation(int cityId, String address, int regionId) {
-        this.cityId = cityId;
+    public MeasurementStation(String address, int regionId) {
         this.address = address;
         this.regionId = regionId;
     }
@@ -32,17 +35,18 @@ public class MeasurementStation {
         return stationId;
     }
 
-    public void setStationId(int stationId) {
-        this.stationId = stationId;
+    public void setCity(City stationId) {
+        this.city = stationId;
+        System.out.println("dupa");
     }
 
-    public int getCityId() {
-        return cityId;
+    public City getCity() {
+        return city;
     }
 
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
-    }
+//    public void setCityId(int cityId) {
+//        this.cityId = cityId;
+//    }
 
     public String getAddress() {
         return address;
@@ -64,7 +68,7 @@ public class MeasurementStation {
     public String toString() {
         return "MeasurementStation{" +
                 "stationId=" + stationId +
-                ", cityId=" + cityId +
+                ", cityId=" + city +
                 ", address='" + address + '\'' +
                 ", regionId=" + regionId +
                 '}';

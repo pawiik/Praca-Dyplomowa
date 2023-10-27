@@ -2,6 +2,9 @@ package com.pdabrowski.WeatherApp.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "city")
 public class City {
@@ -18,13 +21,23 @@ public class City {
     @JoinColumn(name = "region_id")
     private Region regionId;
 
+    @OneToMany(mappedBy = "city", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    private List<MeasurementStation> measurementStations;
+
     public City(){}
 
     public City(String cityName) {
         this.cityName = cityName;
     }
 
+    public void addMeasurementStation(MeasurementStation theStation){
+        if(measurementStations == null){
+            measurementStations = new ArrayList<>();
+        }
 
+        measurementStations.add(theStation);
+        theStation.setCity(this);
+    }
 
 
     public int getCityId() {
