@@ -1,17 +1,11 @@
 package com.pdabrowski.WeatherApp;
 
-import com.pdabrowski.WeatherApp.dao.AlertDAO;
-import com.pdabrowski.WeatherApp.dao.CityDAO;
-import com.pdabrowski.WeatherApp.dao.MeasurementStationDAO;
-import com.pdabrowski.WeatherApp.dao.RegionDAO;
-import com.pdabrowski.WeatherApp.entity.Alert;
-import com.pdabrowski.WeatherApp.entity.City;
-import com.pdabrowski.WeatherApp.entity.MeasurementStation;
+import com.pdabrowski.WeatherApp.dao.*;
+import com.pdabrowski.WeatherApp.entity.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import com.pdabrowski.WeatherApp.entity.Region;
 
 @SpringBootApplication
 public class WeatherAppApplication {
@@ -25,19 +19,62 @@ public class WeatherAppApplication {
 			RegionDAO regionDAO,
 			CityDAO cityDAO,
 			AlertDAO alertDAO,
-			MeasurementStationDAO measurementStationDAO) {
+			MeasurementStationDAO measurementStationDAO,
+			FallDAO fallDAO,
+			HumidityDAO humidityDAO,
+			TemperatureDAO temperatureDAO,
+			UVDAO uvDAO,
+			WindDAO windDAO
+			) {
 		
 		return runner -> {
 			System.out.println("Hello world");
 //			addRegion(regionDAO);
 
-//			addCity(cityDAO, regionDAO);
+			addCity(cityDAO, regionDAO);
 
 //			addAlert(regionDAO, alertDAO);
 			
 //			addMeasurementStation(cityDAO, measurementStationDAO);
 
+			addMeasurements(measurementStationDAO ,fallDAO, humidityDAO, temperatureDAO, uvDAO, windDAO);
+
 		};
+	}
+
+	private void addMeasurements(
+			MeasurementStationDAO stationDAO,
+			FallDAO fallDAO,
+			HumidityDAO humidityDAO,
+			TemperatureDAO temperatureDAO,
+			UVDAO uvDAO,
+			WindDAO windDAO) {
+
+		MeasurementStation existingStation = stationDAO.findById(1).orElse(null);
+
+		if (existingStation != null) {
+			Fall newFall = new Fall(1, 2);
+			Humidity newHumidity = new Humidity(1, 2);
+			Temperature newTemperature = new Temperature(1, 2);
+			UV newUV = new UV(1, 2);
+			Wind newWind = new Wind(1, 2);
+
+			existingStation.addFall(newFall);
+			fallDAO.save(newFall);
+
+			existingStation.addHumidity(newHumidity);
+			humidityDAO.save(newHumidity);
+
+			existingStation.addTemperature(newTemperature);
+			temperatureDAO.save(newTemperature);
+
+			existingStation.addUV(newUV);
+			uvDAO.save(newUV);
+
+			existingStation.addWind(newWind);
+			windDAO.save(newWind);
+		}
+
 	}
 
 	private void addMeasurementStation(CityDAO cityDAO, MeasurementStationDAO measurementStationDAO) {
@@ -65,7 +102,7 @@ public class WeatherAppApplication {
 
 		if (existingRegion != null) {
 			City newCity = new City();
-			newCity.setCityName("New City Name");
+			newCity.setCityName("Name");
 			existingRegion.addCity(newCity);
 			cityDAO.save(newCity);
 		}

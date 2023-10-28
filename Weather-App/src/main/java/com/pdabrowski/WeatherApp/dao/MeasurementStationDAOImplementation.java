@@ -29,7 +29,10 @@ public class MeasurementStationDAOImplementation implements MeasurementStationDA
 
     @Override
     public Optional<MeasurementStation> findById(int theId) {
-        return Optional.empty();
+        System.out.println("dao");
+        MeasurementStation foundStation = entityManager.find(MeasurementStation.class, theId);
+
+        return Optional.ofNullable(foundStation);
     }
 
     @Override

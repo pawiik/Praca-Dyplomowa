@@ -2,6 +2,9 @@ package com.pdabrowski.WeatherApp.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "measurement_station")
 public class MeasurementStation {
@@ -23,12 +26,72 @@ public class MeasurementStation {
     @JoinColumn(name = "city_id")
     private City city;
 
+    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    private List<Fall> fall;
+
+    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    private List<Humidity> humidity;
+
+    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    private List<Temperature> temperature;
+
+    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    private List<UV> uv;
+
+    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    private List<Wind> wind;
+
     public MeasurementStation(){
     }
 
     public MeasurementStation(String address, int regionId) {
         this.address = address;
         this.regionId = regionId;
+    }
+
+    public void addFall(Fall newFall){
+        if(fall == null){
+            fall = new ArrayList<>();
+        }
+
+        fall.add(newFall);
+        newFall.setMeasurementStationId(this);
+    }
+
+    public void addTemperature(Temperature newTemperature){
+        if(temperature == null){
+            temperature = new ArrayList<>();
+        }
+
+        temperature.add(newTemperature);
+        newTemperature.setMeasurementStation(this);
+    }
+
+    public void addHumidity(Humidity newHumidity){
+        if(humidity == null){
+            humidity = new ArrayList<>();
+        }
+
+        humidity.add(newHumidity);
+        newHumidity.setMeasurementStation(this);
+    }
+
+    public void addUV(UV newUV){
+        if(uv == null){
+            uv = new ArrayList<>();
+        }
+
+        uv.add(newUV);
+        newUV.setMeasurementStation(this);
+    }
+
+    public void addWind(Wind newWind){
+        if(wind == null){
+            wind = new ArrayList<>();
+        }
+
+        wind.add(newWind);
+        newWind.setMeasurementStation(this);
     }
 
     public int getStationId() {

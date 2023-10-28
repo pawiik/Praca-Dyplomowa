@@ -14,7 +14,7 @@ public class City {
     @Column(name = "city_id")
     private int cityId;
 
-    @Column(name = "city_name")
+    @Column(name = "name")
     private String cityName;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})

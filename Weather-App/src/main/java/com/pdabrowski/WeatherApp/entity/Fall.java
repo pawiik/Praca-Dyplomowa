@@ -14,18 +14,18 @@ public class Fall {
     @Column(name="time")
     private int time;
 
-    @Column(name="temperature")
+    @Column(name="fall")
     private double temperature;
 
-    @Column(name="measurement_station_id")
-    private int measurementStationId;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "measurement_station_id")
+    private MeasurementStation measurementStation;
 
     public Fall(){}
 
-    public Fall(int time, double temperature, int measurementStationId) {
+    public Fall(int time, double temperature) {
         this.time = time;
         this.temperature = temperature;
-        this.measurementStationId = measurementStationId;
     }
 
     public int getMeasurement_id() {
@@ -52,12 +52,12 @@ public class Fall {
         this.temperature = temperature;
     }
 
-    public int getMeasurementStationId() {
-        return measurementStationId;
+    public MeasurementStation getMeasurementStationId() {
+        return measurementStation;
     }
 
-    public void setMeasurementStationId(int measurementStationId) {
-        this.measurementStationId = measurementStationId;
+    public void setMeasurementStationId(MeasurementStation measurementStationId) {
+        this.measurementStation = measurementStationId;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Fall {
                 "measurement_id=" + measurement_id +
                 ", time=" + time +
                 ", temperature=" + temperature +
-                ", measurementStationId=" + measurementStationId +
+                ", measurementStationId=" + measurementStation +
                 '}';
     }
 }

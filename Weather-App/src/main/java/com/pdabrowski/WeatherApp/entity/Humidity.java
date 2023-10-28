@@ -14,18 +14,18 @@ public class Humidity {
     @Column(name="time")
     private int time;
 
-    @Column(name="temperature")
+    @Column(name="humidity")
     private double temperature;
 
-    @Column(name="measurement_station_id")
-    private int measurementStationId;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "measurement_station_id")
+    private MeasurementStation measurementStation;
 
     public Humidity(){}
 
-    public Humidity(int time, double temperature, int measurementStationId) {
+    public Humidity(int time, double temperature) {
         this.time = time;
         this.temperature = temperature;
-        this.measurementStationId = measurementStationId;
     }
 
     public int getMeasurement_id() {
@@ -52,12 +52,12 @@ public class Humidity {
         this.temperature = temperature;
     }
 
-    public int getMeasurementStationId() {
-        return measurementStationId;
+    public MeasurementStation getMeasurementStation() {
+        return measurementStation;
     }
 
-    public void setMeasurementStationId(int measurementStationId) {
-        this.measurementStationId = measurementStationId;
+    public void setMeasurementStation(MeasurementStation measurementStationId) {
+        this.measurementStation = measurementStationId;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Humidity {
                 "measurement_id=" + measurement_id +
                 ", time=" + time +
                 ", temperature=" + temperature +
-                ", measurementStationId=" + measurementStationId +
+                ", measurementStationId=" + measurementStation +
                 '}';
     }
 }

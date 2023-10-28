@@ -36,7 +36,7 @@ public class CityDAOImplementation implements CityDAO{
 
         return cities;
     }
-
+    @Transactional
     @Override
     public Optional<City> findById(int theId) {
 
