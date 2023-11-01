@@ -1,7 +1,6 @@
 package com.pdabrowski.WeatherApp.service;
 
 import com.pdabrowski.WeatherApp.dao.TemperatureDAO;
-import com.pdabrowski.WeatherApp.entity.Temperature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

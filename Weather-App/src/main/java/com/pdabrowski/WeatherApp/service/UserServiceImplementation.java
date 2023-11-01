@@ -11,7 +11,7 @@ public class UserServiceImplementation implements UserService{
 
     @Autowired
     public UserServiceImplementation(UserDAO userDAO){
-
+        this.userDAO = userDAO;
     }
 
 }
