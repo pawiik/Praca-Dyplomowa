@@ -41,12 +41,23 @@ public class MeasurementStation {
     @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
     private List<Wind> wind;
 
+    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    private List<Employee> employees;
+
     public MeasurementStation(){
     }
 
     public MeasurementStation(String address, int regionId) {
         this.address = address;
         this.regionId = regionId;
+    }
+
+    public void addEmployee(Employee newEmployee){
+        if(employees == null){
+            employees = new ArrayList<>();
+        }
+        employees.add(newEmployee);
+        newEmployee.setMeasurementStation(this);
     }
 
     public void addFall(Fall newFall){

@@ -11,8 +11,9 @@ public class Employee {
     @Column(name = "employee_id")
     private int employeeId;
 
-    @Column(name = "measurement_station_id")
-    private int measurementStationId;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "measurement_station_id")
+    private MeasurementStation measurementStation;
 
     @Column(name = "name")
     private String name;
@@ -29,8 +30,7 @@ public class Employee {
     public Employee(){
     }
 
-    public Employee(int measurementStationId, String name, String lastName, int phoneNumber, String address) {
-        this.measurementStationId = measurementStationId;
+    public Employee(String name, String lastName, int phoneNumber, String address) {
         this.name = name;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -45,12 +45,12 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public int getMeasurementStationId() {
-        return measurementStationId;
+    public MeasurementStation getMeasurementStation() {
+        return measurementStation;
     }
 
-    public void setMeasurementStationId(int measurementStationId) {
-        this.measurementStationId = measurementStationId;
+    public void setMeasurementStation(MeasurementStation measurementStation) {
+        this.measurementStation = measurementStation;
     }
 
     public String getName() {
@@ -89,7 +89,7 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "employeeId=" + employeeId +
-                ", measurementStationId=" + measurementStationId +
+                ", measurementStationId=" + measurementStation +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber=" + phoneNumber +
