@@ -8,9 +8,8 @@ import java.util.List;
 import java.util.Optional;
 public interface MeasurementStationDAO {
 
-    public void save(MeasurementStation theStation);
-
-    public Optional<MeasurementStation> findById(int theId);
-
-    public List<MeasurementStation> findAll();
+    void save(MeasurementStation station);
+    Optional<MeasurementStation> findById(int id);
+    List<MeasurementStation> findAll();
+    void delete(MeasurementStation station);
 }

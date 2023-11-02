@@ -20,24 +20,27 @@ public class MeasurementStationDAOImplementation implements MeasurementStationDA
         this.entityManager = entityManager;
     }
 
-    @Transactional
     @Override
-    public void save(MeasurementStation theStation) {
-        System.out.println("dupa save");
-        this.entityManager.merge(theStation);
-
+    public void save(MeasurementStation station) {
+        entityManager.persist(station);
     }
 
     @Override
-    public Optional<MeasurementStation> findById(int theId) {
-        System.out.println("dao");
-        MeasurementStation foundStation = entityManager.find(MeasurementStation.class, theId);
-
-        return Optional.ofNullable(foundStation);
+    public Optional<MeasurementStation> findById(int id) {
+        return Optional.ofNullable(entityManager.find(MeasurementStation.class, id));
     }
 
     @Override
     public List<MeasurementStation> findAll() {
-        return null;
+        return entityManager.createQuery("SELECT m FROM MeasurementStation m", MeasurementStation.class).getResultList();
+    }
+
+    @Override
+    public void delete(MeasurementStation station) {
+        if (entityManager.contains(station)) {
+            entityManager.remove(station);
+        } else {
+            entityManager.remove(entityManager.merge(station));
+        }
     }
 }
