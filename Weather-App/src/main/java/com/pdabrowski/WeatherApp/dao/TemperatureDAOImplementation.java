@@ -17,11 +17,27 @@ public class TemperatureDAOImplementation implements TemperatureDAO{
         this.entityManager = entityManager;
     }
 
-    @Transactional
     @Override
-    public void save(Temperature theTemperature) {
+    public void save(Temperature temperature) {
+        entityManager.persist(temperature);
+    }
 
-        entityManager.merge(theTemperature);
+    @Override
+    public Optional<Temperature> findById(int id) {
+        return Optional.ofNullable(entityManager.find(Temperature.class, id));
+    }
 
+    @Override
+    public List<Temperature> findAll() {
+        return entityManager.createQuery("SELECT t FROM Temperature t", Temperature.class).getResultList();
+    }
+
+    @Override
+    public void delete(Temperature temperature) {
+        if (entityManager.contains(temperature)) {
+            entityManager.remove(temperature);
+        } else {
+            entityManager.remove(entityManager.merge(temperature));
+        }
     }
 }
