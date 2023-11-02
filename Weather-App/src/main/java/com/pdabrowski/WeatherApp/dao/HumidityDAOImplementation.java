@@ -17,11 +17,27 @@ public class HumidityDAOImplementation implements HumidityDAO{
         this.entityManager = entityManager;
     }
 
-    @Transactional
     @Override
-    public void save(Humidity theHumidity) {
+    public void save(Humidity humidity) {
+        entityManager.persist(humidity);
+    }
 
-        entityManager.merge(theHumidity);
+    @Override
+    public Optional<Humidity> findById(int id) {
+        return Optional.ofNullable(entityManager.find(Humidity.class, id));
+    }
 
+    @Override
+    public List<Humidity> findAll() {
+        return entityManager.createQuery("SELECT h FROM Humidity h", Humidity.class).getResultList();
+    }
+
+    @Override
+    public void delete(Humidity humidity) {
+        if (entityManager.contains(humidity)) {
+            entityManager.remove(humidity);
+        } else {
+            entityManager.remove(entityManager.merge(humidity));
+        }
     }
 }
