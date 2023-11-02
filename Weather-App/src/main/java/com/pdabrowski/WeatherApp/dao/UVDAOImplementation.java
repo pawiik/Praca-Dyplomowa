@@ -17,9 +17,24 @@ public class UVDAOImplementation implements UVDAO{
         this.entityManager = entityManager;
     }
 
-    @Transactional
     @Override
-    public void save(UV theUV) {
-        entityManager.merge(theUV);
+    public void save(UV uv) {
+        entityManager.persist(uv);
+    }
+
+    @Override
+    public Optional<UV> findById(int id) {
+        return Optional.ofNullable(entityManager.find(UV.class, id));
+    }
+
+    @Override
+    public List<UV> findAll() {
+        return entityManager.createQuery("from UV", UV.class).getResultList();
+    }
+
+    @Override
+    public void delete(UV uv) {
+        UV mergedUV = entityManager.merge(uv);
+        entityManager.remove(mergedUV);
     }
 }
