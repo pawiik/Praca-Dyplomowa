@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class AlertDAOImplementation implements AlertDAO{
@@ -20,21 +21,27 @@ public class AlertDAOImplementation implements AlertDAO{
     }
 
     @Override
-    @Transactional
-    public Alert save(Alert theAlert) {
-        Alert alert = entityManager.merge(theAlert);
+    public void save(Alert alert) {
+        entityManager.persist(alert);
+    }
 
-        return alert;
+    @Override
+    public Optional<Alert> findById(int id) {
+        return Optional.ofNullable(entityManager.find(Alert.class, id));
     }
 
     @Override
     public List<Alert> findAll() {
+        return entityManager.createQuery("SELECT a FROM Alert a", Alert.class)
+                .getResultList();
+    }
 
-        TypedQuery<Alert> query = entityManager.createQuery("FROM Alert ", Alert.class);
-
-        List<Alert> alerts = query.getResultList();
-
-        return alerts;
-
+    @Override
+    public void delete(Alert alert) {
+        if (entityManager.contains(alert)) {
+            entityManager.remove(alert);
+        } else {
+            entityManager.remove(entityManager.merge(alert));
+        }
     }
 }
