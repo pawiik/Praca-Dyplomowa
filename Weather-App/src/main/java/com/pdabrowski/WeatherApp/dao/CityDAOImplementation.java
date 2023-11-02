@@ -21,7 +21,7 @@ public class CityDAOImplementation implements CityDAO{
     }
 
     public void save(City city) {
-        entityManager.persist(city);
+        entityManager.merge(city);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class TemperatureDAOImplementation implements TemperatureDAO{
 
     @Override
     public void save(Temperature temperature) {
-        entityManager.persist(temperature);
+        entityManager.merge(temperature);
     }
 
     @Override

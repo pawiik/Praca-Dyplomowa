@@ -22,7 +22,7 @@ public class MeasurementStationDAOImplementation implements MeasurementStationDA
 
     @Override
     public void save(MeasurementStation station) {
-        entityManager.persist(station);
+        entityManager.merge(station);
     }
 
     @Override

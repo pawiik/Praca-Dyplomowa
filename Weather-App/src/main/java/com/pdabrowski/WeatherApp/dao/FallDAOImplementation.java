@@ -23,7 +23,7 @@ public class FallDAOImplementation implements FallDAO{
 
     @Override
     public void save(Fall fall) {
-        entityManager.persist(fall);
+        entityManager.merge(fall);
     }
 
     @Override

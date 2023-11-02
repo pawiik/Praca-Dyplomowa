@@ -18,7 +18,7 @@ public class UserDAOImplementation implements UserDAO{
 
     @Override
     public void save(User user) {
-        entityManager.persist(user);
+        entityManager.merge(user);
     }
 
     @Override

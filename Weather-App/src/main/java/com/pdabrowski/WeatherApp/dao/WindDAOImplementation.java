@@ -22,7 +22,7 @@ public class WindDAOImplementation implements WindDAO{
 
     @Override
     public void save(Wind wind) {
-        entityManager.persist(wind);
+        entityManager.merge(wind);
     }
 
     @Override

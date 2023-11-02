@@ -22,7 +22,7 @@ public class AlertDAOImplementation implements AlertDAO{
 
     @Override
     public void save(Alert alert) {
-        entityManager.persist(alert);
+        entityManager.merge(alert);
     }
 
     @Override
