@@ -20,21 +20,23 @@ public class WindDAOImplementation implements WindDAO{
         this.entityManager = entityManager;
     }
 
-    @Transactional
     @Override
-    public void save(Wind theWind) {
-
-        entityManager.merge(theWind);
-
+    public void save(Wind wind) {
+        entityManager.persist(wind);
     }
 
     @Override
-    public Optional<Wind> findById(int theId) {
-        return Optional.empty();
+    public Optional<Wind> findById(int id) {
+        return Optional.ofNullable(entityManager.find(Wind.class, id));
     }
 
     @Override
-    public Optional<List<Wind>> findAll() {
-        return Optional.empty();
+    public List<Wind> findAll() {
+        return entityManager.createQuery("SELECT w FROM Wind w", Wind.class).getResultList();
     }
-}
+
+    @Override
+    public void delete(Wind wind) {
+        Wind mergedWind = entityManager.merge(wind);
+        entityManager.remove(mergedWind);
+    }}

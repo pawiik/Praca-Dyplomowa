@@ -8,10 +8,9 @@ import java.util.List;
 import java.util.Optional;
 public interface WindDAO {
 
-    public void save(Wind theWind);
-
-    public Optional<Wind> findById(int theId);
-
-    public Optional<List<Wind>> findAll();
+    void save(Wind wind);
+    Optional<Wind> findById(int id);
+    List<Wind> findAll();
+    void delete(Wind wind);
 
 }
