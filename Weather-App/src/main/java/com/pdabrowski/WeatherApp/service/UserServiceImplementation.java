@@ -11,26 +11,33 @@ import java.util.Optional;
 @Service
 public class UserServiceImplementation implements UserService{
 
-//    UserDAO userDAO;
-//
-//    @Autowired
-//    public UserServiceImplementation(UserDAO userDAO){
-//        this.userDAO = userDAO;
-//    }
-@Transactional
-public User saveUser(User user) {
-    return userRepository.save(user);
-}
-    @Autowired
-    private UserDAO userRepository; // assuming you have a UserRepository
+    UserDAO userDao;
 
-    // Method to add a user
-    public User addUser(User user) {
-        return userRepository.save(user);
+    @Autowired
+    public UserServiceImplementation(UserDAO userDAO){
+        this.userDao = userDAO;
+    }
+@Override
+@Transactional
+public void saveUser(User user) {
+    userDao.save(user);
+}
+
+    @Override
+    @Transactional
+    public Optional<User> getUserById(Integer id) {
+        return userDao.findById(id);
     }
 
     @Override
-    public User createUser(String name, String lastName, Integer phoneNumber, String address, String email, City city) {
-        return null;
+    @Transactional
+    public List<User> getAllUsers() {
+        return userDao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(User user) {
+        userDao.delete(user);
     }
 }

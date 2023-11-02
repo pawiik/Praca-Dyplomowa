@@ -17,7 +17,26 @@ public class UserDAOImplementation implements UserDAO{
     }
 
     @Override
-    public User save(User theUser) {
-         return entityManager.merge(theUser);
+    public void save(User user) {
+        entityManager.persist(user);
+    }
+
+    @Override
+    public Optional<User> findById(Integer id) {
+        return Optional.ofNullable(entityManager.find(User.class, id));
+    }
+
+    @Override
+    public List<User> findAll() {
+        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+    }
+
+    @Override
+    public void delete(User user) {
+        if (entityManager.contains(user)) {
+            entityManager.remove(user);
+        } else {
+            entityManager.remove(entityManager.merge(user));
+        }
     }
 }
