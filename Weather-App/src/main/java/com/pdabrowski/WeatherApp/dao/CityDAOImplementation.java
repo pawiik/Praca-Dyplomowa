@@ -20,28 +20,26 @@ public class CityDAOImplementation implements CityDAO{
         this.entityManager = entityManager;
     }
 
-    @Override
-    @Transactional
-    public City save(City theCity) {
-        entityManager.merge(theCity);
+    public void save(City city) {
+        entityManager.persist(city);
+    }
 
-        return theCity;
+    @Override
+    public Optional<City> findById(int id) {
+        return Optional.ofNullable(entityManager.find(City.class, id));
     }
 
     @Override
     public List<City> findAll() {
-        TypedQuery<City> query = entityManager.createQuery("FROM City ", City.class);
-
-        List<City> cities = query.getResultList();
-
-        return cities;
+        return entityManager.createQuery("SELECT c FROM City c", City.class).getResultList();
     }
-    @Transactional
+
     @Override
-    public Optional<City> findById(int theId) {
-
-        City theCity = entityManager.find(City.class, theId);
-
-        return Optional.ofNullable(theCity);
+    public void delete(City city) {
+        if (entityManager.contains(city)) {
+            entityManager.remove(city);
+        } else {
+            entityManager.remove(entityManager.merge(city));
+        }
     }
 }

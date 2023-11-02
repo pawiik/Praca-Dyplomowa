@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CityDAO{
-    public City save(City theCity);
-
-    public List<City> findAll();
-
-    public Optional<City> findById(int theId);
+    void save(City city);
+    Optional<City> findById(int id);
+    List<City> findAll();
+    void delete(City city);
 }
