@@ -24,6 +24,9 @@ public class City {
     @OneToMany(mappedBy = "city", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
     private List<MeasurementStation> measurementStations;
 
+    @OneToMany(mappedBy = "city")
+    private List<User> users;
+
     public City(){}
 
     public City(String cityName) {
@@ -37,6 +40,14 @@ public class City {
 
         measurementStations.add(theStation);
         theStation.setCity(this);
+    }
+    public void addUser(User theUser){
+        if(users == null){
+            users = new ArrayList<>();
+        }
+
+        users.add(theUser);
+        theUser.setCity(this);
     }
 
 

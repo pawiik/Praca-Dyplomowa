@@ -31,13 +31,15 @@ public class WeatherAppApplication {
 			System.out.println("Hello world");
 //			addRegion(regionDAO);
 
-			addCity(cityDAO, regionDAO);
+//			addCity(cityDAO, regionDAO);
 
 //			addAlert(regionDAO, alertDAO);
 			
 //			addMeasurementStation(cityDAO, measurementStationDAO);
 
-			addMeasurements(measurementStationDAO ,fallDAO, humidityDAO, temperatureDAO, uvDAO, windDAO);
+//			addMeasurements(measurementStationDAO ,fallDAO, humidityDAO, temperatureDAO, uvDAO, windDAO);
+
+
 
 		};
 	}
