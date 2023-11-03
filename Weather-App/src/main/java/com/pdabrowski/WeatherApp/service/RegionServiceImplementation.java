@@ -36,11 +36,13 @@ public class RegionServiceImplementation implements RegionService{
 
     @Override
     public Region getRegionById(Integer id) {
-        return null;
+        return regionRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<Region> getAllRegions() {
-        return null;
+        List<Region> regions = regionRepository.findAll();
+
+        return regions;
     }
 }

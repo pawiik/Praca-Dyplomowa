@@ -1,5 +1,7 @@
 package com.pdabrowski.WeatherApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -7,6 +9,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "measurement_station")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "station_id")
 public class MeasurementStation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

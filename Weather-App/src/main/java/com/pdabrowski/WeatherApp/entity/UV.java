@@ -1,9 +1,14 @@
 package com.pdabrowski.WeatherApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "uv")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "mesurementId")
 public class UV {
 
     @Id
@@ -15,7 +20,7 @@ public class UV {
     private int time;
 
     @Column(name="uv")
-    private double temperature;
+    private double uv;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "measurement_station_id")
@@ -23,9 +28,9 @@ public class UV {
 
     public UV(){}
 
-    public UV(int time, double temperature) {
+    public UV(int time, double uv) {
         this.time = time;
-        this.temperature = temperature;
+        this.uv = uv;
     }
 
     public int getMeasurement_id() {
@@ -45,11 +50,11 @@ public class UV {
     }
 
     public double getTemperature() {
-        return temperature;
+        return uv;
     }
 
     public void setTemperature(double temperature) {
-        this.temperature = temperature;
+        this.uv = temperature;
     }
 
     public MeasurementStation getMeasurementStation() {
@@ -65,7 +70,7 @@ public class UV {
         return "UV{" +
                 "measurement_id=" + measurementId +
                 ", time=" + time +
-                ", temperature=" + temperature +
+                ", temperature=" + uv +
                 ", measurementStationId=" + measurementStation +
                 '}';
     }

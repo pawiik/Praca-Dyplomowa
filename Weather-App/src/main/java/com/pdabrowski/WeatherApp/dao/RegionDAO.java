@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.List;
 import java.util.Optional;
-public interface RegionDAO extends JpaRepository<Region, Integer> {
+public interface RegionDAO {
 
-//    public void save(Region theRegion);
-//
-//    List<Region> findAll();
-//
-//    public Optional<Region> findById(int theId);
+    public Region save(Region theRegion);
+
+    List<Region> findAll();
+
+    public Optional<Region> findById(int theId);
 
 }

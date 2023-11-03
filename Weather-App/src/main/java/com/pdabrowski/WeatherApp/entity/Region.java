@@ -1,5 +1,7 @@
 package com.pdabrowski.WeatherApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
@@ -10,12 +12,15 @@ import java.util.Set;
 
 @Entity
 @Table(name="region")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "regionId")
 public class Region {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="region_id")
-    private Integer region_id;
+    private Integer regionId;
 
     @Column(name = "name")
     private String name;
@@ -67,11 +72,11 @@ public class Region {
     }
 
     public int getRegionId() {
-        return region_id;
+        return regionId;
     }
 
     public void setRegionId(int region_id) {
-        this.region_id = region_id;
+        this.regionId = region_id;
     }
 
     public String getName() {

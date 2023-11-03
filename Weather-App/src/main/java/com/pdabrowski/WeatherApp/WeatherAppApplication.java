@@ -14,35 +14,35 @@ public class WeatherAppApplication {
 		SpringApplication.run(WeatherAppApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner commandLineRunner(
-			RegionDAO regionDAO,
-			CityDAO cityDAO,
-			AlertDAO alertDAO,
-			MeasurementStationDAO measurementStationDAO,
-			FallDAO fallDAO,
-			HumidityDAO humidityDAO,
-			TemperatureDAO temperatureDAO,
-			UVDAO uvDAO,
-			WindDAO windDAO
-			) {
-		
-		return runner -> {
-			System.out.println("Hello world");
-//			addRegion(regionDAO);
-
-//			addCity(cityDAO, regionDAO);
-
-//			addAlert(regionDAO, alertDAO);
-			
-//			addMeasurementStation(cityDAO, measurementStationDAO);
-
-//			addMeasurements(measurementStationDAO ,fallDAO, humidityDAO, temperatureDAO, uvDAO, windDAO);
-
-
-
-		};
-	}
+//	@Bean
+//	public CommandLineRunner commandLineRunner(
+//			RegionDAO regionDAO,
+//			CityDAO cityDAO,
+//			AlertDAO alertDAO,
+//			MeasurementStationDAO measurementStationDAO,
+//			FallDAO fallDAO,
+//			HumidityDAO humidityDAO,
+//			TemperatureDAO temperatureDAO,
+//			UVDAO uvDAO,
+//			WindDAO windDAO
+//			) {
+//
+//		return runner -> {
+//			System.out.println("Hello world");
+////			addRegion(regionDAO);
+//
+////			addCity(cityDAO, regionDAO);
+//
+////			addAlert(regionDAO, alertDAO);
+//
+////			addMeasurementStation(cityDAO, measurementStationDAO);
+//
+////			addMeasurements(measurementStationDAO ,fallDAO, humidityDAO, temperatureDAO, uvDAO, windDAO);
+//
+//
+//
+//		};
+//	}
 
 	private void addMeasurements(
 			MeasurementStationDAO stationDAO,
