@@ -18,8 +18,8 @@ public class TemperatureServiceImplementation implements TemperatureService {
     }
     @Override
     @Transactional
-    public void saveTemperature(Temperature temperature) {
-        temperatureDao.save(temperature);
+    public Temperature saveTemperature(Temperature temperature) {
+        return temperatureDao.save(temperature);
     }
 
     @Override

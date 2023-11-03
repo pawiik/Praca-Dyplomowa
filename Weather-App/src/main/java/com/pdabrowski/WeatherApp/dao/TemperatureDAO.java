@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 public interface TemperatureDAO {
 
-    void save(Temperature temperature);
+    Temperature save(Temperature temperature);
     Optional<Temperature> findById(int id);
     List<Temperature> findAll();
     void delete(Temperature temperature);
