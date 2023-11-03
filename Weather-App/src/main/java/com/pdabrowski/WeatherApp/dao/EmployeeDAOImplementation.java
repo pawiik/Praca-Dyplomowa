@@ -20,8 +20,8 @@ public class EmployeeDAOImplementation implements EmployeeDAO{
 
 
     @Override
-    public void save(Employee employee) {
-        entityManager.merge(employee);
+    public Employee save(Employee employee) {
+        return entityManager.merge(employee);
     }
 
     @Override

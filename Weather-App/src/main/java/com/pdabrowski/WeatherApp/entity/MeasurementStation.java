@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "measurement_station")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "station_id")
+        property = "stationId")
 public class MeasurementStation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

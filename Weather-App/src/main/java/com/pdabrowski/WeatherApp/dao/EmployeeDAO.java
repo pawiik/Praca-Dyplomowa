@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface EmployeeDAO {
 
-    void save(Employee employee);
+    Employee save(Employee employee);
     Optional<Employee> findById(int id);
     List<Employee> findAll();
     void delete(Employee employee);
