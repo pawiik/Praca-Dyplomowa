@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CityService {
 
-    void saveCity(City city);
+    City saveCity(City city);
     Optional<City> getCityById(int id);
     List<City> getAllCities();
     void deleteCity(City city);
