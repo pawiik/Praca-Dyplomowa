@@ -19,8 +19,8 @@ public class HumidityServiceImplementation implements HumidityService{
 
     @Override
     @Transactional
-    public void saveHumidity(Humidity humidity) {
-        humidityDao.save(humidity);
+    public Humidity saveHumidity(Humidity humidity) {
+        return humidityDao.save(humidity);
     }
 
     @Override

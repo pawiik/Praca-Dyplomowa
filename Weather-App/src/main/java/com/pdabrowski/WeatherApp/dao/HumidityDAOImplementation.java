@@ -18,8 +18,8 @@ public class HumidityDAOImplementation implements HumidityDAO{
     }
 
     @Override
-    public void save(Humidity humidity) {
-        entityManager.merge(humidity);
+    public Humidity save(Humidity humidity) {
+        return entityManager.merge(humidity);
     }
 
     @Override
