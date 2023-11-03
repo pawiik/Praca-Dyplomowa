@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AlertService {
-    void saveAlert(Alert alert);
+    Alert saveAlert(Alert alert);
     Optional<Alert> getAlertById(int id);
     List<Alert> getAllAlerts();
     void deleteAlert(Alert alert);

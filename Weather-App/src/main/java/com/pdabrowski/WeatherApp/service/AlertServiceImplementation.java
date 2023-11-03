@@ -21,8 +21,8 @@ public class AlertServiceImplementation implements AlertService{
 
     @Override
     @Transactional
-    public void saveAlert(Alert alert) {
-        this.alertDao.save(alert);
+    public Alert saveAlert(Alert alert) {
+        return this.alertDao.save(alert);
     }
 
     @Override

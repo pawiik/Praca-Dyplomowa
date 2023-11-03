@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface AlertDAO {
 
-    void save(Alert alert);
+    Alert save(Alert alert);
     Optional<Alert> findById(int id);
     List<Alert> findAll();
     void delete(Alert alert);

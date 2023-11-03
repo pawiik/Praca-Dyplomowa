@@ -21,8 +21,8 @@ public class AlertDAOImplementation implements AlertDAO{
     }
 
     @Override
-    public void save(Alert alert) {
-        entityManager.merge(alert);
+    public Alert save(Alert alert) {
+       return entityManager.merge(alert);
     }
 
     @Override

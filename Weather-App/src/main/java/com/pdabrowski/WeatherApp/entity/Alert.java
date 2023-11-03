@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @Table(name = "alert")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "alertIdd")
+        property = "alertId")
 public class Alert {
 
     @Id
