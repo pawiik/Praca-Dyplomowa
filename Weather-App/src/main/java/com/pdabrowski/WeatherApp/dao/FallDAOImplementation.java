@@ -22,8 +22,8 @@ public class FallDAOImplementation implements FallDAO{
     }
 
     @Override
-    public void save(Fall fall) {
-        entityManager.merge(fall);
+    public Fall save(Fall fall) {
+        return entityManager.merge(fall);
     }
 
     @Override

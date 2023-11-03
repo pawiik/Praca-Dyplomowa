@@ -21,8 +21,8 @@ public class FallServiceImplementation implements FallService{
 
     @Override
     @Transactional
-    public void saveFall(Fall fall) {
-        fallDao.save(fall);
+    public Fall saveFall(Fall fall) {
+        return fallDao.save(fall);
     }
 
     @Override

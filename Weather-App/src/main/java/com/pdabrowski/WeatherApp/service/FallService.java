@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FallService {
-    void saveFall(Fall fall);
+    Fall saveFall(Fall fall);
     Optional<Fall> getFallById(int id);
     List<Fall> getAllFalls();
     void deleteFall(Fall fall);

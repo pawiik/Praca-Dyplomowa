@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface FallDAO {
 
-    void save(Fall fall);
+    Fall save(Fall fall);
     Optional<Fall> findById(int id);
     List<Fall> findAll();
     void delete(Fall fall);
