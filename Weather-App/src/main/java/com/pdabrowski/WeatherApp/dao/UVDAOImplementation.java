@@ -18,8 +18,8 @@ public class UVDAOImplementation implements UVDAO{
     }
 
     @Override
-    public void save(UV uv) {
-        entityManager.merge(uv);
+    public UV save(UV uv) {
+        return entityManager.merge(uv);
     }
 
     @Override

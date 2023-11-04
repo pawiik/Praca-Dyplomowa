@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 public interface UVDAO {
 
-    void save(UV uv);
+    UV save(UV uv);
     Optional<UV> findById(int id);
     List<UV> findAll();
     void delete(UV uv);

@@ -1,19 +1,55 @@
 package com.pdabrowski.WeatherApp.rest;
 
+import com.pdabrowski.WeatherApp.entity.MeasurementStation;
+import com.pdabrowski.WeatherApp.entity.Temperature;
+import com.pdabrowski.WeatherApp.entity.UV;
+import com.pdabrowski.WeatherApp.service.MeasurementStationService;
 import com.pdabrowski.WeatherApp.service.UVService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/uv")
 public class UVRestController {
 
     UVService uvService;
+    MeasurementStationService measurementStationService;
 
     @Autowired
-    public UVRestController(UVService uvService){
+    public UVRestController(UVService uvService, MeasurementStationService measurementStationService){
         this.uvService = uvService;
+        this.measurementStationService = measurementStationService;
+    }
+
+    @GetMapping("/uvs")
+    public List<UV> getAllUVs(){
+        return uvService.getAllUVs();
+    }
+
+    @GetMapping("/")
+    public UV getUVById(@RequestBody Map<String, Integer> data){
+        return uvService.getUVById(data.get("measurementId")).orElse(null);
+    }
+
+    @PostMapping("/")
+    public UV addTemperature(@RequestBody Map<String, String> data){
+        MeasurementStation existingMeasurementStation = measurementStationService.getStationById(Integer.parseInt(data.get("measurementStationId"))).orElse(null);
+
+        if(existingMeasurementStation != null){
+
+            UV newUV = new UV();
+            newUV.setTime(Integer.parseInt(data.get("time")));
+            newUV.setTemperature(Double.parseDouble(data.get("uv")));
+
+            existingMeasurementStation.addUV(newUV);
+
+            return uvService.saveUV(newUV);
+        }
+
+        return null;
     }
 
 }

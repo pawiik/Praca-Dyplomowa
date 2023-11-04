@@ -18,8 +18,8 @@ public class UVServiceImplementation implements UVService{
     }
     @Override
     @Transactional
-    public void saveUV(UV uv) {
-        uvDao.save(uv);
+    public UV saveUV(UV uv) {
+        return uvDao.save(uv);
     }
 
     @Override
