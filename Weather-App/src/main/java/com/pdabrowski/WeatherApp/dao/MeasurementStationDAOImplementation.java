@@ -21,8 +21,8 @@ public class MeasurementStationDAOImplementation implements MeasurementStationDA
     }
 
     @Override
-    public void save(MeasurementStation station) {
-        entityManager.merge(station);
+    public MeasurementStation save(MeasurementStation station) {
+        return entityManager.merge(station);
     }
 
     @Override

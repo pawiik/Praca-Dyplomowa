@@ -18,8 +18,8 @@ public class MeasurementStationServiceImplementation implements MeasurementStati
     }
     @Override
     @Transactional
-    public void saveStation(MeasurementStation station) {
-        stationDao.save(station);
+    public MeasurementStation saveStation(MeasurementStation station) {
+        return stationDao.save(station);
     }
 
     @Override
