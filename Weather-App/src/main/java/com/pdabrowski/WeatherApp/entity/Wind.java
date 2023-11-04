@@ -8,13 +8,13 @@ import jakarta.persistence.*;
 @Table(name = "wind")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "measurementId")
+        property = "measurement_id")
 public class Wind {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "measurement_id")
-    private int measurementId;
+    private int measurement_id;
 
     @Column(name="time")
     private int time;
@@ -34,11 +34,11 @@ public class Wind {
     }
 
     public int getMeasurement_id() {
-        return measurementId;
+        return measurement_id;
     }
 
     public void setMeasurement_id(int measurement_id) {
-        this.measurementId = measurement_id;
+        this.measurement_id = measurement_id;
     }
 
     public int getTime() {
@@ -68,7 +68,7 @@ public class Wind {
     @Override
     public String toString() {
         return "Wind{" +
-                "measurement_id=" + measurementId +
+                "measurement_id=" + measurement_id +
                 ", time=" + time +
                 ", temperature=" + wind +
                 ", measurementStationId=" + measurementStation +

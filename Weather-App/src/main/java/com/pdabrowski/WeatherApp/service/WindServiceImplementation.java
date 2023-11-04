@@ -18,8 +18,8 @@ public class WindServiceImplementation implements WindService{
     }
     @Override
     @Transactional
-    public void saveWind(Wind wind) {
-        windDao.save(wind);
+    public Wind saveWind(Wind wind) {
+        return windDao.save(wind);
     }
 
     @Override

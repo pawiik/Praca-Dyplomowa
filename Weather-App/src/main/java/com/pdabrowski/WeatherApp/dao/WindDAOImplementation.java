@@ -21,8 +21,8 @@ public class WindDAOImplementation implements WindDAO{
     }
 
     @Override
-    public void save(Wind wind) {
-        entityManager.merge(wind);
+    public Wind save(Wind wind) {
+        return entityManager.merge(wind);
     }
 
     @Override
