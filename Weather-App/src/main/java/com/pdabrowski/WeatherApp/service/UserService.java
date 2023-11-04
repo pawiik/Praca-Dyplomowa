@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 public interface UserService {
 
-    void saveUser(User user);
+    User saveUser(User user);
     Optional<User> getUserById(Integer id);
     List<User> getAllUsers();
     void deleteUser(User user);
