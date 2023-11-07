@@ -1,4 +1,6 @@
-class Temperature {
+import {MeasurementStation} from "./MeasurementStation";
+
+export class Temperature {
   measurementId: number;
   time: number;
   temperature: number;

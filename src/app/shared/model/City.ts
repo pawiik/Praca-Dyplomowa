@@ -1,21 +1,65 @@
-class City {
-  cityId: number;
-  cityName: string;
-  region: Region; // Assuming 'Region' is another class you have defined
-  measurementStations: MeasurementStation[]; // Assuming 'MeasurementStation' is an array of another class or interface
-  users: User[]; // Assuming 'User' is an array of another class or interface
+import {Region} from "./Region";
+import {MeasurementStation} from "./MeasurementStation";
+import {User} from "./User";
+export class City {
+  private _cityId: number;
+  private _cityName: string;
+  private _region: Region; // Assuming 'Region' is another class you have defined
+  private _measurementStations: MeasurementStation[]; // Assuming 'MeasurementStation' is an array of another class or interface
+  private _users: User[]; // Assuming 'User' is an array of another class or interface
 
   constructor(
-    cityId?: number,
+    cityId: number,
     cityName?: string,
     region?: Region,
     measurementStations?: MeasurementStation[],
     users?: User[]
   ) {
-    if (cityId) this.cityId = cityId;
-    this.cityName = cityName || '';
-    this.region = region || new Region(); // Replace with actual default if necessary
-    this.measurementStations = measurementStations || [];
-    this.users = users || [];
+    this._cityId = cityId;
+    this._cityName = cityName || '';
+    this._region = region || new Region(); // Replace with actual default if necessary
+    this._measurementStations = measurementStations || [];
+    this._users = users || [];
+  }
+
+
+  get cityId(): number {
+    return this._cityId;
+  }
+
+  set cityId(value: number) {
+    this._cityId = value;
+  }
+
+  get cityName(): string {
+    return this._cityName;
+  }
+
+  set cityName(value: string) {
+    this._cityName = value;
+  }
+
+  get region(): Region {
+    return this._region;
+  }
+
+  set region(value: Region) {
+    this._region = value;
+  }
+
+  get measurementStations(): MeasurementStation[] {
+    return this._measurementStations;
+  }
+
+  set measurementStations(value: MeasurementStation[]) {
+    this._measurementStations = value;
+  }
+
+  get users(): User[] {
+    return this._users;
+  }
+
+  set users(value: User[]) {
+    this._users = value;
   }
 }

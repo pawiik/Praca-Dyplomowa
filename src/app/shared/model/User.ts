@@ -1,4 +1,7 @@
-class User {
+import {Region} from "./Region";
+import {City} from "./City";
+
+export class User {
   id: number | null;
   name: string;
   lastName: string;

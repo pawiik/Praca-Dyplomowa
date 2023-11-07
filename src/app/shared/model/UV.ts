@@ -1,4 +1,6 @@
-class UV {
+import {MeasurementStation} from "./MeasurementStation";
+
+export class UV {
   measurementId: number;
   time: number;
   uv: number;

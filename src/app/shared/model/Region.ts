@@ -1,5 +1,9 @@
 // @ts-ignore
-class Region {
+import {City} from "./City";
+import {Alert} from "./Alert";
+import {User} from "./User";
+
+export class Region {
   regionId: number | null;
   name: string;
   cities: City[];

@@ -1,8 +1,16 @@
-class MeasurementStation {
+import {City} from "./City";
+import {Fall} from "./Fall";
+import {Humidity} from "./Humidity";
+import {Temperature} from "./Temperature";
+import {UV} from "./UV";
+import {Wind} from "./Wind";
+import {Employee} from "./Employee";
+
+export class MeasurementStation {
   stationId: number;
   address: string;
   regionId: number;
-  city: City;
+  city: City | undefined;
   falls: Fall[];
   humidities: Humidity[];
   temperatures: Temperature[];
@@ -10,8 +18,9 @@ class MeasurementStation {
   winds: Wind[];
   employees: Employee[];
 
+  // @ts-ignore
   constructor(
-    stationId?: number,
+    stationId: number,
     address?: string,
     regionId?: number,
     city?: City,
@@ -22,10 +31,10 @@ class MeasurementStation {
     winds?: Wind[],
     employees?: Employee[]
   ) {
-    if (stationId) this.stationId = stationId;
+    this.stationId = stationId;
     this.address = address || '';
     this.regionId = regionId || 0;
-    this.city = city || new City();
+    this.city = city;
     this.falls = falls || [];
     this.humidities = humidities || [];
     this.temperatures = temperatures || [];

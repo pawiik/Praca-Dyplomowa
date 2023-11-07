@@ -1,4 +1,6 @@
-class Wind {
+import {MeasurementStation} from "./MeasurementStation";
+
+export class Wind {
   measurementId: number;
   time: number;
   wind: number;
