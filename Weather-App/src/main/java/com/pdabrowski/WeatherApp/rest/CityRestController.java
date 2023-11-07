@@ -12,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/city")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CityRestController {
 
     CityService cityService;
