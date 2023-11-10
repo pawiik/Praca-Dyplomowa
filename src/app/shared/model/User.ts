@@ -10,6 +10,8 @@ export class User {
   email: string;
   regions: Region[];
   city: City;
+  password: string | undefined;
+  confirmPassword: string | undefined;
 
   constructor(
     id: number | null,

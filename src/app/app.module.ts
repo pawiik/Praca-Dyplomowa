@@ -9,13 +9,17 @@ import { FooterComponent } from './weather/footer/footer.component';
 import {AppComponent} from "./app.component";
 import { FormsModule } from '@angular/forms';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { LoginComponent } from './weather/login/login.component';
+import { RegisterComponent } from './weather/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     NavBarComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

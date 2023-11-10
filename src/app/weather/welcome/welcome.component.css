@@ -1,0 +1,56 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.input-container {
+  display: flex;
+  flex-direction: column; /* Stack children elements vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically if there is extra space */
+  width: 100%; /* Take full width of the parent container */
+}
+/* Center the input-container div in the middle of the page */
+input[type="text"] {
+  width: 80%; /* Adjust the width as needed */
+  margin: 10px 0; /* Add some space around the input field */
+  padding: 8px 16px; /* Add padding inside the input field for aesthetics */
+  border: 1px solid #ccc; /* Add a border to the input field */
+  border-radius: 4px; /* Optional: Rounds the corners of the input field */
+}
+
+
+/* Style the input field to take up the full width of its container */
+.input-container input[type="text"] {
+  width: 50%;
+  /* Add additional styles for padding, borders, etc. as necessary */
+}
+
+/* Style the input field */
+input[type="text"] {
+  width: 50%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.suggestions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Adjust column size if needed */
+  gap: 20px; /* Increase gap for bigger elements */
+  max-width: 500px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.suggestion-item {
+  padding: 10px; /* Increase padding for bigger elements */
+  text-align: center;
+  border: 1px solid #ccc;
+  font-size: 1.2em; /* Increase font size */
+  color: white; /* Set text color to white for better contrast with random backgrounds */
+  border-radius: 4px; /* Optional: rounded corners */
+}
+
+.suggestion-item:hover {
+  background-color: #e9e9e9; /* Highlight color on hover */
+}
