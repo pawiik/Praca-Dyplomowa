@@ -5,15 +5,13 @@ import com.pdabrowski.WeatherApp.service.RegionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/region")
 public class RegionRestController {
 
     RegionService regionService;
@@ -55,6 +53,14 @@ public class RegionRestController {
         }
 
         return theEmployee;
+    }
+
+    @PostMapping("")
+    public Region addRegion(@RequestBody Map<String, String> data){
+        Region newRegion = new Region();
+        newRegion.setName(data.get("regionName"));
+
+        return regionService.saveRegion(newRegion);
     }
 
 }

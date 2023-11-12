@@ -1,6 +1,7 @@
 package com.pdabrowski.WeatherApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -25,12 +26,15 @@ public class Region {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "regionId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER)
     private List<City> cities;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "region", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER)
     private List<Alert> alerts;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "regions")
     private Set<User> users = new HashSet<>();
 

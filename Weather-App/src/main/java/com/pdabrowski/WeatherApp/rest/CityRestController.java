@@ -30,8 +30,8 @@ public class CityRestController {
     }
 
     @GetMapping("/")
-    public City getCityById(@RequestBody Map<String, Integer> data){
-        return cityService.getCityById(data.get("cityId")).orElse(null);
+    public City getCityById(@RequestParam Map<String, String> data){
+        return cityService.getCityById(Integer.parseInt(data.get("cityId"))).orElse(null);
     }
 
     @PostMapping("/")
