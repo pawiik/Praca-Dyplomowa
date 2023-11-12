@@ -8,6 +8,10 @@ import com.pdabrowski.WeatherApp.service.WindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -40,9 +44,12 @@ public class WindRestController {
         MeasurementStation existingMeasurementStation = measurementStationService.getStationById(Integer.parseInt(data.get("measurementStationId"))).orElse(null);
 
         if(existingMeasurementStation != null){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+            LocalDateTime localDateTime = LocalDateTime.parse(data.get("time"), formatter);
+            Instant time = localDateTime.toInstant(ZoneOffset.UTC);
 
             Wind newWind = new Wind();
-            newWind.setTime(Integer.parseInt(data.get("time")));
+            newWind.setTime(time);
             newWind.setTemperature(Double.parseDouble(data.get("wind")));
 
             existingMeasurementStation.addWind(newWind);

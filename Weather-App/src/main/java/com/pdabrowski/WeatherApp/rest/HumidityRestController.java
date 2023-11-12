@@ -8,6 +8,10 @@ import com.pdabrowski.WeatherApp.service.MeasurementStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -40,9 +44,12 @@ public class HumidityRestController {
         MeasurementStation existingMeasurementStation = measurementStationService.getStationById(Integer.parseInt(data.get("measurementStationId"))).orElse(null);
 
         if(existingMeasurementStation != null){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+            LocalDateTime localDateTime = LocalDateTime.parse(data.get("time"), formatter);
+            Instant time = localDateTime.toInstant(ZoneOffset.UTC);
 
             Humidity newHumidity = new Humidity();
-            newHumidity.setTime(Integer.parseInt(data.get("time")));
+            newHumidity.setTime(time);
             newHumidity.setTemperature(Double.parseDouble(data.get("humidity")));
 
             existingMeasurementStation.addHumidity(newHumidity);

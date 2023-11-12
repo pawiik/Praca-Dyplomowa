@@ -33,18 +33,14 @@ public class JWTTokenFilter extends OncePerRequestFilter {
             if (token != null && jwtTokenUtil.validateToken(token)) {
                 String username = jwtTokenUtil.getUsernameFromToken(token);
 
-                // If we can trust this JWT, then we can also trust that the username is valid
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-                // Create authentication token
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
 
-                // Set authentication into SecurityContext
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (JWTVerificationException e) {
-            // In case of token validation failure, we clear the context
             SecurityContextHolder.clearContext();
             throw new ServletException("Invalid JWT token", e);
         }

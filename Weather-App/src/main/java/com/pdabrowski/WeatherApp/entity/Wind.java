@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "wind")
 @JsonIdentityInfo(
@@ -17,7 +19,7 @@ public class Wind {
     private int measurement_id;
 
     @Column(name="time")
-    private int time;
+    private Instant time;
 
     @Column(name="wind")
     private double wind;
@@ -28,7 +30,7 @@ public class Wind {
 
     public Wind(){}
 
-    public Wind(int time, double temperature) {
+    public Wind(Instant time, double temperature) {
         this.time = time;
         this.wind = temperature;
     }
@@ -41,11 +43,11 @@ public class Wind {
         this.measurement_id = measurement_id;
     }
 
-    public int getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 

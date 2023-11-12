@@ -3,6 +3,9 @@ package com.pdabrowski.WeatherApp.entity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+
+import java.time.Instant;
 
 @Entity
 @Table(name = "humidity")
@@ -17,7 +20,7 @@ public class Humidity {
     private int measurement_id;
 
     @Column(name="time")
-    private int time;
+    private Instant time;
 
     @Column(name="humidity")
     private double temperature;
@@ -28,7 +31,7 @@ public class Humidity {
 
     public Humidity(){}
 
-    public Humidity(int time, double temperature) {
+    public Humidity(Instant time, double temperature) {
         this.time = time;
         this.temperature = temperature;
     }
@@ -41,11 +44,11 @@ public class Humidity {
         this.measurement_id = measurement_id;
     }
 
-    public int getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 

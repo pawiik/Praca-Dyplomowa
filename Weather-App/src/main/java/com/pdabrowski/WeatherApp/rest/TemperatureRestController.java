@@ -8,6 +8,10 @@ import com.pdabrowski.WeatherApp.service.TemperatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -40,8 +44,12 @@ public class TemperatureRestController {
 
         if(existingMeasurementStation != null){
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+            LocalDateTime localDateTime = LocalDateTime.parse(data.get("time"), formatter);
+            Instant time = localDateTime.toInstant(ZoneOffset.UTC);
+
             Temperature newTemperature = new Temperature();
-            newTemperature.setTime(Integer.parseInt(data.get("time")));
+            newTemperature.setTime(time);
             newTemperature.setTemperature(Double.parseDouble(data.get("temperature")));
 
             existingMeasurementStation.addTemperature(newTemperature);

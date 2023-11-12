@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "uv")
 @JsonIdentityInfo(
@@ -18,7 +20,7 @@ public class UV {
     private int measurement_id;
 
     @Column(name="time")
-    private int time;
+    private Instant time;
 
     @Column(name="uv")
     private double uv;
@@ -29,7 +31,7 @@ public class UV {
 
     public UV(){}
 
-    public UV(int time, double uv) {
+    public UV(Instant time, double uv) {
         this.time = time;
         this.uv = uv;
     }
@@ -42,11 +44,11 @@ public class UV {
         this.measurement_id = measurement_id;
     }
 
-    public int getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "fall")
 @JsonIdentityInfo(
@@ -17,7 +19,7 @@ public class Fall {
     private int measurement_id;
 
     @Column(name="time")
-    private int time;
+    private Instant time;
 
     @Column(name="fall")
     private double temperature;
@@ -28,7 +30,7 @@ public class Fall {
 
     public Fall(){}
 
-    public Fall(int time, double temperature) {
+    public Fall(Instant time, double temperature) {
         this.time = time;
         this.temperature = temperature;
     }
@@ -41,11 +43,11 @@ public class Fall {
         this.measurement_id = measurement_id;
     }
 
-    public int getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 

@@ -6,8 +6,13 @@ import com.pdabrowski.WeatherApp.entity.UV;
 import com.pdabrowski.WeatherApp.service.MeasurementStationService;
 import com.pdabrowski.WeatherApp.service.UVService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -34,14 +39,20 @@ public class UVRestController {
         return uvService.getUVById(data.get("measurementId")).orElse(null);
     }
 
+    @PreAuthorize("hasRole('ROLE_employee')")
     @PostMapping("/")
-    public UV addTemperature(@RequestBody Map<String, String> data){
+    public UV addUV(@RequestBody Map<String, String> data){
         MeasurementStation existingMeasurementStation = measurementStationService.getStationById(Integer.parseInt(data.get("measurementStationId"))).orElse(null);
 
         if(existingMeasurementStation != null){
 
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+            LocalDateTime localDateTime = LocalDateTime.parse(data.get("time"), formatter);
+            Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
+
             UV newUV = new UV();
-            newUV.setTime(Integer.parseInt(data.get("time")));
+            newUV.setTime(instant);
             newUV.setTemperature(Double.parseDouble(data.get("uv")));
 
             existingMeasurementStation.addUV(newUV);

@@ -44,40 +44,40 @@ public class WeatherAppApplication {
 //		};
 //	}
 
-	private void addMeasurements(
-			MeasurementStationDAO stationDAO,
-			FallDAO fallDAO,
-			HumidityDAO humidityDAO,
-			TemperatureDAO temperatureDAO,
-			UVDAO uvDAO,
-			WindDAO windDAO) {
-
-		MeasurementStation existingStation = stationDAO.findById(1).orElse(null);
-
-		if (existingStation != null) {
-			Fall newFall = new Fall(1, 2);
-			Humidity newHumidity = new Humidity(1, 2);
-			Temperature newTemperature = new Temperature(1, 2);
-			UV newUV = new UV(1, 2);
-			Wind newWind = new Wind(1, 2);
-
-			existingStation.addFall(newFall);
-			fallDAO.save(newFall);
-
-			existingStation.addHumidity(newHumidity);
-			humidityDAO.save(newHumidity);
-
-			existingStation.addTemperature(newTemperature);
-			temperatureDAO.save(newTemperature);
-
-			existingStation.addUV(newUV);
-			uvDAO.save(newUV);
-
-			existingStation.addWind(newWind);
-			windDAO.save(newWind);
-		}
-
-	}
+//	private void addMeasurements(
+//			MeasurementStationDAO stationDAO,
+//			FallDAO fallDAO,
+//			HumidityDAO humidityDAO,
+//			TemperatureDAO temperatureDAO,
+//			UVDAO uvDAO,
+//			WindDAO windDAO) {
+//
+//		MeasurementStation existingStation = stationDAO.findById(1).orElse(null);
+//
+//		if (existingStation != null) {
+//			Fall newFall = new Fall(1, 2);
+//			Humidity newHumidity = new Humidity(1, 2);
+//			Temperature newTemperature = new Temperature(1, 2);
+//			UV newUV = new UV(1, 2);
+//			Wind newWind = new Wind(1, 2);
+//
+//			existingStation.addFall(newFall);
+//			fallDAO.save(newFall);
+//
+//			existingStation.addHumidity(newHumidity);
+//			humidityDAO.save(newHumidity);
+//
+//			existingStation.addTemperature(newTemperature);
+//			temperatureDAO.save(newTemperature);
+//
+//			existingStation.addUV(newUV);
+//			uvDAO.save(newUV);
+//
+//			existingStation.addWind(newWind);
+//			windDAO.save(newWind);
+//		}
+//
+//	}
 
 	private void addMeasurementStation(CityDAO cityDAO, MeasurementStationDAO measurementStationDAO) {
 		City existingCity = cityDAO.findById(6).orElse(null);
