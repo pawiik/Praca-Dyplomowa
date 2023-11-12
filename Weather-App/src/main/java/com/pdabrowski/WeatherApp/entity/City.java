@@ -1,6 +1,7 @@
 package com.pdabrowski.WeatherApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
@@ -26,9 +27,11 @@ public class City {
     @JoinColumn(name = "region_id")
     private Region regionId;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "city", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
     private List<MeasurementStation> measurementStations;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "city")
     private List<User> users;
 
