@@ -13,12 +13,18 @@ import java.util.Set;
 @Table(name = "user")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+        property = "userId")
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer id;
+    private String userId; // Now a string, provided by the user
+
+    // ... other fields ...
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "account_id")
+    private Account account;
 
     @Column(name = "name")
     private String name;
@@ -48,12 +54,27 @@ public class User {
     @JoinColumn(name = "city_id")
     private City city;
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public User(){}
 
     public User(String address) {
         this.address = address;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 //    public void addRegionToMain(Region region){
 //        if (this.regions == null){
 //            this.regions = new ArrayList<>();
@@ -77,17 +98,17 @@ public void addRegion(Region region) {
         this.regions.remove(region);
         region.getRegionUsers().remove(this);
     }
-    public int getUserId() {
-        return id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    public int getUserId() {
+//        return id;
+//    }
+//
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -137,9 +158,9 @@ public void addRegion(Region region) {
         this.city = city;
     }
 
-    public void setUserId(int userId) {
-        this.id = userId;
-    }
+//    public void setUserId(int userId) {
+//        this.id = userId;
+//    }
 
 //    public int getCityId() {
 //        return cityId;

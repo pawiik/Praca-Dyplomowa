@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/city")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class CityRestController {
 
     CityService cityService;
@@ -34,7 +34,7 @@ public class CityRestController {
         return cityService.getCityById(Integer.parseInt(data.get("cityId"))).orElse(null);
     }
 
-    @PostMapping("/")
+    @PostMapping("/cities")
     public City addCity(@RequestBody Map<String, String> data){
         Region existingRegion = regionService.getRegionById(Integer.valueOf(data.get("regionId")));
 

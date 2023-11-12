@@ -30,7 +30,7 @@ public class UserRestController {
 
     @GetMapping("/")
     public User getUserById(@RequestBody Map<String, Integer> data){
-        return userService.getUserById(data.get("userId")).orElse(null);
+        return userService.getUserById(String.valueOf(data.get("userId"))).orElse(null);
     }
     @PostMapping("/")
     public User addUser(@RequestBody Map<String, String> data){

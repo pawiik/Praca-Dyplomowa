@@ -22,7 +22,7 @@ public class UserDAOImplementation implements UserDAO{
     }
 
     @Override
-    public Optional<User> findById(Integer id) {
+    public Optional<User> findById(String id) {
         return Optional.ofNullable(entityManager.find(User.class, id));
     }
 

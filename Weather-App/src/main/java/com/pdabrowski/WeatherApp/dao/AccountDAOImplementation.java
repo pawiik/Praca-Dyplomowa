@@ -28,7 +28,7 @@ public class AccountDAOImplementation implements AccountDAO{
     @Override
     public Optional<Account> findByEmail(String email) {
         Query query = entityManager.createQuery(
-                "SELECT a FROM Account a WHERE a.email = :email", Account.class);
+                "SELECT a FROM Account a WHERE a.accountId = :email", Account.class);
         query.setParameter("email", email);
 
         Account account = (Account) query.getSingleResult();

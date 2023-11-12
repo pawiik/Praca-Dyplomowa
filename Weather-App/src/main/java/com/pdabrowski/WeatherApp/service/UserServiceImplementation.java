@@ -25,7 +25,7 @@ public User saveUser(User user) {
 
     @Override
     @Transactional
-    public Optional<User> getUserById(Integer id) {
+    public Optional<User> getUserById(String id) {
         return userDao.findById(id);
     }
 

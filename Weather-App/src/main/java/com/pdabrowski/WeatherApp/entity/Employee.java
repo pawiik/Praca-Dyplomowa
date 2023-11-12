@@ -12,9 +12,12 @@ import jakarta.persistence.*;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id")
-    private int employeeId;
+    private String employeeId;
+
+    @OneToOne
+    @JoinColumn(name = "employee_id", referencedColumnName = "account_id")
+    private Account account;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "measurement_station_id")
@@ -42,13 +45,13 @@ public class Employee {
         this.address = address;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
+//    public int getEmployeeId() {
+//        return employeeId;
+//    }
+//
+//    public void setEmployeeId(int employeeId) {
+//        this.employeeId = employeeId;
+//    }
 
     public MeasurementStation getMeasurementStation() {
         return measurementStation;
@@ -93,7 +96,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "employeeId=" + employeeId +
+//                "employeeId=" + employeeId +
                 ", measurementStationId=" + measurementStation +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
