@@ -21,4 +21,11 @@ export class NavBarComponent {
   logout(): void{
     this.auth.logoutUser()
   }
+
+  showOffcanvas = false;
+
+  toggleOffcanvas() {
+    this.router.navigate(['user-information'])
+  }
+
 }

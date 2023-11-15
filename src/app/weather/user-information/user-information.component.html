@@ -1,0 +1,30 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="buttons-div">
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" (click)="updateData()">Enable body scrolling</button>
+</div>
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas with body scrolling</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form class="login-form" (ngSubmit)="updateData()">
+      <h2>Login</h2>
+
+      <div class="form-group" >
+        <label for="email">Email:</label>
+        <input type="email" id="email" [value]="user?.emailAddress" [(ngModel)]="user.emailAddress" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" [value]="user?.name" [(ngModel)]="user.name" name="name" required>
+      </div>
+
+      <button type="submit" class="login-button">Login</button>
+
+      <p class="register-link">Don't have an account? <a href="/register">Register here</a>.</p>
+    </form>
+  </div>
+</div>

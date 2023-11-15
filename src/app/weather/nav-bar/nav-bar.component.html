@@ -14,5 +14,10 @@
       <button (click)="logout()">Logout</button>
     </div>
 
+    <div class="off-canvas" *ngIf="isAuthenticated()">
+      <button (click)="toggleOffcanvas()">Toggle Offcanvas</button>
+    </div>
+
   </div>
+
 </nav>
