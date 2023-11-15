@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './weather/login/login.component';
 import { RegisterComponent } from './weather/register/register.component';
+import { UserInformationComponent } from './weather/user-information/user-information.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RegisterComponent } from './weather/register/register.component';
     NavBarComponent,
     FooterComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserInformationComponent
   ],
   imports: [
     BrowserModule,

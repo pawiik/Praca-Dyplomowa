@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
+import {AuthService} from "../services/auth";
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,9 +8,17 @@ import {Router} from "@angular/router";
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private auth: AuthService) {}
 
   goToLogin() {
     this.router.navigate(['login']); // Assuming '/login' is the route for your login form
+  }
+
+  isAuthenticated(): boolean{
+    return this.auth.isUserAuthenticated();
+  }
+
+  logout(): void{
+    this.auth.logoutUser()
   }
 }

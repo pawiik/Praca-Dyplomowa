@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
+import {AuthService} from "../services/auth";
 
 @Component({
   selector: 'app-login',
@@ -7,24 +9,16 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-    constructor(private httpClient: HttpClient ) {
+    constructor(private httpClient: HttpClient, private router: Router, private authService: AuthService) {
     }
 
     formData = {emailAddress: "", password: ""}
 
     login(){
         if (this.formData.emailAddress != null && this.formData.password != null){
-          this.httpClient.post('http://localhost:8080/auth/login', this.formData)
-            .subscribe({
-            next: (response) => {
-              console.log('Registration successful', response);
-            },
-            error: (error) => {
-              console.error('Registration failed', error);
-            }
-            });
-
-
+          console.log("im in login")
+          this.authService.loginUser(this.formData)
+          this.router.navigate(['/home'])
     }
 
         }

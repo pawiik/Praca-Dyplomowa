@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Router} from "@angular/router";
+import {AuthService} from "../services/auth";
 
 @Component({
   selector: 'app-register',
@@ -10,7 +12,7 @@ export class RegisterComponent {
 
   formData = {cityId:'', name: '', lastName: '', emailAddress: '', password: '', confirmPassword: '' };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
   register() {
 
@@ -18,22 +20,10 @@ export class RegisterComponent {
       alert("Passwords do not match.");
       return;
     }
-
-
-
     let body = this.formData
 
-
-
-    this.http.post('http://localhost:8080/auth/register', body)
-      .subscribe({
-        next: (response) => {
-          console.log('Registration successful', response);
-        },
-        error: (error) => {
-          console.error('Registration failed', error);
-        }
-      });
+    this.authService.registerUser(body)
+    this.router.navigate(['/login'])
   }
 }
 

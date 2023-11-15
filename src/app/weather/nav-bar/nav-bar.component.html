@@ -6,8 +6,13 @@
 
     <div class="navbar-spacer"></div>
 
-    <div class="navbar-button">
+    <div class="navbar-button" *ngIf="!isAuthenticated()">
       <button (click)="goToLogin()">Login</button>
     </div>
+
+    <div class="navbar-button" *ngIf="isAuthenticated()">
+      <button (click)="logout()">Logout</button>
+    </div>
+
   </div>
 </nav>
