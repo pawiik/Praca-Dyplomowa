@@ -18,9 +18,7 @@ public class User {
 
     @Id
     @Column(name = "user_id")
-    private String userId; // Now a string, provided by the user
-
-    // ... other fields ...
+    private String userId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "account_id")
@@ -186,13 +184,19 @@ public void addRegion(Region region) {
 //        this.regions = regions;
 //    }
 
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "userId=" + userId +
-//                ", cityId=" + cityId +
-//                ", address='" + address + '\'' +
-//                ", regionId=" + regions +
-//                '}';
-//    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", account=" + account +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", regions=" + regions +
+                ", city=" + city +
+                '}';
+    }
 }

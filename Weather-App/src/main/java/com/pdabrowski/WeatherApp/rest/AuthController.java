@@ -12,31 +12,30 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.jaas.AuthorityGranter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.*;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "*")
 public class AuthController {
 
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
     private final AccountDAO accountRepository;
 
     private final UserService userService;
     private final CityService cityService;
-
 
     private final JdbcUserDetailsManager userDetailsManager;
 
@@ -47,8 +46,6 @@ public class AuthController {
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, CityService cityService, PasswordEncoder passwordEncoder, AccountDAO accountDAO, UserService userService, UserDetailsManager userDetailsManager, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
-//        this.authenticationManager = authenticationManager;
-//        this.jwtUtil = jwtUtil;
         this.accountRepository = accountDAO;
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
@@ -58,8 +55,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+//    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> registerUser(@RequestBody Map<String, String> registrationData) {
-
+        System.out.println("in register method");
         City existingCity = cityService.getCityById(Integer.parseInt(registrationData.get("cityId"))).orElse(null);
         if (existingCity == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("City not found.");
@@ -74,18 +72,16 @@ public class AuthController {
         UserDetails newUserDetails = org.springframework.security.core.userdetails.User.builder()
                 .username(email)
                 .password(passwordEncoder.encode(password))
-                .roles("USER") // This will translate to 'ROLE_USER' by default
+                .roles("USER")
                 .build();
 
         userDetailsManager.createUser(newUserDetails);
 
-        // Fetch the account_id from the database
         Account savedAccount = accountRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Account not found after creation"));
 
-        // Create the new User entity and associate it with the saved Account
         com.pdabrowski.WeatherApp.entity.User newUser = new com.pdabrowski.WeatherApp.entity.User();
-        newUser.setUserId(savedAccount.getAccountId()); // Set the foreign key reference
-        newUser.setAccount(savedAccount); // Associate the entities
+        newUser.setUserId(savedAccount.getAccountId());
+        newUser.setAccount(savedAccount);
         newUser.setName(name);
         newUser.setLastName(lastName);
         newUser.setAddress(address);
@@ -93,16 +89,16 @@ public class AuthController {
         newUser.setCity(existingCity);
         existingCity.addUser(newUser);
 
-        // Save the User entity
         userService.saveUser(newUser);
 
-        // Generate the token for the new user
-        String token = jwtUtil.generateToken(newUser.getEmail());
+        String token = jwtUtil.generateToken(newUser.toString());
 
-        // Return a response that includes the JWT token
-        return ResponseEntity.ok(token);
+        System.out.println(newUser);
+
+        return ResponseEntity.ok(new JwtResponse(token));
     }
     @PostMapping("/login")
+//    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
         String email = loginData.get("emailAddress");
         String password = loginData.get("password");
@@ -110,7 +106,6 @@ public class AuthController {
         System.out.println(password);
 
         try {
-            System.out.println("nie jeblo");
             Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(email, password)
             );
@@ -123,10 +118,13 @@ public class AuthController {
             User existingUser = userService.getUserById(email).orElse(null);
 
             body.put("user", existingUser);
-
+            List<GrantedAuthority> li = (List<GrantedAuthority>) authentication.getAuthorities();
+            body.put("role", li.get(0));
+            System.out.println(token);
             return ResponseEntity.ok().body(body);
 
         } catch (AuthenticationException e) {
+            System.out.println("Error");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed.");
         }
     }

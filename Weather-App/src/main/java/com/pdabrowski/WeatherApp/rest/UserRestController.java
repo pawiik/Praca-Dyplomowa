@@ -4,6 +4,7 @@ import com.pdabrowski.WeatherApp.entity.City;
 import com.pdabrowski.WeatherApp.entity.User;
 import com.pdabrowski.WeatherApp.service.CityService;
 import com.pdabrowski.WeatherApp.service.UserService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +29,10 @@ public class UserRestController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/")
-    public User getUserById(@RequestBody Map<String, Integer> data){
-        return userService.getUserById(String.valueOf(data.get("userId"))).orElse(null);
+    @GetMapping("/{userId}")
+    public User getUserById(@PathVariable String userId){
+        System.out.println(userId);
+        return userService.getUserById(userId).orElse(null);
     }
     @PostMapping("/")
     public User addUser(@RequestBody Map<String, String> data){
@@ -50,5 +52,20 @@ public class UserRestController {
         }
 
         return null;
+    }
+
+    @PutMapping("/")
+    public User updateUserInformation(@RequestBody Map<String, String> data){
+        User dbUser = userService.getUserById(data.get("username")).orElse(null);
+
+        dbUser.setName(data.get("name"));
+        dbUser.setLastName(data.get("lastName"));
+        dbUser.setAddress(data.get("address"));
+        dbUser.setPhoneNumber(Integer.valueOf("phoneNumber"));
+        dbUser.setEmail("emailAddress");
+
+        User updatedUser = userService.saveUser(dbUser);
+
+        return updatedUser;
     }
 }
