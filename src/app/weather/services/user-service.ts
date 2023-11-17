@@ -4,6 +4,7 @@ import {City} from "../../shared/model/City";
 import {User} from "../../shared/model/User";
 import {UserInformationComponent} from "../user-information/user-information.component";
 import {AuthService} from "./auth";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +21,14 @@ export class UserService{
 
   }
 
-  updateUserInformation(body: {}){
+  updateUserInformation(body: {}): Observable<User>{
     let jwtToken = this.authService.authData.jwtToken
     let options = {
       headers: new HttpHeaders({
         "Authorization": jwtToken,
       })
     }
-    return this.httpClient.put(this.apiUrl, body, options)
+    return this.httpClient.put<User>(this.apiUrl + '/', body, options)
   }
 
 }

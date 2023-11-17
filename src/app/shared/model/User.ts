@@ -2,7 +2,7 @@ import {Region} from "./Region";
 import {City} from "./City";
 
 export class User {
-  id: string;
+  userId: string;
   account: {};
   name: string;
   lastName: string;
@@ -19,17 +19,17 @@ export class User {
     lastName: string,
     phoneNumber: number | null,
     address: string,
-    email: string,
+    emailAddress: string,
     regions: Region[],
     city: City | null
   ) {
-    this.id = id;
+    this.userId = id;
     this.account = account;
     this.name = name;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
     this.address = address;
-    this.emailAddress = email;
+    this.emailAddress = emailAddress;
     this.regions = regions;
     this.city = city;
   }

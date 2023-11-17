@@ -1,7 +1,7 @@
 <app-nav-bar></app-nav-bar>
 
 <div class="buttons-div">
-<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" (click)="updateData()">Enable body scrolling</button>
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" >Enable body scrolling</button>
 </div>
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
   <div class="offcanvas-header">
@@ -45,16 +45,10 @@
 
       <div class="form-group">
         <label for="emailAddress">Email Address</label>
-        <input type="text" id="emailAddress" formControlName="email">
+        <input type="text" id="emailAddress" formControlName="emailAddress">
 <!--        <input type="text" id="emailAddress" [value]="user.emailAddress" [formControlName]="user.name" name="name" required>-->
       </div>
-
-
-
-
-
-      <button type="submit" class="login-button">Login</button>
-
+      <button type="submit" class="login-button">Updade data</button>
     </form>
   </div>
 </div>
