@@ -7,7 +7,7 @@ import {Routes, RouterOutlet} from "@angular/router";
 import { AppRoutingModule } from './weather/app-routing.module';
 import { FooterComponent } from './weather/footer/footer.component';
 import {AppComponent} from "./app.component";
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './weather/login/login.component';
 import { RegisterComponent } from './weather/register/register.component';
@@ -23,13 +23,14 @@ import { UserInformationComponent } from './weather/user-information/user-inform
     RegisterComponent,
     UserInformationComponent
   ],
-  imports: [
-    BrowserModule,
-    RouterOutlet,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        RouterOutlet,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
