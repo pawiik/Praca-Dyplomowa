@@ -3,6 +3,8 @@ import {User} from "../../shared/model/User";
 import {UserService} from "../services/user-service";
 import {AuthService} from "../services/auth";
 import {FormControl, FormGroup} from "@angular/forms";
+import {City} from "../../shared/model/City";
+import {Alert} from "../../shared/model/Alert";
 
 @Component({
   selector: 'user-information',
@@ -15,6 +17,8 @@ export class UserInformationComponent {
   userForm: FormGroup;
   user: User = new User('', '', '', '', 0, '', '', [], null);
   userFormData = {"id": "", "name": "", "lastName": "", "phoneNumber": "", "address": "", "emailAddress": ""}
+  userCities: City[] = []
+  userAlerts: Alert[] = []
   constructor(private userService: UserService, private authService: AuthService) {
     this.userForm = new FormGroup({
       userId: new FormControl(''),
