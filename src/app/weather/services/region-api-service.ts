@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {AuthService} from "./auth";
+import {AuthService} from "./auth-service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class RegionService{
+export class RegionApiService {
 
   private apiUrl: string = 'http://localhost:8080/region'
 

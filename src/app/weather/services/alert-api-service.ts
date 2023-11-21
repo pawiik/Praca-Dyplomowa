@@ -1,13 +1,13 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {AuthService} from "./auth";
+import {AuthService} from "./auth-service";
 import {Observable} from "rxjs";
 import {Alert} from "../../shared/model/Alert";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AlertService {
+export class AlertApiService {
   private apiUrl = 'http://localhost:8080/alert'
 
   constructor(private httpClient: HttpClient, private authService: AuthService) {

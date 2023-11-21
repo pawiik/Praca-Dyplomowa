@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {User} from "../../shared/model/User";
-import {UserService} from "../services/user-service";
-import {AuthService} from "../services/auth";
+import {UserApiService} from "../services/user-api-service";
+import {AuthService} from "../services/auth-service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {City} from "../../shared/model/City";
 import {Alert} from "../../shared/model/Alert";
@@ -19,7 +19,7 @@ export class UserInformationComponent {
   userFormData = {"id": "", "name": "", "lastName": "", "phoneNumber": "", "address": "", "emailAddress": ""}
   userCities: City[] = []
   userAlerts: Alert[] = []
-  constructor(private userService: UserService, private authService: AuthService) {
+  constructor(private userService: UserApiService, private authService: AuthService) {
     this.userForm = new FormGroup({
       userId: new FormControl(''),
       name: new FormControl(''),

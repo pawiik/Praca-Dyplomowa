@@ -1,13 +1,13 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {AuthService} from "./auth";
+import {AuthService} from "./auth-service";
 import {Observable} from "rxjs";
 import {Fall} from "../../shared/model/Fall";
 
 @Injectable({
   providedIn: 'root'
 })
-export class RegionService {
+export class FallApiService {
 
   private apiUrl: string = 'http://localhost:8080/fall'
 
