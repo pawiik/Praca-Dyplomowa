@@ -2,35 +2,35 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthService} from "./auth-service";
 import {Observable} from "rxjs";
-import {Temperature} from "../../shared/model/Temperature";
+import {UV} from "../../shared/model/UV";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TemperatureApiService {
 
-  private apiUrl: string = 'http://localhost:8080/temperature'
+  private apiUrl: string = 'http://localhost:8080/uv'
 
   constructor(private httpClient: HttpClient, private authService: AuthService) {
   }
 
-  public getAllTemperatures(): Observable<Temperature[]> {
+  public getAllUV(): Observable<UV[]> {
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
       headers: new HttpHeaders({
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.get<Temperature[]>(this.apiUrl + "/temperatures", options);
+    return this.httpClient.get<UV[]>(this.apiUrl + "/uvs", options);
   }
 
-  public addNewTemperature(body: {}): Observable<Temperature> {
+  public addNewUV(body: {}): Observable<UV> {
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
       headers: new HttpHeaders({
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<Temperature>(this.apiUrl + "/", options, body)
+    return this.httpClient.post<UV>(this.apiUrl + "/", options, body)
   }
 }

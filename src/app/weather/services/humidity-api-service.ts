@@ -24,7 +24,7 @@ export class HumidityApiService {
     return this.httpClient.get<Humidity[]>(this.apiUrl + "/falls", options);
   }
 
-  public addNewFall(body: {}): Observable<Humidity> {
+  public addNewHumidity(body: {}): Observable<Humidity> {
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
       headers: new HttpHeaders({
