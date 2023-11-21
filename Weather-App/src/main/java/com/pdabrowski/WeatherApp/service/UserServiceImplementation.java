@@ -1,7 +1,9 @@
 package com.pdabrowski.WeatherApp.service;
 
 import com.pdabrowski.WeatherApp.dao.UserDAO;
+import com.pdabrowski.WeatherApp.entity.Alert;
 import com.pdabrowski.WeatherApp.entity.City;
+import com.pdabrowski.WeatherApp.entity.Region;
 import com.pdabrowski.WeatherApp.entity.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,4 +42,18 @@ public User saveUser(User user) {
     public void deleteUser(User user) {
         userDao.delete(user);
     }
+
+    @Override
+    public User addRegionToUser(Region region, User user) {
+        user.addRegion(region);
+        return user;
+    }
+
+    @Override
+    public List<Alert> getUserAlerts(User theUser) {
+        userDao.getUserAlerts(theUser);
+        return null;
+    }
+
+
 }

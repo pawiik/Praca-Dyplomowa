@@ -1,5 +1,6 @@
 package com.pdabrowski.WeatherApp.dao;
 
+import com.pdabrowski.WeatherApp.entity.Alert;
 import com.pdabrowski.WeatherApp.entity.User;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,11 @@ public class UserDAOImplementation implements UserDAO{
         } else {
             entityManager.remove(entityManager.merge(user));
         }
+    }
+
+    @Override
+    public List<Alert> getUserAlerts(User theUser) {
+
+        return null;
     }
 }

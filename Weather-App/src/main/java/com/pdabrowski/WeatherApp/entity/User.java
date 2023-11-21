@@ -37,9 +37,8 @@ public class User {
     private String address;
 
     @Column(name = "email")
-    private String email;
+    private String emailAddress;
 
-    // This is the non-owning side of the relation
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinTable(
             name = "region_has_user",
@@ -73,40 +72,17 @@ public class User {
     public void setAccount(Account account) {
         this.account = account;
     }
-//    public void addRegionToMain(Region region){
-//        if (this.regions == null){
-//            this.regions = new ArrayList<>();
-//        }
-//        this.regions.add(region);
-//    }
 
-//    public void removeRegionFromFavourite(Region region){
-//        if (this.regions == null){
-//            return;
-//        }
-//        this.regions.remove(region);
-//    }
-public void addRegion(Region region) {
-    this.regions.add(region);
-    region.getRegionUsers().add(this);
-}
+    public void addRegion(Region region) {
+        this.regions.add(region);
+        region.getRegionUsers().add(this);
+    }
 
     // Corresponding removeRegion method
     public void removeRegion(Region region) {
         this.regions.remove(region);
         region.getRegionUsers().remove(this);
     }
-//    public int getUserId() {
-//        return id;
-//    }
-//
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
 
     public String getName() {
         return name;
@@ -133,11 +109,11 @@ public void addRegion(Region region) {
     }
 
     public String getEmail() {
-        return email;
+        return emailAddress;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.emailAddress = email;
     }
 
     public List<Region> getRegion() {
@@ -156,18 +132,6 @@ public void addRegion(Region region) {
         this.city = city;
     }
 
-//    public void setUserId(int userId) {
-//        this.id = userId;
-//    }
-
-//    public int getCityId() {
-//        return cityId;
-//    }
-
-//    public void setCityId(int cityId) {
-//        this.cityId = cityId;
-//    }
-
     public String getAddress() {
         return address;
     }
@@ -175,14 +139,6 @@ public void addRegion(Region region) {
     public void setAddress(String address) {
         this.address = address;
     }
-
-//    public List<Region> getRegion() {
-//        return regions;
-//    }
-
-//    public void setRegion(List<Region> regions) {
-//        this.regions = regions;
-//    }
 
 
     @Override
@@ -194,7 +150,7 @@ public void addRegion(Region region) {
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
+                ", email='" + emailAddress + '\'' +
                 ", regions=" + regions +
                 ", city=" + city +
                 '}';
