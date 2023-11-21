@@ -1,6 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthService} from "./auth-service";
+import {Observable} from "rxjs";
+import {Region} from "../../shared/model/Region";
 
 @Injectable({
   providedIn: 'root'
@@ -12,28 +14,56 @@ export class RegionApiService {
   constructor(private httpClient: HttpClient, private authService: AuthService) {
   }
 
-  getRegionById(regionId: number){
+  getRegionById(regionId: number): Observable<Region>{
     let jwtToken = this.authService.authData.jwtToken
     let options = {
       headers: new HttpHeaders({
         "Authorization": jwtToken,
       })
     }
-    return this.httpClient.get(this.apiUrl, )
+    return this.httpClient.get<Region>(this.apiUrl + "regions/" + regionId, options)
   }
-  getRegionByName(){
+  getRegionByName(regionName: string): Observable<Region> {
+    let jwtToken = this.authService.authData.jwtToken
+    let options = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+    return this.httpClient.get<Region>(this.apiUrl + "regions/" + regionName, options)
 
   }
 
-  getAllRegions(){
+  getAllRegions(): Observable<Region[]>{
+    let jwtToken = this.authService.authData.jwtToken
+    let options = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+    return this.httpClient.get<Region[]>(this.apiUrl + "regions/name/", options)
 
   }
 
-  addNewRegion(){
+  addNewRegion(body: {}): Observable<Region>{
+    let jwtToken = this.authService.authData.jwtToken
+    let options = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+    return this.httpClient.post<Region>(this.apiUrl + "/", options, body)
 
   }
 
-  updateRegionName(){
+  updateRegionName(body: {}){
+    let jwtToken = this.authService.authData.jwtToken
+    let options = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+    return this.httpClient.put<Region>(this.apiUrl + "/", options, body)
 
   }
 
