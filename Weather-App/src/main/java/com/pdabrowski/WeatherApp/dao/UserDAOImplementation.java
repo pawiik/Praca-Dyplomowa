@@ -3,10 +3,15 @@ package com.pdabrowski.WeatherApp.dao;
 import com.pdabrowski.WeatherApp.entity.Alert;
 import com.pdabrowski.WeatherApp.entity.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
+import com.pdabrowski.WeatherApp.entity.Region;
+
 @Repository
 public class UserDAOImplementation implements UserDAO{
 
@@ -18,6 +23,7 @@ public class UserDAOImplementation implements UserDAO{
     }
 
     @Override
+    @Transactional
     public User save(User user) {
         return entityManager.merge(user);
     }
@@ -43,7 +49,15 @@ public class UserDAOImplementation implements UserDAO{
 
     @Override
     public List<Alert> getUserAlerts(User theUser) {
+        String userId = theUser.getUserId();
+        Query query = entityManager.createQuery("SELECT a FROM Alert a " +
+                "INNER JOIN a.region ar " +
+                "WHERE ar.id IN (" +
+                "SELECT ur.regionId FROM User u " +
+                "INNER JOIN u.regions ur " +
+                "WHERE u.id = :userId)");
+        query.setParameter("userId", userId);
 
-        return null;
+        return query.getResultList();
     }
 }

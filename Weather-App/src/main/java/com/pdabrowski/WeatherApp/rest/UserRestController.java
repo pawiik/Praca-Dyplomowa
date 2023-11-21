@@ -88,5 +88,12 @@ public class UserRestController {
         return updatedUser;
     }
 
-
+    @GetMapping("/alert/{userId}")
+    public List<Alert> getUserAlerts(@PathVariable String userId){
+        User dbUser = userService.getUserById(userId).orElse(null);
+        List<Alert> userAlerts = userService.getUserAlerts(dbUser);
+        System.out.println("alerts");
+        System.out.println(userAlerts);
+        return userAlerts;
+    }
 }

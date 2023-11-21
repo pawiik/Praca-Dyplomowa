@@ -1,5 +1,6 @@
 package com.pdabrowski.WeatherApp.service;
 
+import com.pdabrowski.WeatherApp.dao.RegionDAO;
 import com.pdabrowski.WeatherApp.dao.UserDAO;
 import com.pdabrowski.WeatherApp.entity.Alert;
 import com.pdabrowski.WeatherApp.entity.City;
@@ -14,10 +15,11 @@ import java.util.Optional;
 public class UserServiceImplementation implements UserService{
 
     UserDAO userDao;
-
+    RegionDAO regionDAO;
     @Autowired
-    public UserServiceImplementation(UserDAO userDAO){
+    public UserServiceImplementation(UserDAO userDAO, RegionDAO regionDAO){
         this.userDao = userDAO;
+        this.regionDAO = regionDAO;
     }
 @Override
 @Transactional
@@ -46,13 +48,14 @@ public User saveUser(User user) {
     @Override
     public User addRegionToUser(Region region, User user) {
         user.addRegion(region);
+        userDao.save(user);
+        regionDAO.save(region);
         return user;
     }
 
     @Override
     public List<Alert> getUserAlerts(User theUser) {
-        userDao.getUserAlerts(theUser);
-        return null;
+        return userDao.getUserAlerts(theUser);
     }
 
 

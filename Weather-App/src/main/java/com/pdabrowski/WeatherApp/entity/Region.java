@@ -98,4 +98,7 @@ public class Region {
     public void setRegionUsers(Set<User> regionUsers) {
         this.users = regionUsers;
     }
+    public void addUser(User user){
+        this.users.add(user);
+    }
 }

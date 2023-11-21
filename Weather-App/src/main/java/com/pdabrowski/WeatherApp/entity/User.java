@@ -78,10 +78,9 @@ public class User {
         region.getRegionUsers().add(this);
     }
 
-    // Corresponding removeRegion method
     public void removeRegion(Region region) {
         this.regions.remove(region);
-        region.getRegionUsers().remove(this);
+        region.addUser(this);
     }
 
     public String getName() {
