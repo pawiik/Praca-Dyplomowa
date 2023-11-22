@@ -28,4 +28,7 @@ export class NavBarComponent {
     this.router.navigate(['user-information'])
   }
 
+  goToEmployee() {
+    this.router.navigate(['data-analysis'])
+  }
 }

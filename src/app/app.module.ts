@@ -12,6 +12,8 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './weather/login/login.component';
 import { RegisterComponent } from './weather/register/register.component';
 import { UserInformationComponent } from './weather/user-information/user-information.component';
+import { MeasurementsTableComponent } from './weather/measurements-table/measurements-table.component';
+import { EmployeeComponent } from './weather/employee/employee.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { UserInformationComponent } from './weather/user-information/user-inform
     FooterComponent,
     LoginComponent,
     RegisterComponent,
-    UserInformationComponent
+    UserInformationComponent,
+    MeasurementsTableComponent,
+    EmployeeComponent
   ],
     imports: [
         BrowserModule,

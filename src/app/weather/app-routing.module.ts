@@ -4,13 +4,15 @@ import {WelcomeComponent} from "./welcome/welcome.component";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {UserInformationComponent} from "./user-information/user-information.component";
+import {MeasurementsTableComponent} from "./measurements-table/measurements-table.component";
 
 const routes: Routes = [
   { path: 'home', component: WelcomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'user-information', component: UserInformationComponent}
+  { path: 'user-information', component: UserInformationComponent},
+  { path: 'data-analysis', component: MeasurementsTableComponent}
 ];
 
 @NgModule({

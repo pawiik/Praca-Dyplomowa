@@ -18,6 +18,10 @@
       <button (click)="toggleOffcanvas()">Toggle Offcanvas</button>
     </div>
 
+    <div class="navbar-button" *ngIf="isAuthenticated()">
+      <button (click)="goToEmployee()">Go to Employee</button>
+    </div>
+
   </div>
 
 </nav>
