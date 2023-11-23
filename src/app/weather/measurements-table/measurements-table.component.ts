@@ -10,6 +10,27 @@ export class MeasurementsTableComponent {
 
   constructor(authService: AuthService) {
   }
+
+  loadFalls(){
+
+  }
+  loadWinds(){
+
+  }
+
+  loadTemperatures(){
+
+  }
+
+  loadUV(){
+
+  }
+
+  loadHumidity(){
+
+  }
+
+  tableData: [] | undefined
   onSubmit() {
   }
 }

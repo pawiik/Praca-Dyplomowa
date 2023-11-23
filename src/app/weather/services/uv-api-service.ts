@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthService} from "./auth-service";
 import {Observable} from "rxjs";
 import {UV} from "../../shared/model/UV";
+import {Fall} from "../../shared/model/Fall";
+import {Humidity} from "../../shared/model/Humidity";
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +34,15 @@ export class TemperatureApiService {
       })
     }
     return this.httpClient.post<UV>(this.apiUrl + "/", options, body)
+  }
+
+  public loadByTimePeriod(body: {}): Observable<Humidity[]>{
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken
+      })
+    }
+    return this.httpClient.post<Humidity[]>(this.apiUrl + "/time", options, body)
   }
 }

@@ -1,29 +1,49 @@
 <app-nav-bar></app-nav-bar>
 <div class="form-container">
   <form (ngSubmit)="onSubmit()" class="input-form">
-    <div class="input-group">
-      <input type="text" id="od" placeholder="Od" class="form-control">
-      <input type="text" id="do" placeholder="Do" class="form-control">
-      <input type="text" id="temp-opady" placeholder="Temp/Opady" class="form-control">
-      <input type="text" id="sortowanie" placeholder="Sortowanie" class="form-control">
-      <button type="submit" class="submit-btn">Submit</button>
+<!--      <input type="text" id="temp-opady" placeholder="Temp/Opady" class="form-control">-->
+      <div class="input-group">
+        <label for="region">Region</label>
+        <input type="text" id="region" placeholder="region" class="form-control">
+        <label for="od">Od</label>
+        <input type="date" id="od" placeholder="Od" class="form-control">
+        <label for="do">Do</label>
+        <input type="date" id="do" placeholder="Do" class="form-control">
+        <label for="parametr">Parametr</label>
+        <select id="parametr" class="form-control">
+          <option value="">Parameter</option>
+          <option value="option1">Wind</option>
+          <option value="option2">Humidity</option>
+          <option value="option3">Fall</option>
+          <option value="option4">Temperature</option>
+          <option value="option5">UV</option>
+        </select>
+        <label for="sort">Sort</label>
+        <select id="sort" class="form-control">
+          <option value="">Please select</option>
+          <option value="option1">increasing</option>
+          <option value="option2">decreasing</option>
+          <option value="option3">Option 3</option>
+        </select>
+<!--        <input type="text" id="sortowanie" placeholder="Sortowanie" class="form-control">-->
+        <button type="submit" class="submit-btn">Load</button>
     </div>
   </form>
   <table class="data-table">
     <thead>
     <tr>
-      <th>Header 1</th>
-      <th>Header 2</th>
-      <th>Header 3</th>
-      <th>Header 4</th>
+      <th>Region</th>
+      <th>Date</th>
+      <th>Value</th>
+      <th>Markers</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>Data 1</td>
-      <td>Data 2</td>
-      <td>Data 3</td>
-      <td>Data 4</td>
+    <tr *ngFor="let item of tableData">
+      <td>{{ item.region }}</td>
+      <td>{{ item.date }}</td>
+      <td>{{ item.value }}</td>
+      <td>{{ item.markers }}</td>
     </tr>
     </tbody>
   </table>

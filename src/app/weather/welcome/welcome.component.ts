@@ -42,7 +42,6 @@ export class WelcomeComponent {
       //   city.cityName.toLowerCase().startsWith(this.searchTerm.toLowerCase())
       // );
       this.suggestions = this.allCities.filter(city => {
-        // Log the city name for debugging
         console.log(city.cityName);
         return city.cityName && city.cityName.toLowerCase().includes(this.searchTerm.toLowerCase());
       });
