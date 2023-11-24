@@ -4,13 +4,16 @@
 <!--      <input type="text" id="temp-opady" placeholder="Temp/Opady" class="form-control">-->
       <div class="input-group">
         <label for="region">Region</label>
-        <input type="text" id="region" placeholder="region" class="form-control">
+        <input type="text" id="region" [(ngModel)]="region" placeholder="region" class="form-control" name="region">
+
         <label for="od">Od</label>
-        <input type="date" id="od" placeholder="Od" class="form-control">
+        <input type="date" id="od" [(ngModel)]="startDate" placeholder="Od" class="form-control" name="startDate">
+
         <label for="do">Do</label>
-        <input type="date" id="do" placeholder="Do" class="form-control">
+        <input type="date" id="do" [(ngModel)]="endDate" placeholder="Do" class="form-control" name="endDate">
+
         <label for="parametr">Parametr</label>
-        <select id="parametr" class="form-control">
+        <select id="parametr" [(ngModel)]="parameter" class="form-control" name="parameter">
           <option value="">Parameter</option>
           <option value="option1">Wind</option>
           <option value="option2">Humidity</option>
@@ -18,8 +21,9 @@
           <option value="option4">Temperature</option>
           <option value="option5">UV</option>
         </select>
+
         <label for="sort">Sort</label>
-        <select id="sort" class="form-control">
+        <select id="sort" [(ngModel)]="sort" class="form-control" name="sort">
           <option value="">Please select</option>
           <option value="option1">increasing</option>
           <option value="option2">decreasing</option>

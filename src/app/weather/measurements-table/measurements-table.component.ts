@@ -21,9 +21,14 @@ export class MeasurementsTableComponent {
               private humidityApiService: HumidityApiService
   ) {
   }
-
-  // measurement: {measurementStation: string, date: string, value: string, markers: string} = {measurementStation: "", date: "", value: "", markers: ""}
+  region: string | undefined;
+  startDate: string | undefined;
+  endDate: string | undefined;
+  parameter: string | undefined;
+  sort: string | undefined;
   measurementsTable:  Measurement[] = [];
+
+
   loadFalls(body:{}){
     this.fallApiService.loadByTimePeriod(body).subscribe(
       falls =>
@@ -67,9 +72,14 @@ export class MeasurementsTableComponent {
     )
   }
 
-  tableData: [] | undefined
   onSubmit() {
-
+    console.log({
+      region: this.region,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      parameter: this.parameter,
+      sort: this.sort
+    });
   }
 
 }
