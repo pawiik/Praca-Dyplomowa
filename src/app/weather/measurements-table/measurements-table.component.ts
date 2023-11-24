@@ -80,6 +80,21 @@ export class MeasurementsTableComponent {
       parameter: this.parameter,
       sort: this.sort
     });
+    if(this.parameter == "wind"){
+      this.loadWinds({})
+    }
+    else if(this.parameter == "fall"){
+      this.loadFalls({})
+    }
+    else if(this.parameter == "humidity"){
+      this.loadHumidity({})
+    }
+    else if(this.parameter == "temperature"){
+      this.loadTemperatures({})
+    }
+    else if(this.parameter == "uv"){
+      this.loadUV({})
+    }
   }
 
 }
