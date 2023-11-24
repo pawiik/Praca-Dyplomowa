@@ -9,7 +9,7 @@ import {Humidity} from "../../shared/model/Humidity";
 @Injectable({
   providedIn: 'root'
 })
-export class TemperatureApiService {
+export class UvApiService {
 
   private apiUrl: string = 'http://localhost:8080/uv'
 
@@ -36,13 +36,13 @@ export class TemperatureApiService {
     return this.httpClient.post<UV>(this.apiUrl + "/", options, body)
   }
 
-  public loadByTimePeriod(body: {}): Observable<Humidity[]>{
+  public loadByTimePeriod(body: {}): Observable<UV[]>{
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
       headers: new HttpHeaders({
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<Humidity[]>(this.apiUrl + "/time", options, body)
+    return this.httpClient.post<UV[]>(this.apiUrl + "/time", options, body)
   }
 }

@@ -36,13 +36,13 @@ export class WindApiService {
     return this.httpClient.post<Wind>(this.apiUrl + "/", options, body)
   }
 
-  public loadByTimePeriod(body: {}): Observable<Humidity[]>{
+  public loadByTimePeriod(body: {}): Observable<Wind[]>{
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
       headers: new HttpHeaders({
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<Humidity[]>(this.apiUrl + "/time", options, body)
+    return this.httpClient.post<Wind[]>(this.apiUrl + "/time", options, body)
   }
 }
