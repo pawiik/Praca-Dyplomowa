@@ -80,20 +80,26 @@ export class MeasurementsTableComponent {
       parameter: this.parameter,
       sort: this.sort
     });
+    let body:{} = {
+      "region": this.region,
+      "startDate": this.startDate,
+      "endDate": this.endDate
+    }
+
     if(this.parameter == "wind"){
-      this.loadWinds({})
+      this.loadWinds(body)
     }
     else if(this.parameter == "fall"){
-      this.loadFalls({})
+      this.loadFalls(body)
     }
     else if(this.parameter == "humidity"){
-      this.loadHumidity({})
+      this.loadHumidity(body)
     }
     else if(this.parameter == "temperature"){
-      this.loadTemperatures({})
+      this.loadTemperatures(body)
     }
     else if(this.parameter == "uv"){
-      this.loadUV({})
+      this.loadUV(body)
     }
   }
 

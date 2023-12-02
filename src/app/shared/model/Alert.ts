@@ -1,3 +1,5 @@
+import {Region} from "./Region";
+
 export class Alert {
   alertId: number;
   startTime: number;
@@ -10,13 +12,10 @@ export class Alert {
     this.alertId = alertId;
     this.startTime = startTime || 0;
     this.endTime = endTime || 0;
-    this.region = region || new Region(); // Replace with actual default if necessary
+    this.region = region || new Region();
     this.message = message || '';
     this.alertType = alertType || 0;
   }
 }
 
-// Assuming the 'Region' class might look something like this:
-class Region {
-  // Define the properties and constructor for Region based on how you've structured it in your backend.
-}
+

@@ -11,7 +11,7 @@ export class NavBarComponent {
   constructor(private router: Router, private auth: AuthService) {}
 
   goToLogin() {
-    this.router.navigate(['login']); // Assuming '/login' is the route for your login form
+    this.router.navigate(['login']);
   }
 
   isAuthenticated(): boolean{
