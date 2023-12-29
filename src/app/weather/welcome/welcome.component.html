@@ -1,6 +1,4 @@
 <app-nav-bar></app-nav-bar>
-<h1>Welcome</h1>
-<!-- Add the city search input here -->
 <div class="input-container">
   <input type="text" [(ngModel)]="searchTerm" (input)="searchCities()" placeholder="Enter city name...">
   <div class="suggestions" *ngIf="suggestions.length > 0">

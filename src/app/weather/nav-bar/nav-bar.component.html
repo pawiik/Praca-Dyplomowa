@@ -11,15 +11,17 @@
     </div>
 
     <div class="navbar-button" *ngIf="isAuthenticated()">
-      <button (click)="logout()">Logout</button>
-    </div>
-
-    <div class="off-canvas" *ngIf="isAuthenticated()">
-      <button (click)="toggleOffcanvas()">Toggle Offcanvas</button>
+      <button (click)="goToEmployee()">Analyse Data</button>
     </div>
 
     <div class="navbar-button" *ngIf="isAuthenticated()">
-      <button (click)="goToEmployee()">Go to Employee</button>
+      <button (click)="toggleOffcanvas()">User data</button>
+    </div>
+
+    <div class="navbar-spacer"></div>
+
+    <div class="navbar-button" *ngIf="isAuthenticated()">
+      <button (click)="logout()">Logout</button>
     </div>
 
   </div>
