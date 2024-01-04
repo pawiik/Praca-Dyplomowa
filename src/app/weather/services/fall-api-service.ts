@@ -36,11 +36,13 @@ export class FallApiService {
 
   public loadByTimePeriod(body: {}): Observable<Fall[]>{
     let jwtToken: string = this.authService.authData.jwtToken
-    let options: {} = {
-      headers: new HttpHeaders({
-        "Authorization": jwtToken
-      })
-    }
-    return this.httpClient.post<Fall[]>(this.apiUrl + "/time", options, body)
+    // let options: {} = {
+    //   headers: new HttpHeaders({
+    //     "Authorization": jwtToken
+    //   })
+    // }
+
+    console.log(body)
+    return this.httpClient.post<Fall[]>(this.apiUrl + "/time", body)
   }
 }

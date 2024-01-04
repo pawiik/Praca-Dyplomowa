@@ -3,14 +3,19 @@
   <form (ngSubmit)="onSubmit()" class="input-form">
 <!--      <input type="text" id="temp-opady" placeholder="Temp/Opady" class="form-control">-->
       <div class="input-group">
-        <label for="region">Region</label>
-        <input type="text" id="region" [(ngModel)]="region" placeholder="region" class="form-control" name="region">
+        <label >Region</label>
+        <select id="id_oddzialu" [(ngModel)]="region" name="id_oddzialu">
+          <option *ngFor="let unit of regions" [value]="unit.regionId">
+            {{ unit.regionId }}
+          </option>
+        </select>
+<!--        <input type="text" id="region" [(ngModel)]="region" placeholder="region" class="form-control" name="region">-->
 
         <label for="od">Od</label>
-        <input type="date" id="od" [(ngModel)]="startDate" placeholder="Od" class="form-control" name="startDate">
+        <input type="datetime-local" id="od" [(ngModel)]="startDate" placeholder="Od" class="form-control" name="startDate">
 
         <label for="do">Do</label>
-        <input type="date" id="do" [(ngModel)]="endDate" placeholder="Do" class="form-control" name="endDate">
+        <input type="datetime-local" id="do" [(ngModel)]="endDate" placeholder="Do" class="form-control" name="endDate">
 
         <label for="parametr">Parametr</label>
         <select id="parametr" [(ngModel)]="parameter" class="form-control" name="parameter">
@@ -44,7 +49,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let item of measurementsTable">
-      <td>{{ item.measurementStation }}</td>
+      <td>{{ item.measurementStationId }}</td>
       <td>{{ item.date }}</td>
       <td>{{ item.value }}</td>
       <td>{{ item.markers }}</td>

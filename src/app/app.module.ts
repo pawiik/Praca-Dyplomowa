@@ -14,6 +14,7 @@ import { RegisterComponent } from './weather/register/register.component';
 import { UserInformationComponent } from './weather/user-information/user-information.component';
 import { MeasurementsTableComponent } from './weather/measurements-table/measurements-table.component';
 import { EmployeeComponent } from './weather/employee/employee.component';
+import { CityDetailsComponent } from './weather/city-details/city-details.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { EmployeeComponent } from './weather/employee/employee.component';
     RegisterComponent,
     UserInformationComponent,
     MeasurementsTableComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    CityDetailsComponent
   ],
     imports: [
         BrowserModule,

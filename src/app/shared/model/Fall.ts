@@ -4,7 +4,7 @@ export class Fall {
   measurementId: number;
   time: number;
   temperature: number;
-  measurementStation: MeasurementStation
+  measurementStationId: MeasurementStation
 
   constructor(
     measurementId: number,
@@ -15,6 +15,6 @@ export class Fall {
     this.measurementId = measurementId;
     this.time = time || 0;
     this.temperature = temperature || 0.0;
-    this.measurementStation = measurementStation;
+    this.measurementStationId = measurementStation;
   }
 }

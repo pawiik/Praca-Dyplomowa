@@ -5,6 +5,8 @@ import {WindApiService} from "../services/wind-api-service";
 import {TemperatureApiService} from "../services/temperature-api-service";
 import {UvApiService} from "../services/uv-api-service";
 import {HumidityApiService} from "../services/humidity-api-service";
+import {Region} from "../../shared/model/Region";
+import {RegionApiService} from "../services/region-api-service";
 
 @Component({
   selector: 'app-measurements-table',
@@ -18,22 +20,32 @@ export class MeasurementsTableComponent {
               private windApiService: WindApiService,
               private temperatureApiService: TemperatureApiService,
               private uvApiService: UvApiService,
-              private humidityApiService: HumidityApiService
+              private humidityApiService: HumidityApiService,
+              private regionApiService: RegionApiService
   ) {
+    this.loadRegions()
   }
+  regions: Region[] = []
+
   region: string | undefined;
   startDate: string | undefined;
   endDate: string | undefined;
   parameter: string | undefined;
   sort: string | undefined;
+
   measurementsTable:  Measurement[] = [];
 
+  loadRegions(){
+    this.regionApiService.getAllRegions().subscribe(response => this.regions = response)
+  }
 
   loadFalls(body:{}){
     this.fallApiService.loadByTimePeriod(body).subscribe(
       falls =>
         falls.forEach(fall =>{
-          let measurement = new Measurement(fall.measurementStation.stationId, fall.time, fall.temperature, "")
+          console.log(fall)
+          let measurement = new Measurement(fall.measurementStationId.stationId, fall.time, fall.temperature, "")
+          this.measurementsTable.push(measurement)
         })
     )}
   loadWinds(body: {}){
@@ -58,7 +70,7 @@ export class MeasurementsTableComponent {
     this.uvApiService.loadByTimePeriod(body).subscribe(
       uvs =>
         uvs.forEach(uv =>{
-          let measurement = new Measurement(uv.measurementStation.stationId, uv.time, uv.uv, "")
+          let measurement = new Measurement(uv.measurementStationId.stationId, uv.time, uv.uv, "")
         })
     )
   }
@@ -73,23 +85,30 @@ export class MeasurementsTableComponent {
   }
 
   onSubmit() {
-    console.log({
-      region: this.region,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      parameter: this.parameter,
-      sort: this.sort
-    });
-    let body:{} = {
-      "region": this.region,
-      "startDate": this.startDate,
-      "endDate": this.endDate
-    }
+    // console.log({
+    //   region: this.region,
+    //   startDate: this.startDate,
+    //   endDate: this.endDate,
+    //   parameter: this.parameter,
+    //   sort: this.sort
+    // });
+    let body:{} =
+      {
+        "regionId": 16,
+        "startTime": "2024-01-01T16:47:00",
+        "endTime": "2024-01-03T16:47:00"
+      }
+    //   {
+    //   "regionId": this.region?.toString(),
+    //   "startTime": this.startDate?.toString(),
+    //   "endTime": this.endDate?.toString()
+    // }
 
     if(this.parameter == "wind"){
       this.loadWinds(body)
     }
     else if(this.parameter == "fall"){
+      console.log(body)
       this.loadFalls(body)
     }
     else if(this.parameter == "humidity"){
@@ -105,14 +124,14 @@ export class MeasurementsTableComponent {
 
 }
 class Measurement{
-  measurementStation: number
+  measurementStationId: number
   date: number
   value: number
   markers: string
 
 
   constructor(measurementStation: number, date: number, value: number, markers: string) {
-    this.measurementStation = measurementStation;
+    this.measurementStationId = measurementStation;
     this.date = date;
     this.value = value;
     this.markers = markers;

@@ -53,4 +53,9 @@ export class WelcomeComponent {
       this.suggestions = [];
     }
   }
+
+  showCityInfo(){
+
+  }
+
 }

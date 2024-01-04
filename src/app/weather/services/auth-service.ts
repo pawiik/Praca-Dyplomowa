@@ -33,7 +33,7 @@ export class AuthService {
         next: (response) => {
           console.log('Login successful', response);
           this.authData.username = response.user.userId
-          this.authData.jwtToken = response.jwtToken
+          this.authData.jwtToken = "Bearer " + response.jwtToken
           this.authData.userRole = response.role.authority
 
           this.authenticateUser(this.authData);

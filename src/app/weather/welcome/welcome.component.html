@@ -2,7 +2,7 @@
 <div class="input-container">
   <input type="text" [(ngModel)]="searchTerm" (input)="searchCities()" placeholder="Enter city name...">
   <div class="suggestions" *ngIf="suggestions.length > 0">
-    <div class="suggestion-item" *ngFor="let city of suggestions" [ngStyle]="{'background-color': getRandomColor()}">
+    <div class="suggestion-item" *ngFor="let city of suggestions" [ngStyle]="{'background-color': getRandomColor()}" (click)="showCityInfo()">
       {{ city.cityName }}
     </div>
   </div>

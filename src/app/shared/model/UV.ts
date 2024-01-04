@@ -4,7 +4,7 @@ export class UV {
   measurementId: number;
   time: number;
   uv: number;
-  measurementStation: MeasurementStation;
+  measurementStationId: MeasurementStation;
 
   constructor(
     measurementId: number,
@@ -15,6 +15,6 @@ export class UV {
     this.measurementId = measurementId;
     this.time = time;
     this.uv = uv;
-    this.measurementStation = measurementStation;
+    this.measurementStationId = measurementStation;
   }
 }

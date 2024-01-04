@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../services/auth-service";
 
@@ -20,9 +20,13 @@ export class NavBarComponent {
 
   logout(): void{
     this.auth.logoutUser()
+    this.router.navigate(['/home'])
   }
 
   showOffcanvas = false;
+  goToMain(){
+    this.router.navigate(['/home'])
+  }
 
   toggleOffcanvas() {
     this.router.navigate(['user-information'])

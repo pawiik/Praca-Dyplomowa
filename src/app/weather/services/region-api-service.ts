@@ -9,7 +9,7 @@ import {Region} from "../../shared/model/Region";
 })
 export class RegionApiService {
 
-  private apiUrl: string = 'http://localhost:8080/region'
+  private apiUrl: string = 'http://localhost:8080/region/'
 
   constructor(private httpClient: HttpClient, private authService: AuthService) {
   }
@@ -41,7 +41,7 @@ export class RegionApiService {
         "Authorization": jwtToken,
       })
     }
-    return this.httpClient.get<Region[]>(this.apiUrl + "regions/name/", options)
+    return this.httpClient.get<Region[]>(this.apiUrl + "regions", options)
 
   }
 
