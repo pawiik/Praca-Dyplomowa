@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, ComponentRef, ViewChild, ViewContainerRef} from '@angular/core';
 import {ApiService} from "../services/api.service";
 import {City} from "../../shared/model/City";
+import {CityDetailsComponent} from "../city-details/city-details.component";
 
 @Component({
   selector: 'app-welcome',
@@ -8,6 +9,9 @@ import {City} from "../../shared/model/City";
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent {
+  @ViewChild('container', {read: ViewContainerRef}) container!: ViewContainerRef;
+  componentRef!: ComponentRef<any>
+
   searchTerm: string = '';
   // allCities: string[] = ['Krakow', 'Katowice', 'Warsaw', 'Wroclaw']; // Your list of cities
   // suggestions: string[] = [];
@@ -54,8 +58,13 @@ export class WelcomeComponent {
     }
   }
 
-  showCityInfo(){
+  showCityInfo(cityId: number){
+    console.log("hello")
+    console.log(cityId)
+    this.container.clear();
 
+    this.componentRef = this.container.createComponent(CityDetailsComponent)
+    this.componentRef.instance.cityId = cityId
   }
 
 }
