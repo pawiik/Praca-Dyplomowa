@@ -1,1 +1,36 @@
-<p>city-details works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>City Component</title>
+</head>
+<body>
+<script>
+  $(document).ready(function(){
+    $('a[href^="#"]').on('click', function(e) {
+      e.preventDefault();
+      var target = this.hash;
+      var $target = $(target);
+
+      $('html, body').animate({
+        'scrollTop': $target.offset().top
+      }, 1000, 'swing');
+    });
+  });
+</script>
+<div class="city-container">
+  <h1 class="city-name">{{selectedCity.cityName}}</h1>
+  <button class="button" (click)="scrollTo(section1)">Go to Section 1</button>
+  <button class="button" (click)="scrollTo(section2)">Go to Section 2</button>
+
+  <div #section1 class="section">
+    <ng-template class="details" #section1 ></ng-template>
+  </div>
+  <div #section2 class="section">
+    <ng-template class="details" #section2 ></ng-template>
+  </div>
+</div>
+
+</body>
+</html>

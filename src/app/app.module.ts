@@ -15,6 +15,8 @@ import { UserInformationComponent } from './weather/user-information/user-inform
 import { MeasurementsTableComponent } from './weather/measurements-table/measurements-table.component';
 import { EmployeeComponent } from './weather/employee/employee.component';
 import { CityDetailsComponent } from './weather/city-details/city-details.component';
+import { ActualTemperatureComponent } from './weather/city-details/actual-temperature/actual-temperature.component';
+import { CityAlertsComponent } from './weather/city-details/city-alerts/city-alerts.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { CityDetailsComponent } from './weather/city-details/city-details.compon
     UserInformationComponent,
     MeasurementsTableComponent,
     EmployeeComponent,
-    CityDetailsComponent
+    CityDetailsComponent,
+    ActualTemperatureComponent,
+    CityAlertsComponent
   ],
     imports: [
         BrowserModule,

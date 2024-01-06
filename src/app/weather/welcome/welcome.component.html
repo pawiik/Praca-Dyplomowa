@@ -5,8 +5,10 @@
     <button class="suggestion-item" *ngFor="let city of suggestions" [ngStyle]="{'background-color': getRandomColor()}" (click)="showCityInfo(city.cityId)">
       {{ city.cityName }}
     </button>
+
   </div>
-  <ng-template #container></ng-template>
+
 </div>
+<ng-template class="details" #container ></ng-template>
 <router-outlet></router-outlet>
 <app-footer></app-footer>

@@ -1,7 +1,7 @@
 import {Component, ComponentRef, ViewChild, ViewContainerRef} from '@angular/core';
 import {ApiService} from "../services/api.service";
 import {City} from "../../shared/model/City";
-import {CityDetailsComponent} from "../city-details/city-details.component";
+import {CityDetailsComponent, DataService} from "../city-details/city-details.component";
 
 @Component({
   selector: 'app-welcome',
@@ -17,7 +17,8 @@ export class WelcomeComponent {
   // suggestions: string[] = [];
   allCities: City[] = []
   suggestions: City[] = []
-  constructor(private service: ApiService) {
+  constructor(private service: ApiService,
+              private dataService: DataService) {
     this.loadCities()
   }
 
@@ -63,8 +64,10 @@ export class WelcomeComponent {
     console.log(cityId)
     this.container.clear();
 
-    this.componentRef = this.container.createComponent(CityDetailsComponent)
-    this.componentRef.instance.cityId = cityId
+    this.dataService.setData(cityId);
+
+    this.componentRef = this.container.createComponent(CityDetailsComponent);
+
   }
 
 }

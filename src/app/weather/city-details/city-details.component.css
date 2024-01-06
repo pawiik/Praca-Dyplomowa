@@ -1,0 +1,74 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.buttons-container {
+  margin-bottom: 30px;
+}
+
+.details {
+  width: 100%
+}
+
+.city-container {
+  border: 2px solid #000;
+  border-radius: 20px;
+  padding: 20px;
+  width: 80%;
+  text-align: center;
+  margin-top: 30px;
+  box-sizing: border-box;
+}
+
+.city-name {
+  font-size: 24px;
+  margin: 0 0 20px 0;
+}
+
+.section-placeholder {
+  height: auto;
+  border: 1px dashed #000;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.section-placeholder:last-child {
+  margin-bottom: 0;
+}
+
+
+.input-bar {
+  width: 70%;
+  margin: auto;
+}
+
+.button {
+  background-color: #f2f2f2; /* Light grey background */
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth transition for mouse hover */
+}
+
+.button:hover {
+  background-color: #ddd; /* Darker grey on hover */
+}
+
+/* For active or current section */
+.button.active {
+  background-color: #007bff; /* Bootstrap primary blue */
+  color: white;
+}

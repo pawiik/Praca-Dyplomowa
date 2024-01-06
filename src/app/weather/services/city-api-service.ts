@@ -28,13 +28,16 @@ export class CityApiService {
   }
 
   public getCityById(cityId: number): Observable<City>{
+    console.log("req")
+    console.log(cityId)
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
       headers: new HttpHeaders({
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.get<City>(this.apiUrl + cityId, options);
+    let url = `${this.apiUrl}/${cityId}`
+    return this.httpClient.get<City>(url , options);
   }
 
   public addNewCity(body: {}): Observable<City> {
