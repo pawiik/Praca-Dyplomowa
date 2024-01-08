@@ -3,12 +3,15 @@ package com.pdabrowski.WeatherApp.rest;
 import com.pdabrowski.WeatherApp.entity.Fall;
 import com.pdabrowski.WeatherApp.entity.Humidity;
 import com.pdabrowski.WeatherApp.entity.MeasurementStation;
+import com.pdabrowski.WeatherApp.entity.Temperature;
 import com.pdabrowski.WeatherApp.service.HumidityService;
 import com.pdabrowski.WeatherApp.service.MeasurementStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -58,5 +61,30 @@ public class HumidityRestController {
         }
 
         return null;
+    }
+
+    @GetMapping("/day")
+    public Map<Integer, Double> getData(@RequestParam String date, @RequestParam String cityId) throws ParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate startDate = LocalDate.parse(date, formatter);
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        Instant startTime = startDateTime.toInstant(ZoneOffset.UTC);
+
+        Integer city = Integer.parseInt(cityId);
+
+        Map<Integer, Double> falls = this.humidityService.getByDay(startTime, city).orElse(null);
+
+        System.out.println(falls);
+
+        return falls;
+    }
+
+    @GetMapping("/last")
+    public Humidity getLast(@RequestParam String cityId){
+
+        Integer city = Integer.parseInt(cityId);
+        Humidity data = this.humidityService.getLastFromCity(city).orElse(null);
+
+        return data;
     }
 }

@@ -2,11 +2,17 @@ package com.pdabrowski.WeatherApp.service;
 
 import com.pdabrowski.WeatherApp.dao.HumidityDAO;
 import com.pdabrowski.WeatherApp.entity.Humidity;
+import com.pdabrowski.WeatherApp.entity.Temperature;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.ParseException;
+import java.time.Instant;
+import java.util.*;
+
 @Service
 public class HumidityServiceImplementation implements HumidityService{
 
@@ -39,5 +45,47 @@ public class HumidityServiceImplementation implements HumidityService{
     @Transactional
     public void deleteHumidity(Humidity humidity) {
         humidityDao.delete(humidity);
+    }
+
+    @Override
+    public Optional<Map<Integer, Double>> getByDay(Instant day, Integer cityId) throws ParseException {
+
+        List<Humidity> measurements = this.humidityDao.getAllFromCityDay(cityId, day).orElse(null);
+
+        Map<Integer, Double> sumOfMeasurementsPerHour = new HashMap<>();
+        Map<Integer, Integer> countOfMeasurementsPerHour = new HashMap<>();
+
+        assert measurements != null;
+        for (Humidity measurement : measurements) {
+            Calendar calendar = Calendar.getInstance();
+            Date dateFromInstant = Date.from(measurement.getTime());
+            calendar.setTime(dateFromInstant);
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+            sumOfMeasurementsPerHour.merge(hour, measurement.getTemperature(), Double::sum);
+            countOfMeasurementsPerHour.merge(hour, 1, Integer::sum);
+        }
+
+        Map<Integer, Double> averageHumidityPerHour = new HashMap<>();
+
+        for (int i = 0; i < 24; i++) {
+            if (countOfMeasurementsPerHour.containsKey(i) && sumOfMeasurementsPerHour.containsKey(i)) {
+                double sum = sumOfMeasurementsPerHour.get(i);
+                double count = countOfMeasurementsPerHour.get(i);
+                BigDecimal average = BigDecimal.valueOf(sum)
+                        .divide(BigDecimal.valueOf(count), 1, RoundingMode.HALF_UP);
+                averageHumidityPerHour.put(i, average.doubleValue());
+            } else {
+                averageHumidityPerHour.put(i, null);
+            }
+        }
+
+        return Optional.of(averageHumidityPerHour);
+    }
+
+    @Override
+    public Optional<Humidity> getLastFromCity(Integer cityId) {
+        Humidity lastFall = this.humidityDao.getLast(cityId).orElse(null);
+        return Optional.ofNullable(lastFall);
     }
 }
