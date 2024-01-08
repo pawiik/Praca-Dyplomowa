@@ -1,0 +1,15 @@
+<div class="weather-container">
+  <div class="weather-header">
+    <h1>Hourly Weather</h1>
+  </div>
+  <div class="hourly-forecast">
+    <div class="hour-block" *ngFor="let hour of hourlyWeather">
+      <div class="time">{{hour.time}}</div>
+      <div class="temperature">{{hour.fall}}</div>
+      <div class="other-params">
+        <p>Humidity: none</p>
+        <p>Wind: none</p>
+      </div>
+    </div>
+  </div>
+</div>
