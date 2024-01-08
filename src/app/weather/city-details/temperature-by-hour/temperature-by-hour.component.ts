@@ -1,5 +1,14 @@
 import {Component, resolveForwardRef} from '@angular/core';
 import {FallApiService} from "../../services/fall-api-service";
+import {TemperatureApiService} from "../../services/temperature-api-service";
+
+
+interface HourlyWeather {
+  time: string;
+  fall: string;
+  temperature: string;
+
+}
 
 @Component({
   selector: 'app-temperature-by-hour',
@@ -8,31 +17,45 @@ import {FallApiService} from "../../services/fall-api-service";
 })
 export class TemperatureByHourComponent {
 
-  hourlyWeather: {time:string, fall:string}[]=[]
+  hourlyWeather: HourlyWeather[]=[]
+  date: string = "2024-01-06"
+  cityId: string = "10"
 
 
 
-  constructor(private fallService: FallApiService) {
+  constructor(private fallService: FallApiService,
+              private temperatureService: TemperatureApiService) {
     this.getData()
-    this.fallService.getLast("10").subscribe(response => console.log(response))
+    this.fallService.getLast(this.cityId).subscribe(response => console.log(response))
   }
 
   getData(){
-    this.fallService.getDayData("2024-01-06", "10").subscribe(response => {
+    this.fallService.getDayData(this.date, this.cityId).subscribe(response => {
       console.log(response)
         Object.entries(response).forEach(([key, value]) => {
           if(value != null){
             console.log(`Hour: ${key}, Value: ${value}`);
-            let record = {time: key.toString(), fall: value.toString()}
+            let record = {time: key.toString(), fall: value.toString(), temperature:""}
             this.hourlyWeather.push(record)
           }
           else{
-            let record = {time: key.toString(), fall: "No data"}
+            let record = {time: key.toString(), fall: "No data", temperature: "No data"}
             this.hourlyWeather.push(record)
           }
 
         })
-    }
-    )}
-
+    })
+    this.temperatureService.getDayData(this.date, this.cityId).subscribe(response =>{
+        Object.entries(response).forEach(([key, value])=> {
+          if(value != null){
+            const weather = this.hourlyWeather.find(weather => weather.time === key);
+            if (weather) {
+              weather.temperature = value;
+            } else {
+              console.log('Element not found');
+            }
+          }
+        })
+    })
+  }
 }

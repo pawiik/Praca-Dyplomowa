@@ -5,9 +5,9 @@
   <div class="hourly-forecast">
     <div class="hour-block" *ngFor="let hour of hourlyWeather">
       <div class="time">{{hour.time}}</div>
-      <div class="temperature">{{hour.fall}}</div>
+      <div class="temperature">{{hour.temperature}}</div>
       <div class="other-params">
-        <p>Humidity: none</p>
+        <p>Fall: {{hour.fall}}</p>
         <p>Wind: none</p>
       </div>
     </div>
