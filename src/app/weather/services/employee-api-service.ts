@@ -8,7 +8,7 @@ import {Employee} from "../../shared/model/Employee";
 @Injectable({
   providedIn: 'root'
 })
-export class FallApiService {
+export class EmployeeApiService {
 
   private apiUrl: string = 'http://localhost:8080/employee'
 

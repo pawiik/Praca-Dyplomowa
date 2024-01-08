@@ -45,4 +45,25 @@ export class FallApiService {
     console.log(body)
     return this.httpClient.post<Fall[]>(this.apiUrl + "/time", body)
   }
+
+  getDayData(param1: string, param2: string): Observable<Map<number, number>> {
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken
+      })
+    }
+    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?param1=${param1}&param2=${param2}`);
+  }
+
+  getLast(cityId: string):Observable<Fall>{
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken
+      })
+    }
+    return this.httpClient.get<Fall>(`${this.apiUrl}/last?cityId=${cityId}`);
+  }
+
 }

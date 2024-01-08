@@ -54,12 +54,13 @@ export class WelcomeComponent {
       console.log(this.suggestions)
     } else {
       console.log("didn't find")
-      // this.getCities()
       this.suggestions = [];
     }
   }
 
   showCityInfo(cityId: number){
+    // this.searchTerm = ''
+    // this.suggestions = []
     console.log("hello")
     console.log(cityId)
     this.container.clear();

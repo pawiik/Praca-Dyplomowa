@@ -17,6 +17,7 @@ import { EmployeeComponent } from './weather/employee/employee.component';
 import { CityDetailsComponent } from './weather/city-details/city-details.component';
 import { ActualTemperatureComponent } from './weather/city-details/actual-temperature/actual-temperature.component';
 import { CityAlertsComponent } from './weather/city-details/city-alerts/city-alerts.component';
+import { TemperatureByHourComponent } from './weather/city-details/temperature-by-hour/temperature-by-hour.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CityAlertsComponent } from './weather/city-details/city-alerts/city-ale
     EmployeeComponent,
     CityDetailsComponent,
     ActualTemperatureComponent,
-    CityAlertsComponent
+    CityAlertsComponent,
+    TemperatureByHourComponent
   ],
     imports: [
         BrowserModule,
