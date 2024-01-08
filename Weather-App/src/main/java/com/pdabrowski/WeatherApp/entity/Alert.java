@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "alert")
 @JsonIdentityInfo(
@@ -17,10 +19,10 @@ public class Alert {
     private int alertId;
 
     @Column(name = "start_time")
-    private int startTime;
+    private Instant startTime;
 
     @Column(name = "end_time")
-    private int endTime;
+    private Instant endTime;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "region_id")
@@ -34,7 +36,7 @@ public class Alert {
 
     public Alert(){}
 
-    public Alert(int startTime, int endTime, String message, int alertType) {
+    public Alert(Instant startTime, Instant endTime, String message, int alertType) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.message = message;
@@ -65,19 +67,19 @@ public class Alert {
         this.alertId = alertId;
     }
 
-    public int getStartTime() {
+    public Instant getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(int startTime) {
+    public void setStartTime(Instant startTime) {
         this.startTime = startTime;
     }
 
-    public int getEndTime() {
+    public Instant getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(int endTime) {
+    public void setEndTime(Instant endTime) {
         this.endTime = endTime;
     }
 

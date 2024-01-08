@@ -63,7 +63,6 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
 
 
-        // other configurations
         ;
 
         return http.build();
@@ -76,12 +75,10 @@ public class SecurityConfig {
         theUserDetailManager.setUsersByUsernameQuery("select account_id, pw, active from accounts where account_id=?");
         theUserDetailManager.setAuthoritiesByUsernameQuery("select user_id, role from roles where user_id=?");
 
-        // Customize SQL for creating, updating, and deleting users
         theUserDetailManager.setCreateUserSql("insert into accounts (account_id, pw, active) values (?,?,?)");
         theUserDetailManager.setUpdateUserSql("update accounts set pw = ?, active = ? where account_id = ?");
         theUserDetailManager.setDeleteUserSql("delete from accounts where account_id = ?");
 
-        // Customize SQL for authorities/roles
         theUserDetailManager.setCreateAuthoritySql("insert into roles (user_id, role) values (?,?)");
         theUserDetailManager.setDeleteUserAuthoritiesSql("delete from roles where user_id = ?");
         theUserDetailManager.setChangePasswordSql("update accounts set pw = ? where account_id = ?");

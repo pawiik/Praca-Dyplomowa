@@ -70,7 +70,7 @@ public class UserRestController {
         dbUser.setLastName(data.get("lastName"));
         dbUser.setAddress(data.get("address"));
         System.out.println();
-        dbUser.setPhoneNumber(Integer.valueOf(data.get("phoneNumber")));
+        dbUser.setPhoneNumber(Integer.parseInt(data.get("phoneNumber")));
         dbUser.setEmail("emailAddress");
 
         User updatedUser = userService.saveUser(dbUser);

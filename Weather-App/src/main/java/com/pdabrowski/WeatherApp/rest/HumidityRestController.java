@@ -44,7 +44,7 @@ public class HumidityRestController {
         MeasurementStation existingMeasurementStation = measurementStationService.getStationById(Integer.parseInt(data.get("measurementStationId"))).orElse(null);
 
         if(existingMeasurementStation != null){
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime localDateTime = LocalDateTime.parse(data.get("time"), formatter);
             Instant time = localDateTime.toInstant(ZoneOffset.UTC);
 

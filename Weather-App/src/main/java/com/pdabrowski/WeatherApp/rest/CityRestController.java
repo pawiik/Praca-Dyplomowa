@@ -29,9 +29,10 @@ public class CityRestController {
         return cityService.getAllCities();
     }
 
-    @GetMapping("/")
-    public City getCityById(@RequestParam Map<String, String> data){
-        return cityService.getCityById(Integer.parseInt(data.get("cityId"))).orElse(null);
+    @GetMapping("/{cityId}")
+    public City getCityById(@PathVariable String cityId){
+        System.out.println("city " + cityId);
+        return cityService.getCityById(Integer.parseInt(cityId)).orElse(null);
     }
 
     @PostMapping("/cities")

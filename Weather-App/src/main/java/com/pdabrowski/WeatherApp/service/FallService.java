@@ -2,7 +2,11 @@ package com.pdabrowski.WeatherApp.service;
 
 import com.pdabrowski.WeatherApp.entity.Fall;
 
+import java.text.ParseException;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface FallService {
@@ -10,4 +14,9 @@ public interface FallService {
     Optional<Fall> getFallById(int id);
     List<Fall> getAllFalls();
     void deleteFall(Fall fall);
+
+    Optional<List<Fall>> getByTimePeriod(Instant startTime, Instant endTime, Integer regionId);
+
+    Optional<Map<Integer, Double>> getByDay(Instant day, Integer cityId) throws ParseException;
+
 }

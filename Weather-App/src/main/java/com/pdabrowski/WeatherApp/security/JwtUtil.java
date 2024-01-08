@@ -23,7 +23,6 @@ public class JwtUtil {
 
     private static final String SECRET_KEY = "your_secret_key";
 
-    // Use your own secret key and token validity configuration
 
     public String generateToken(String username) {
         return JWT.create()
@@ -38,7 +37,6 @@ public class JwtUtil {
             DecodedJWT jwt = verifier.verify(token);
             return jwt.getSubject();
         } catch (JWTVerificationException exception){
-            // In a real application, you might want to log this exception.
             return null;
         }
     }

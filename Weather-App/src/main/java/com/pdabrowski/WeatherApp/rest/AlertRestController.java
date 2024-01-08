@@ -7,6 +7,10 @@ import com.pdabrowski.WeatherApp.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -34,17 +38,30 @@ public class AlertRestController {
 
         Region region = regionService.getRegionById(Integer.valueOf(data.get("regionId")));
 
-        Alert newAlert = new Alert();
-        newAlert.setAlertType(Integer.parseInt(data.get("alertType")));
-        newAlert.setStartTime(Integer.parseInt(data.get("startTime")));
-        newAlert.setEndTime(Integer.parseInt(data.get("endTime")));
-        newAlert.setMessage(data.get("message"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        LocalDateTime start = LocalDateTime.parse(data.get("startTime"), formatter);
+        LocalDateTime end = LocalDateTime.parse(data.get("endTime"), formatter);
+        Instant startTime = start.toInstant(ZoneOffset.UTC);
+        Instant endTime = end.toInstant(ZoneOffset.UTC);
 
-        region.addAlert(newAlert);
+        if(region != null){
+            Alert newAlert = new Alert();
+            newAlert.setAlertType(Integer.parseInt(data.get("alertType")));
+            newAlert.setStartTime(startTime);
+            newAlert.setEndTime(endTime);
+            newAlert.setMessage(data.get("message"));
 
-        Alert dbAlert = alertService.saveAlert(newAlert);
-        System.out.println("gotId");
-        return dbAlert;
+            region.addAlert(newAlert);
+
+            Alert dbAlert = alertService.saveAlert(newAlert);
+            System.out.println("gotId");
+            return dbAlert;
+        }
+        else{
+            return null;
+        }
+
+
     }
 
 

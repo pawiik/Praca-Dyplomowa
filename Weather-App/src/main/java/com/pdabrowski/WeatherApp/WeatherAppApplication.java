@@ -89,15 +89,15 @@ public class WeatherAppApplication {
 		}
 	}
 
-	private void addAlert(RegionDAO regionDAO, AlertDAO alertDAO) {
-		Region existingRegion = regionDAO.findById(21).orElse(null);
-
-		if (existingRegion != null) {
-			Alert newAlert = new Alert(1, 2, "bad weather", 1);
-			existingRegion.addAlert(newAlert);
-			alertDAO.save(newAlert);
-		}
-	}
+//	private void addAlert(RegionDAO regionDAO, AlertDAO alertDAO) {
+//		Region existingRegion = regionDAO.findById(21).orElse(null);
+//
+//		if (existingRegion != null) {
+//			Alert newAlert = new Alert(1, 2, "bad weather", 1);
+//			existingRegion.addAlert(newAlert);
+//			alertDAO.save(newAlert);
+//		}
+//	}
 
 	private void addCity(CityDAO cityDAO, RegionDAO regionDAO) {
 		Region existingRegion = regionDAO.findById(21).orElse(null);

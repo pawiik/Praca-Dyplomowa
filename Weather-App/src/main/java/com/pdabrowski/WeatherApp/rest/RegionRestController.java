@@ -27,13 +27,10 @@ public class RegionRestController {
     @GetMapping("/regions")
     public List<Region> findAll(){
 
-        // Log the entry into the method
         logger.info("RegionRestController: Finding all regions");
 
-        // Do the actual work
         List<Region> regions = regionService.getAllRegions();
 
-        // Log the result
         logger.info("RegionRestController: Found {} regions", regions.size());
 
         return regions;
@@ -55,7 +52,7 @@ public class RegionRestController {
         return theEmployee;
     }
 
-    @PostMapping("")
+    @PostMapping("/")
     public Region addRegion(@RequestBody Map<String, String> data){
         Region newRegion = new Region();
         newRegion.setName(data.get("regionName"));
