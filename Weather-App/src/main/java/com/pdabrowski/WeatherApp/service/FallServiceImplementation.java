@@ -80,4 +80,10 @@ public class FallServiceImplementation implements FallService{
 
         return Optional.of(averageFallsPerHour);
     }
+
+    @Override
+    public Optional<Fall> getLastFromCity(Integer cityId) {
+        Fall lastFall = this.fallDao.getLast(cityId).orElse(null);
+        return Optional.ofNullable(lastFall);
+    }
 }

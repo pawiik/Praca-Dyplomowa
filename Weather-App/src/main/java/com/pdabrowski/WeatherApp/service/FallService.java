@@ -19,4 +19,6 @@ public interface FallService {
 
     Optional<Map<Integer, Double>> getByDay(Instant day, Integer cityId) throws ParseException;
 
+    Optional<Fall> getLastFromCity(Integer cityId);
+
 }

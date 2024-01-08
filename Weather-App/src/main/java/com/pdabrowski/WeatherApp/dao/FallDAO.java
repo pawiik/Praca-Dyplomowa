@@ -18,4 +18,6 @@ public interface FallDAO {
     Optional<List<Fall>> findByTimePeriod(Instant startTime, Instant endTime, Integer regionId);
 
     Optional<List<Fall>> getAllFromCityDay(Integer cityId, Instant date) throws ParseException;
+
+    Optional<Fall> getLast(Integer cityId);
 }

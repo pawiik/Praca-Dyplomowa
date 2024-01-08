@@ -1,11 +1,16 @@
 package com.pdabrowski.WeatherApp.dao;
 
+import com.pdabrowski.WeatherApp.entity.City;
 import com.pdabrowski.WeatherApp.entity.Employee;
 import com.pdabrowski.WeatherApp.entity.Fall;
+import com.pdabrowski.WeatherApp.entity.MeasurementStation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -137,5 +142,37 @@ public class FallDAOImplementation implements FallDAO{
         System.out.println(falls);
 
         return Optional.of(falls);
+    }
+
+    @Override
+    public Optional<Fall> getLast(Integer cityId) {
+
+        Fall lastFall = null;
+
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Fall> criteriaQuery = criteriaBuilder.createQuery(Fall.class);
+
+            Root<Fall> fallRoot = criteriaQuery.from(Fall.class);
+            Join<Fall, MeasurementStation> stationJoin = fallRoot.join("measurementStation");
+            Join<MeasurementStation, City> cityJoin = stationJoin.join("city");
+
+            criteriaQuery.select(fallRoot)
+                    .where(criteriaBuilder.equal(cityJoin.get("cityId"), cityId))
+                    .orderBy(criteriaBuilder.desc(fallRoot.get("time")));
+
+            List<Fall> results = entityManager.createQuery(criteriaQuery)
+                    .setMaxResults(1)
+                    .getResultList();
+
+            if (!results.isEmpty()) {
+                lastFall = results.get(0);
+                System.out.println("Last Fall from specified city: " + lastFall.toString());
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return Optional.ofNullable(lastFall);
     }
 }

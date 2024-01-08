@@ -122,6 +122,14 @@ public class FallRestController {
         return falls;
     }
 
+    @GetMapping("/last")
+    public Fall getLast(@RequestParam String cityId){
+
+        Integer city = Integer.parseInt(cityId);
+        Fall data = this.fallService.getLastFromCity(city).orElse(null);
+
+        return data;
+    }
 
 
 }
