@@ -1,10 +1,21 @@
 package com.pdabrowski.WeatherApp.dao;
 
+import com.pdabrowski.WeatherApp.entity.City;
+import com.pdabrowski.WeatherApp.entity.Fall;
+import com.pdabrowski.WeatherApp.entity.MeasurementStation;
 import com.pdabrowski.WeatherApp.entity.Temperature;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.text.ParseException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 @Repository
@@ -39,5 +50,61 @@ public class TemperatureDAOImplementation implements TemperatureDAO{
         } else {
             entityManager.remove(entityManager.merge(temperature));
         }
+    }
+
+    @Override
+    @Transactional
+    public Optional<List<Temperature>> getAllFromCityDay(Integer cityId, Instant date) throws ParseException {
+
+        String hql = "SELECT f FROM Temperature f " +
+                "JOIN f.measurementStation ms " +
+                "JOIN ms.city c " +
+                "WHERE c.cityId = :cityId AND " +
+                "      DATE(f.time) = :date " +
+                "ORDER BY FUNCTION('hour', f.time), f.time";
+
+        TypedQuery<Temperature> query = this.entityManager.createQuery(hql, Temperature.class);
+        query.setParameter("cityId", "10");
+        query.setParameter("date", java.sql.Date.valueOf("2024-01-06"));
+
+        List<Temperature> measurements = query.getResultList();
+        for (Temperature fall : measurements) {
+            System.out.println(fall);
+        }
+        System.out.println(measurements);
+
+        return Optional.of(measurements);
+    }
+
+    @Override
+    public Optional<Temperature> getLast(Integer cityId) {
+
+        Temperature lastMeasurement = null;
+
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Temperature> criteriaQuery = criteriaBuilder.createQuery(Temperature.class);
+
+            Root<Temperature> temperatureRoot = criteriaQuery.from(Temperature.class);
+            Join<Temperature, MeasurementStation> stationJoin = temperatureRoot.join("measurementStation");
+            Join<MeasurementStation, City> cityJoin = stationJoin.join("city");
+
+            criteriaQuery.select(temperatureRoot)
+                    .where(criteriaBuilder.equal(cityJoin.get("cityId"), cityId))
+                    .orderBy(criteriaBuilder.desc(temperatureRoot.get("time")));
+
+            List<Temperature> results = entityManager.createQuery(criteriaQuery)
+                    .setMaxResults(1)
+                    .getResultList();
+
+            if (!results.isEmpty()) {
+                lastMeasurement = results.get(0);
+                System.out.println("Last Fall from specified city: " + lastMeasurement.toString());
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return Optional.ofNullable(lastMeasurement);
     }
 }

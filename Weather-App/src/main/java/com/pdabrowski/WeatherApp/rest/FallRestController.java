@@ -107,15 +107,15 @@ public class FallRestController {
     }
 
     @GetMapping("/day")
-    public Map<Integer, Double> getData(@RequestParam String param1, @RequestParam String param2) throws ParseException {
+    public Map<Integer, Double> getData(@RequestParam String date, @RequestParam String cityId) throws ParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate startDate = LocalDate.parse(param1, formatter);
+        LocalDate startDate = LocalDate.parse(date, formatter);
         LocalDateTime startDateTime = startDate.atStartOfDay();
         Instant startTime = startDateTime.toInstant(ZoneOffset.UTC);
 
-        Integer cityId = Integer.parseInt(param2);
+        Integer city = Integer.parseInt(cityId);
 
-        Map<Integer, Double> falls = this.fallService.getByDay(startTime, cityId).orElse(null);
+        Map<Integer, Double> falls = this.fallService.getByDay(startTime, city).orElse(null);
 
         System.out.println(falls);
 

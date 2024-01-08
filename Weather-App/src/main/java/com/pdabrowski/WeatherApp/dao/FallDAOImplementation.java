@@ -92,38 +92,6 @@ public class FallDAOImplementation implements FallDAO{
     @Transactional
     public Optional<List<Fall>> getAllFromCityDay(Integer cityId, Instant date) throws ParseException {
 
-
-
-//        String hql = "SELECT f FROM Fall f " +
-//                "JOIN f.measurementStation ms " +
-//                "JOIN ms.city c " +
-//                "WHERE c.cityName = :cityName AND " +
-//                "      DATE(f.time) = :date " +
-//                "ORDER BY HOUR(f.time), f.time";
-//
-//        TypedQuery<Fall> query = this.entityManager.createQuery(hql, Fall.class);
-//
-//        java.sql.Timestamp timestamp = new java.sql.Timestamp(date.toEpochMilli());
-//
-//        System.out.println(cityId);
-//        System.out.println(timestamp);
-//        System.out.println(date);
-//
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//
-//        // Example date string
-//        String dateString = "2024-01-06";
-//
-//        // Parse the date string into a Date object
-//        Date d = formatter.parse(dateString);
-//
-//        query.setParameter("cityName", 10);
-//        query.setParameter("date",d );
-//
-//
-//        List<Fall> falls = query.getResultList();
-//        System.out.println(falls);
-
         String hql = "SELECT f FROM Fall f " +
                 "JOIN f.measurementStation ms " +
                 "JOIN ms.city c " +
