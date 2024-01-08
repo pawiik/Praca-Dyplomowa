@@ -1,12 +1,14 @@
 import {Component, resolveForwardRef} from '@angular/core';
 import {FallApiService} from "../../services/fall-api-service";
 import {TemperatureApiService} from "../../services/temperature-api-service";
+import {HumidityApiService} from "../../services/humidity-api-service";
 
 
 interface HourlyWeather {
   time: string;
   fall: string;
   temperature: string;
+  humidity: string;
 
 }
 
@@ -24,7 +26,8 @@ export class TemperatureByHourComponent {
 
 
   constructor(private fallService: FallApiService,
-              private temperatureService: TemperatureApiService) {
+              private temperatureService: TemperatureApiService,
+              private humidityService: HumidityApiService) {
     this.getData()
     this.fallService.getLast(this.cityId).subscribe(response => console.log(response))
   }
@@ -35,11 +38,11 @@ export class TemperatureByHourComponent {
         Object.entries(response).forEach(([key, value]) => {
           if(value != null){
             console.log(`Hour: ${key}, Value: ${value}`);
-            let record = {time: key.toString(), fall: value.toString(), temperature:""}
+            let record = {time: key.toString(), fall: value.toString(), temperature:"No data", humidity: "No data"}
             this.hourlyWeather.push(record)
           }
           else{
-            let record = {time: key.toString(), fall: "No data", temperature: "No data"}
+            let record = {time: key.toString(), fall: "No data", temperature: "No data", humidity: "No data"}
             this.hourlyWeather.push(record)
           }
 
@@ -56,6 +59,18 @@ export class TemperatureByHourComponent {
             }
           }
         })
+    })
+    this.humidityService.getDayData(this.date, this.cityId).subscribe(response =>{
+      Object.entries(response).forEach(([key, value])=> {
+        if(value != null){
+          const weather = this.hourlyWeather.find(weather => weather.time === key);
+          if (weather) {
+            weather.humidity = value;
+          } else {
+            console.log('Element not found');
+          }
+        }
+      })
     })
   }
 }

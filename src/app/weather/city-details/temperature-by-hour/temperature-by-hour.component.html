@@ -4,11 +4,11 @@
   </div>
   <div class="hourly-forecast">
     <div class="hour-block" *ngFor="let hour of hourlyWeather">
-      <div class="time">{{hour.time}}</div>
-      <div class="temperature">{{hour.temperature}}</div>
+      <div class="time">Hour : {{hour.time}}:00 - {{hour.time + 1}}:00</div>
+      <div class="temperature">{{hour.temperature}} C</div>
       <div class="other-params">
-        <p>Fall: {{hour.fall}}</p>
-        <p>Wind: none</p>
+        <p>Fall: {{hour.fall}}mm/m^3</p>
+        <p>Humidity: {{hour.humidity}}%</p>
       </div>
     </div>
   </div>

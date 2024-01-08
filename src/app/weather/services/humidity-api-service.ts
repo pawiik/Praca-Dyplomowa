@@ -4,6 +4,7 @@ import {AuthService} from "./auth-service";
 import {Observable} from "rxjs";
 import {Humidity} from "../../shared/model/Humidity";
 import {Fall} from "../../shared/model/Fall";
+import {Temperature} from "../../shared/model/Temperature";
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,25 @@ export class HumidityApiService {
       })
     }
     return this.httpClient.post<Humidity[]>(this.apiUrl + "/time", options, body)
+  }
+
+  getDayData(date: string, cityId: string): Observable<Map<number, number>> {
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken
+      })
+    }
+    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`);
+  }
+
+  getLast(cityId: string):Observable<Humidity>{
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken
+      })
+    }
+    return this.httpClient.get<Humidity>(`${this.apiUrl}/last?cityId=${cityId}`);
   }
 }
