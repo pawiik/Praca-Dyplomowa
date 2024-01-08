@@ -1,13 +1,17 @@
 .weather-widget {
   font-family: Arial, sans-serif;
   color: #333;
+  width: 50%;
+  margin: 20px auto;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  width: 300px; /* Adjust width as needed */
+  align-items: center;
+  justify-content: center;
+  align-self: center;
 }
 
 .weather-header {

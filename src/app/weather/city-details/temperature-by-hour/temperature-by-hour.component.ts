@@ -13,7 +13,7 @@ export class TemperatureByHourComponent {
 
 
   constructor(private fallService: FallApiService) {
-    // this.getData()
+    this.getData()
     this.fallService.getLast("10").subscribe(response => console.log(response))
   }
 
@@ -24,6 +24,10 @@ export class TemperatureByHourComponent {
           if(value != null){
             console.log(`Hour: ${key}, Value: ${value}`);
             let record = {time: key.toString(), fall: value.toString()}
+            this.hourlyWeather.push(record)
+          }
+          else{
+            let record = {time: key.toString(), fall: "No data"}
             this.hourlyWeather.push(record)
           }
 
