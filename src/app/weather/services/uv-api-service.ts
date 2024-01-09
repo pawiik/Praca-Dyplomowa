@@ -45,4 +45,24 @@ export class UvApiService {
     }
     return this.httpClient.post<UV[]>(this.apiUrl + "/time", options, body)
   }
+
+  getDayData(date: string, cityId: string): Observable<Map<number, number>> {
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken
+      })
+    }
+    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`);
+  }
+
+  getLast(cityId: string):Observable<UV>{
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken
+      })
+    }
+    return this.httpClient.get<UV>(`${this.apiUrl}/last?cityId=${cityId}`);
+  }
 }

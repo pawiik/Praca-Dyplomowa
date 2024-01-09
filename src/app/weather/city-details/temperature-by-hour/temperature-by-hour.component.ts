@@ -2,6 +2,8 @@ import {Component, resolveForwardRef} from '@angular/core';
 import {FallApiService} from "../../services/fall-api-service";
 import {TemperatureApiService} from "../../services/temperature-api-service";
 import {HumidityApiService} from "../../services/humidity-api-service";
+import {UvApiService} from "../../services/uv-api-service";
+import {WindApiService} from "../../services/wind-api-service";
 
 
 interface HourlyWeather {
@@ -9,7 +11,8 @@ interface HourlyWeather {
   fall: string;
   temperature: string;
   humidity: string;
-
+  uv: string;
+  wind: string;
 }
 
 @Component({
@@ -27,7 +30,9 @@ export class TemperatureByHourComponent {
 
   constructor(private fallService: FallApiService,
               private temperatureService: TemperatureApiService,
-              private humidityService: HumidityApiService) {
+              private humidityService: HumidityApiService,
+              private uvService: UvApiService,
+              private windService: WindApiService) {
     this.getData()
     this.fallService.getLast(this.cityId).subscribe(response => console.log(response))
   }
@@ -38,14 +43,13 @@ export class TemperatureByHourComponent {
         Object.entries(response).forEach(([key, value]) => {
           if(value != null){
             console.log(`Hour: ${key}, Value: ${value}`);
-            let record = {time: key.toString(), fall: value.toString(), temperature:"No data", humidity: "No data"}
+            let record = {time: key.toString(), fall: value.toString(), temperature:"No data", humidity: "No data", uv: "No data", wind: "No data"}
             this.hourlyWeather.push(record)
           }
           else{
-            let record = {time: key.toString(), fall: "No data", temperature: "No data", humidity: "No data"}
+            let record = {time: key.toString(), fall: "No data", temperature: "No data", humidity: "No data", uv: "No data", wind: "No data"}
             this.hourlyWeather.push(record)
           }
-
         })
     })
     this.temperatureService.getDayData(this.date, this.cityId).subscribe(response =>{
@@ -66,6 +70,30 @@ export class TemperatureByHourComponent {
           const weather = this.hourlyWeather.find(weather => weather.time === key);
           if (weather) {
             weather.humidity = value;
+          } else {
+            console.log('Element not found');
+          }
+        }
+      })
+    })
+    this.uvService.getDayData(this.date, this.cityId).subscribe(response => {
+      Object.entries(response).forEach(([key, value])=> {
+        if(value != null){
+          const weather = this.hourlyWeather.find(weather => weather.time === key);
+          if (weather) {
+            weather.uv = value;
+          } else {
+            console.log('Element not found');
+          }
+        }
+      })
+    })
+    this.windService.getDayData(this.date, this.cityId).subscribe(response => {
+      Object.entries(response).forEach(([key, value])=> {
+        if(value != null){
+          const weather = this.hourlyWeather.find(weather => weather.time === key);
+          if (weather) {
+            weather.wind = value;
           } else {
             console.log('Element not found');
           }
