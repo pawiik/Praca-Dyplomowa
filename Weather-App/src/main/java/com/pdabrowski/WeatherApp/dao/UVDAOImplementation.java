@@ -1,10 +1,21 @@
 package com.pdabrowski.WeatherApp.dao;
 
+import com.pdabrowski.WeatherApp.entity.City;
+import com.pdabrowski.WeatherApp.entity.Humidity;
+import com.pdabrowski.WeatherApp.entity.MeasurementStation;
 import com.pdabrowski.WeatherApp.entity.UV;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.text.ParseException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 @Repository
@@ -36,5 +47,57 @@ public class UVDAOImplementation implements UVDAO{
     public void delete(UV uv) {
         UV mergedUV = entityManager.merge(uv);
         entityManager.remove(mergedUV);
+    }
+
+    @Override
+    @Transactional
+    public Optional<List<UV>> getAllFromCityDay(Integer cityId, Instant date) throws ParseException {
+
+        String hql = "SELECT f FROM UV f " +
+                "JOIN f.measurementStation ms " +
+                "JOIN ms.city c " +
+                "WHERE c.cityId = :cityId AND " +
+                "      DATE(f.time) = :date " +
+                "ORDER BY FUNCTION('hour', f.time), f.time";
+
+        TypedQuery<UV> query = this.entityManager.createQuery(hql, UV.class);
+        query.setParameter("cityId", cityId);
+        query.setParameter("date", java.sql.Date.valueOf("2024-01-06"));
+
+        List<UV> measurements = query.getResultList();
+
+        return Optional.of(measurements);
+    }
+
+    @Override
+    public Optional<UV> getLast(Integer cityId) {
+
+        UV lastMeasurement = null;
+
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<UV> criteriaQuery = criteriaBuilder.createQuery(UV.class);
+
+            Root<UV> temperatureRoot = criteriaQuery.from(UV.class);
+            Join<UV, MeasurementStation> stationJoin = temperatureRoot.join("measurementStation");
+            Join<MeasurementStation, City> cityJoin = stationJoin.join("city");
+
+            criteriaQuery.select(temperatureRoot)
+                    .where(criteriaBuilder.equal(cityJoin.get("cityId"), cityId))
+                    .orderBy(criteriaBuilder.desc(temperatureRoot.get("time")));
+
+            List<UV> results = entityManager.createQuery(criteriaQuery)
+                    .setMaxResults(1)
+                    .getResultList();
+
+            if (!results.isEmpty()) {
+                lastMeasurement = results.get(0);
+//                System.out.println("Last Fall from specified city: " + lastMeasurement.toString());
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return Optional.ofNullable(lastMeasurement);
     }
 }
