@@ -11,4 +11,7 @@ public interface AlertDAO {
     Optional<Alert> findById(int id);
     List<Alert> findAll();
     void delete(Alert alert);
-}
+
+    public Optional<List<Alert>> getAlertsForCity(Integer cityId);
+
+    }

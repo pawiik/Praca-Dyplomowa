@@ -5,6 +5,7 @@ import com.pdabrowski.WeatherApp.entity.Region;
 import com.pdabrowski.WeatherApp.service.AlertService;
 import com.pdabrowski.WeatherApp.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -64,5 +65,18 @@ public class AlertRestController {
 
     }
 
+    @GetMapping("/{cityName}")
+    public ResponseEntity<List<Alert>> getAlertsForCity(@PathVariable String cityName) {
+        Integer id = Integer.parseInt(cityName);
+        try {
+            List<Alert> alerts = alertService.getAlertsForCity(id);
+            if (alerts.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(alerts);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }

@@ -10,4 +10,6 @@ public interface AlertService {
     Optional<Alert> getAlertById(int id);
     List<Alert> getAllAlerts();
     void deleteAlert(Alert alert);
+
+    List<Alert> getAlertsForCity(Integer cityId);
 }

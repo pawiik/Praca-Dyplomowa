@@ -42,4 +42,13 @@ public class AlertServiceImplementation implements AlertService{
     public void deleteAlert(Alert alert) {
         alertDao.delete(alert);
     }
+
+    @Override
+    public List<Alert> getAlertsForCity(Integer cityId) {
+        List<Alert> alerts = this.alertDao.getAlertsForCity(cityId).orElse(null);
+
+        return alerts;
+    }
+
+
 }

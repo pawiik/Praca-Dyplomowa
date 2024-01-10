@@ -44,4 +44,27 @@ public class AlertDAOImplementation implements AlertDAO{
             entityManager.remove(entityManager.merge(alert));
         }
     }
+
+    public Optional<List<Alert>> getAlertsForCity(Integer cityId) {
+        EntityManager em = this.entityManager;
+        List<Alert> alerts = null;
+        try {
+            em.getTransaction().begin();
+
+            TypedQuery<Integer> regionQuery = em.createQuery(
+                    "SELECT c.regionId FROM City c WHERE c.cityId = :cityId", Integer.class);
+            regionQuery.setParameter("cityId", cityId);
+            Integer regionId = regionQuery.getSingleResult();
+
+            TypedQuery<Alert> alertQuery = em.createQuery(
+                    "SELECT a FROM Alert a WHERE a.region.id = :regionId", Alert.class);
+            alertQuery.setParameter("regionId", regionId);
+
+            alerts = alertQuery.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(alerts);
+    }
 }
