@@ -13,13 +13,25 @@ export class LoginComponent {
     }
 
     formData = {emailAddress: "", password: ""}
+    loginError = false;
+    missingData = false
 
     login(){
         if (this.formData.emailAddress != null && this.formData.password != null){
-          console.log("im in login")
+          this.missingData = false
           this.authService.loginUser(this.formData)
-          this.router.navigate(['/home'])
-    }
+          if(this.authService.isUserAuthenticated()){
+            this.router.navigate(['/home'])
+            this.loginError = false
+          }
+          else{
+            this.loginError = true
+          }
+
+        }
+        else{
+          this.missingData = true
+        }
 
         }
 }

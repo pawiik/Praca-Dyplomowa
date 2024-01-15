@@ -63,3 +63,17 @@
 .register-link a:hover {
   text-decoration: underline;
 }
+
+.error-message {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+input.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}

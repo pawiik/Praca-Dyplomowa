@@ -1,93 +1,22 @@
-<!--Default navbar-->
-<nav class="navbar" *ngIf="!isAuthenticated()">
-  <div class="navbar-container" >
-    <div class="navbar-icon">
-      <img src="favicon.ico" alt="Icon" (click)="goToMain()">
-    </div>
-
-    <div class="navbar-spacer"></div>
-
-    <div class="navbar-button" *ngIf="!isAuthenticated()">
-      <button (click)="goToLogin()">Login</button>
-    </div>
-
-    <div class="navbar-button" *ngIf="isAuthenticated()">
-      <button (click)="goToEmployee()">Analyse Data</button>
-    </div>
-
-    <div class="navbar-button" *ngIf="isAuthenticated()">
-      <button (click)="toggleOffcanvas()">User data</button>
-    </div>
-
-    <div class="navbar-spacer"></div>
-
-    <div class="navbar-button" *ngIf="isAuthenticated()">
-      <button (click)="logout()">Logout</button>
-    </div>
-
-  </div>
-</nav>
-<!--Employee navbar-->
-<nav class="navbar" *ngIf="isEmployee()">
+<nav class="navbar">
   <div class="navbar-container">
     <div class="navbar-icon">
       <img src="favicon.ico" alt="Icon" (click)="goToMain()">
     </div>
-
     <div class="navbar-spacer"></div>
 
-    <div class="navbar-button" *ngIf="!isAuthenticated()">
-      <button (click)="goToLogin()">Login</button>
+    <div *ngIf="!isAuthenticated()">
+      <button class="navbar-button" (click)="goToLogin()">Login</button>
     </div>
 
-    <div class="navbar-button" *ngIf="isAuthenticated()">
-      <button (click)="goToEmployee()">Analyse Data</button>
-    </div>
-
-    <div class="navbar-button" *ngIf="isAuthenticated()">
-      <button (click)="toggleOffcanvas()">User data</button>
-    </div>
-
-    <div class="navbar-button" *ngIf="isAuthenticated()">
-      <button (click)="goToAlerts()">Alerts</button>
+    <div *ngIf="isAuthenticated()">
+      <button class="navbar-button" (click)="goToEmployee()">Analyse Data</button>
+      <button class="navbar-button" (click)="toggleOffcanvas()">User data</button>
+      <button class="navbar-button" *ngIf="isEmployee()" (click)="goToAlerts()">Alerts</button>
+      <button class="navbar-button" *ngIf="isClient()">Add Measurements</button>
     </div>
 
     <div class="navbar-spacer"></div>
-
-    <div class="navbar-button" *ngIf="isAuthenticated()">
-      <button (click)="logout()">Logout</button>
-    </div>
-
-  </div>
-</nav>
-<!--Client navbar-->
-<nav class="navbar" *ngIf="isClient()">
-  <div class="navbar-container">
-    <div class="navbar-icon">
-      <img src="favicon.ico" alt="Icon" (click)="goToMain()">
-    </div>
-
-    <div class="navbar-spacer"></div>
-
-    <div class="navbar-button" *ngIf="!isAuthenticated()">
-      <button (click)="goToLogin()">Login</button>
-    </div>
-
-    <div class="navbar-button" *ngIf="isAuthenticated()">
-      <button (click)="goToEmployee()">Analyse Data</button>
-    </div>
-
-    <div class="navbar-button" *ngIf="isAuthenticated()">
-      <button >Add Measurements</button>
-    </div>v
-
-
-
-    <div class="navbar-spacer"></div>
-
-    <div class="navbar-button" *ngIf="isAuthenticated()">
-      <button (click)="logout()">Logout</button>
-    </div>
-
+    <button class="navbar-button" (click)="logout()">Logout</button>
   </div>
 </nav>
