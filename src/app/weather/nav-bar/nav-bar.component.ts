@@ -14,6 +14,14 @@ export class NavBarComponent {
     this.router.navigate(['login']);
   }
 
+  isClient(): boolean{
+    return this.auth.authData.userRole === 'ROLE_USER'
+  }
+
+  isEmployee(): boolean{
+    return this.auth.authData.userRole === "ROLE_EMPLOYEE"
+  }
+
   isAuthenticated(): boolean{
     return this.auth.isUserAuthenticated();
   }
@@ -35,4 +43,9 @@ export class NavBarComponent {
   goToEmployee() {
     this.router.navigate(['data-analysis'])
   }
+
+  goToAlerts(){
+    this.router.navigate(['alerts'])
+  }
+
 }

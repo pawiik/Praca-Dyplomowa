@@ -7,6 +7,7 @@ export class Alert {
   region: Region;
   message: string;
   alertType: number;
+  selected: boolean;
 
   constructor(alertId: number, startTime?: number, endTime?: number, region?: Region, message?: string, alertType?: number) {
     this.alertId = alertId;
@@ -15,6 +16,7 @@ export class Alert {
     this.region = region || new Region();
     this.message = message || '';
     this.alertType = alertType || 0;
+    this.selected = false
   }
 }
 

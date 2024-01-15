@@ -1,5 +1,6 @@
-<nav class="navbar">
-  <div class="navbar-container">
+<!--Default navbar-->
+<nav class="navbar" *ngIf="!isAuthenticated()">
+  <div class="navbar-container" >
     <div class="navbar-icon">
       <img src="favicon.ico" alt="Icon" (click)="goToMain()">
     </div>
@@ -25,5 +26,68 @@
     </div>
 
   </div>
+</nav>
+<!--Employee navbar-->
+<nav class="navbar" *ngIf="isEmployee()">
+  <div class="navbar-container">
+    <div class="navbar-icon">
+      <img src="favicon.ico" alt="Icon" (click)="goToMain()">
+    </div>
 
+    <div class="navbar-spacer"></div>
+
+    <div class="navbar-button" *ngIf="!isAuthenticated()">
+      <button (click)="goToLogin()">Login</button>
+    </div>
+
+    <div class="navbar-button" *ngIf="isAuthenticated()">
+      <button (click)="goToEmployee()">Analyse Data</button>
+    </div>
+
+    <div class="navbar-button" *ngIf="isAuthenticated()">
+      <button (click)="toggleOffcanvas()">User data</button>
+    </div>
+
+    <div class="navbar-button" *ngIf="isAuthenticated()">
+      <button (click)="goToAlerts()">Alerts</button>
+    </div>
+
+    <div class="navbar-spacer"></div>
+
+    <div class="navbar-button" *ngIf="isAuthenticated()">
+      <button (click)="logout()">Logout</button>
+    </div>
+
+  </div>
+</nav>
+<!--Client navbar-->
+<nav class="navbar" *ngIf="isClient()">
+  <div class="navbar-container">
+    <div class="navbar-icon">
+      <img src="favicon.ico" alt="Icon" (click)="goToMain()">
+    </div>
+
+    <div class="navbar-spacer"></div>
+
+    <div class="navbar-button" *ngIf="!isAuthenticated()">
+      <button (click)="goToLogin()">Login</button>
+    </div>
+
+    <div class="navbar-button" *ngIf="isAuthenticated()">
+      <button (click)="goToEmployee()">Analyse Data</button>
+    </div>
+
+    <div class="navbar-button" *ngIf="isAuthenticated()">
+      <button >Add Measurements</button>
+    </div>v
+
+
+
+    <div class="navbar-spacer"></div>
+
+    <div class="navbar-button" *ngIf="isAuthenticated()">
+      <button (click)="logout()">Logout</button>
+    </div>
+
+  </div>
 </nav>

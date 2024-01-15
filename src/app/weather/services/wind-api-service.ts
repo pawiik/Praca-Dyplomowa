@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {Wind} from "../../shared/model/Wind";
 import {Fall} from "../../shared/model/Fall";
 import {Humidity} from "../../shared/model/Humidity";
+import {UV} from "../../shared/model/UV";
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +45,25 @@ export class WindApiService {
       })
     }
     return this.httpClient.post<Wind[]>(this.apiUrl + "/time", options, body)
+  }
+
+  getDayData(date: string, cityId: string): Observable<Map<number, number>> {
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken
+      })
+    }
+    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`);
+  }
+
+  getLast(cityId: string):Observable<Wind>{
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken
+      })
+    }
+    return this.httpClient.get<Wind>(`${this.apiUrl}/last?cityId=${cityId}`);
   }
 }

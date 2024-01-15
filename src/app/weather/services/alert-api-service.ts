@@ -33,5 +33,26 @@ export class AlertApiService {
     return this.httpClient.post<Alert>(this.apiUrl + "/", body, options)
   }
 
+  public getAlertForCity(cityId: string){
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+
+    return this.httpClient.post<Alert>(`${this.apiUrl}/last?cityId=${cityId}`, options)
+  }
+
+  public getAlertsForUser(userId: string){
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+
+    return this.httpClient.post<Alert>(`${this.apiUrl}/last?userId=${userId}/alerts`, options)
+  }
 
 }
