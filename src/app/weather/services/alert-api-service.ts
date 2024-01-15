@@ -24,6 +24,7 @@ export class AlertApiService {
   }
 
   public addNewAlert(body: {}): Observable<Alert>{
+    console.log(body)
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
       headers: new HttpHeaders({

@@ -124,6 +124,7 @@
 .mat-dialog-container {
   overflow-y: auto;
   position: fixed;
+  width: 50%;
   top: 0;
   left: 0;
   right: 0;

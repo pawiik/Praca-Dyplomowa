@@ -35,7 +35,7 @@ export class AlertsComponent {
 
   openAddModal(){
     const dialogRef = this.dialog.open(AddAlertModalComponent, {
-      width: '250px',
+      width: '40%',
       panelClass: 'custom-mat-dialog-container'
     });
 
@@ -48,7 +48,7 @@ export class AlertsComponent {
     if (selectedItems.length > 0) {
       let firstElement = selectedItems[0]
       const dialogRef = this.dialog.open(ModifyAlertModalComponent, {
-        width: '25%',
+        width: '40%',
         data: firstElement
       });
 
@@ -63,7 +63,7 @@ export class AlertsComponent {
     const selectedItems = this.alerts.filter(item => item.selected);
     if (selectedItems.length > 0) {
       const dialogRef = this.dialog.open(DeleteAlertModalComponent, {
-        width: '25%',
+        width: '40%',
         data: { selectedItems }
       });
       dialogRef.afterClosed().subscribe(result => {
