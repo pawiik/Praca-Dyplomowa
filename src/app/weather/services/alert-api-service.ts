@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthService} from "./auth-service";
 import {Observable} from "rxjs";
 import {Alert} from "../../shared/model/Alert";
+import {ɵFormGroupValue, ɵTypedOrUntyped} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,10 @@ export class AlertApiService {
     }
 
     return this.httpClient.post<Alert>(`${this.apiUrl}/last?userId=${userId}/alerts`, options)
+  }
+
+  public modifyAlert(value: ɵTypedOrUntyped<any, ɵFormGroupValue<any>, any>){
+
   }
 
 }

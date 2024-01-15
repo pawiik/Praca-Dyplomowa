@@ -53,6 +53,7 @@ export class AlertsComponent {
       });
 
       dialogRef.afterClosed().subscribe(result => {
+        console.log(result)
       });
     } else {
     }
