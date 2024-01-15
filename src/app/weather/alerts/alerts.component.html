@@ -1,0 +1,26 @@
+<div class="component-container">
+  <div class="header-section">
+    <button class="header-button" (click)="openAddModal()">Add Alert</button>
+    <button class="header-button" (click)="openModifyModal()">Modify Alert</button>
+    <button class="header-button" (click)="openDeleteModal()">Delete Alert</button>
+    <p>Some introductory text or message here.</p>
+  </div>
+  <table class="data-table">
+    <tr>
+      <th></th>
+      <th>Region Name</th>
+      <th>Start date</th>
+      <th>End Date</th>
+      <th>Danger level</th>
+      <th>Description</th>
+    </tr>
+    <tr *ngFor="let alert of alerts">
+      <td><input type="checkbox" [(ngModel)]="alert.selected" /></td>
+      <td>{{alert.region.name}}</td>
+      <td>{{alert.startTime}}</td>
+      <td>{{alert.endTime}}</td>
+      <td>{{alert.alertType}}</td>
+      <td>{{alert.message}}</td>
+    </tr>
+  </table>
+</div>
