@@ -63,3 +63,16 @@
 .login-link a:hover {
   text-decoration: underline;
 }
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
+
+input.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
