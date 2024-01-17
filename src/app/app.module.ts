@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import moment from "moment";
+import { UserAlertsComponent } from './weather/user-information/user-alerts/user-alerts.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import moment from "moment";
     AlertsComponent,
     AddAlertModalComponent,
     ModifyAlertModalComponent,
-    DeleteAlertModalComponent
+    DeleteAlertModalComponent,
+    UserAlertsComponent
   ],
   imports: [
     BrowserModule,

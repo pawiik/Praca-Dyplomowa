@@ -25,6 +25,7 @@ export class TemperatureByHourComponent {
   hourlyWeather: HourlyWeather[]=[]
   date: string = "2024-01-06"
   cityId: string = "10"
+  currentDate: Date = new Date();
 
 
 
@@ -101,4 +102,33 @@ export class TemperatureByHourComponent {
       })
     })
   }
+
+  prevDate() {
+    this.currentDate = new Date(this.currentDate.setDate(this.currentDate.getDate() - 1));
+    this.getData();
+  }
+
+  nextDate() {
+    this.currentDate = new Date(this.currentDate.setDate(this.currentDate.getDate() + 1));
+    this.getData();
+  }
+
+  getDateString() {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    if (this.currentDate.toDateString() === today.toDateString()) {
+      return 'Today';
+    } else if (this.currentDate.toDateString() === tomorrow.toDateString()) {
+      return 'Tomorrow';
+    } else if (this.currentDate.toDateString() === yesterday.toDateString()) {
+      return 'Yesterday';
+    } else {
+      return this.currentDate.toDateString(); // Or format as you wish
+    }
+  }
+
 }

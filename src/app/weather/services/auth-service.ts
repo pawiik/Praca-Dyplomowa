@@ -13,6 +13,7 @@ export class AuthService {
 
   authenticateUser(userData: any): void {
     localStorage.setItem('user', JSON.stringify(userData));
+    console.log(localStorage.getItem("user"))
   }
 
   isUserAuthenticated(): boolean {
@@ -20,7 +21,7 @@ export class AuthService {
   }
 
   getUserData(): any {
-    return JSON.parse(localStorage.getItem('authData') || '{}');
+    return JSON.parse(localStorage.getItem('user') || '{}');
   }
 
   logoutUser(): void {

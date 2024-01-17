@@ -5,6 +5,7 @@ import {AuthService} from "../services/auth-service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {City} from "../../shared/model/City";
 import {Alert} from "../../shared/model/Alert";
+import {AlertApiService} from "../services/alert-api-service";
 
 @Component({
   selector: 'user-information',
@@ -19,7 +20,9 @@ export class UserInformationComponent {
   userFormData = {"id": "", "name": "", "lastName": "", "phoneNumber": "", "address": "", "emailAddress": ""}
   userCities: City[] = []
   userAlerts: Alert[] = []
-  constructor(private userService: UserApiService, private authService: AuthService) {
+  constructor(private userService: UserApiService,
+              private authService: AuthService,
+              private alertService: AlertApiService) {
     this.userForm = new FormGroup({
       userId: new FormControl(''),
       name: new FormControl(''),
@@ -28,10 +31,11 @@ export class UserInformationComponent {
       address: new FormControl(''),
       emailAddress: new FormControl(''),
     });
+    // this.loadUserAlerts()
     this.loadUser()
   }
   loadUser(){
-    let username = this.authService.authData.username;
+    let username = this.authService.getUserData().username;
     console.log(username)
     this.userService.getUserInformation(username).subscribe(response => {
       console.log("response")
@@ -76,4 +80,8 @@ export class UserInformationComponent {
     console.log(this.user)
   }
 
+  // private loadUserAlerts() {
+  //   this.alertService.getAlertsForUser(this.user.userId).subscribe(response => this.userAlerts = response)
+  //   console.log(this.userAlerts)
+  // }
 }

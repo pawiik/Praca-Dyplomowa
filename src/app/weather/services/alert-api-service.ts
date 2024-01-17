@@ -43,7 +43,7 @@ export class AlertApiService {
       })
     }
 
-    return this.httpClient.post<Alert>(`${this.apiUrl}/last?cityId=${cityId}`, options)
+    return this.httpClient.get<Alert>(`${this.apiUrl}/last?cityId=${cityId}`, options)
   }
 
   public getAlertsForUser(userId: string){
@@ -53,8 +53,9 @@ export class AlertApiService {
         "Authorization": jwtToken,
       })
     }
-
-    return this.httpClient.post<Alert>(`${this.apiUrl}/last?userId=${userId}/alerts`, options)
+    console.log("userId")
+    console.log(userId)
+    return this.httpClient.get<Alert[]>(`${this.apiUrl}/alerts?userId=${userId}`, options)
   }
 
   public modifyAlert(value: ɵTypedOrUntyped<any, ɵFormGroupValue<any>, any>){
