@@ -1,6 +1,7 @@
 package com.pdabrowski.WeatherApp.dao;
 
 import com.pdabrowski.WeatherApp.entity.Alert;
+import com.pdabrowski.WeatherApp.entity.Region;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -66,5 +67,13 @@ public class AlertDAOImplementation implements AlertDAO{
             e.printStackTrace();
         }
         return Optional.ofNullable(alerts);
+    }
+
+
+    public List<Alert> findAlertsByRegions(List<Region> regions) {
+        String qlString = "SELECT a FROM Alert a WHERE a.region IN :regions";
+        TypedQuery<Alert> query = entityManager.createQuery(qlString, Alert.class);
+        query.setParameter("regions", regions);
+        return query.getResultList();
     }
 }

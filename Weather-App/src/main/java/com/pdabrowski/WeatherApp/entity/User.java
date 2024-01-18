@@ -83,6 +83,11 @@ public class User {
         region.addUser(this);
     }
 
+    public List<Region> getRegions() {
+        return regions;
+    }
+
+
     public String getName() {
         return name;
     }

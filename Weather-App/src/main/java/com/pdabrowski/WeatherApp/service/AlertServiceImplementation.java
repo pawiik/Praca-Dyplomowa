@@ -1,11 +1,15 @@
 package com.pdabrowski.WeatherApp.service;
 
 import com.pdabrowski.WeatherApp.dao.AlertDAO;
+import com.pdabrowski.WeatherApp.dao.UserDAO;
 import com.pdabrowski.WeatherApp.entity.Alert;
+import com.pdabrowski.WeatherApp.entity.User;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,10 +17,12 @@ import java.util.Optional;
 public class AlertServiceImplementation implements AlertService{
 
     private AlertDAO alertDao;
+    private UserDAO userDAO;
 
     @Autowired
-    public AlertServiceImplementation(AlertDAO alertDAO){
+    public AlertServiceImplementation(AlertDAO alertDAO, UserDAO userDAO){
         this.alertDao = alertDAO;
+        this.userDAO = userDAO;
     }
 
     @Override
@@ -49,6 +55,13 @@ public class AlertServiceImplementation implements AlertService{
 
         return alerts;
     }
-
+    public List<Alert> getAlertsForUser(String userId) {
+        User user = this.userDAO.findById(userId).orElse(null);
+        if (user != null) {
+            System.out.println(user.getRegions());
+            return alertDao.findAlertsByRegions(new ArrayList<>(user.getRegions()));
+        }
+        return null;
+    }
 
 }

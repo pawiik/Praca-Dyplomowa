@@ -5,6 +5,7 @@ import com.pdabrowski.WeatherApp.entity.Region;
 import com.pdabrowski.WeatherApp.service.AlertService;
 import com.pdabrowski.WeatherApp.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +38,9 @@ public class AlertRestController {
     public Alert addNewAlert(@RequestBody Map<String, String> data){
         System.out.println(data.toString());
 
-        Region region = regionService.getRegionById(Integer.valueOf(data.get("regionId")));
+        Region region = regionService.getRegionById(Integer.valueOf(data.get("region")));
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime start = LocalDateTime.parse(data.get("startTime"), formatter);
         LocalDateTime end = LocalDateTime.parse(data.get("endTime"), formatter);
         Instant startTime = start.toInstant(ZoneOffset.UTC);
@@ -61,13 +62,11 @@ public class AlertRestController {
         else{
             return null;
         }
-
-
     }
 
-    @GetMapping("/{cityName}")
-    public ResponseEntity<List<Alert>> getAlertsForCity(@PathVariable String cityName) {
-        Integer id = Integer.parseInt(cityName);
+    @GetMapping("/{cityId}")
+    public ResponseEntity<List<Alert>> getAlertsForCity(@PathVariable String cityId) {
+        Integer id = Integer.parseInt(cityId);
         try {
             List<Alert> alerts = alertService.getAlertsForCity(id);
             if (alerts.isEmpty()) {
@@ -76,6 +75,17 @@ public class AlertRestController {
             return ResponseEntity.ok(alerts);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/alerts")
+    public ResponseEntity<?> getAlertsForUser(@RequestParam String userId) {
+        System.out.println("d " + userId);
+        List<Alert> alerts = alertService.getAlertsForUser(userId);
+        if (alerts != null) {
+            return ResponseEntity.ok(alerts);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
 

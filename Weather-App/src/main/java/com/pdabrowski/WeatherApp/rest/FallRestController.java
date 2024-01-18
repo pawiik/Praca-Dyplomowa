@@ -81,7 +81,7 @@ public class FallRestController {
 //
 //        if(existingRegion != null){
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
             LocalDateTime start = LocalDateTime.parse(data.get("startTime"), formatter);
             Instant startTime = start.toInstant(ZoneOffset.UTC);
 

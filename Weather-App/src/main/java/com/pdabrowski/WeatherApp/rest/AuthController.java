@@ -60,7 +60,7 @@ public class AuthController {
         System.out.println("in register method");
         City existingCity = cityService.getCityById(Integer.parseInt(registrationData.get("cityId"))).orElse(null);
         if (existingCity == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("City not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("City not found.");
         }
 
         String name = registrationData.get("name");

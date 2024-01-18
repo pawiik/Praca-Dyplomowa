@@ -12,4 +12,6 @@ public interface AlertService {
     void deleteAlert(Alert alert);
 
     List<Alert> getAlertsForCity(Integer cityId);
+
+    List<Alert> getAlertsForUser(String userId);
 }

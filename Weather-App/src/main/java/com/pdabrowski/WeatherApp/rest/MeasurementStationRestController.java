@@ -40,7 +40,7 @@ public class MeasurementStationRestController {
         if(existingCity != null){
             MeasurementStation newStation = new MeasurementStation();
             newStation.setAddress(data.get("address"));
-            newStation.setRegionId(1);
+            newStation.setRegionId(existingCity.getRegion().getRegionId());
 
             existingCity.addMeasurementStation(newStation);
 

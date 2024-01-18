@@ -32,7 +32,6 @@ public class MeasurementStation {
     @JoinColumn(name = "city_id")
     private City city;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
     private List<Fall> fall;
 

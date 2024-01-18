@@ -25,9 +25,8 @@ public class Fall {
     @Column(name="fall")
     private double temperature;
 
-    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "measurement_station_id")
+    @JoinColumn(name = "measurement_station_Id")
     private MeasurementStation measurementStation;
 
     public Fall(){}
