@@ -1,0 +1,47 @@
+.alert-date {
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #ffffffb3;
+}
+
+.alert-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  background-color: #f44336;
+}
+.alert-container {
+  width: 80%;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alerts-list {
+  list-style: none;
+  padding: 0;
+}
+
+.alert-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.alert-color-1 {
+  background-color: #f44336;
+}
+
+.alert-color-2 {
+  background-color: #ff9800;
+}
+
+.alert-color-3 {
+  background-color: #4caf50;
+}
