@@ -1,5 +1,5 @@
-<nav class="navbar">
-  <div class="navbar-container">
+<nav class="navbar" *ngIf="!isAuthenticated()">
+  <div class="navbar-container" *ngIf="!isAuthenticated()">
     <div class="navbar-icon">
       <img src="favicon.ico" alt="Icon" (click)="goToMain()">
     </div>
@@ -20,3 +20,4 @@
     <button class="navbar-button" (click)="logout()">Logout</button>
   </div>
 </nav>
+<app-employee-nav-bar *ngIf="isEmployee()"></app-employee-nav-bar>

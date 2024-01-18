@@ -1,0 +1,11 @@
+<div class="input-container">
+  <input type="text" [(ngModel)]="searchTerm" (input)="searchCities()" placeholder="Enter city name...">
+  <div class="suggestions" *ngIf="suggestions.length > 0">
+    <button class="suggestion-item" *ngFor="let city of suggestions" [ngStyle]="{'background-color': getRandomColor()}" (click)="showCityInfo(city.cityId)">
+      {{ city.cityName }}
+    </button>
+
+  </div>
+
+</div>
+<ng-template class="details" #container ></ng-template>

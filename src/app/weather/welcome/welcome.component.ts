@@ -1,7 +1,10 @@
-import {Component, ComponentRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, ComponentRef, Type, ViewChild, ViewContainerRef} from '@angular/core';
 import {ApiService} from "../services/api.service";
 import {City} from "../../shared/model/City";
 import {CityDetailsComponent, DataService} from "../city-details/city-details.component";
+import {DynamicComponentAnchorDirectiveEmployee} from "../employee/employee-dynamic-load";
+import {Subscription} from "rxjs";
+import {EmployeeSharedService} from "../employee/employee-shared-service";
 
 @Component({
   selector: 'app-welcome',
@@ -9,66 +12,25 @@ import {CityDetailsComponent, DataService} from "../city-details/city-details.co
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent {
-  @ViewChild('container', {read: ViewContainerRef}) container!: ViewContainerRef;
-  componentRef!: ComponentRef<any>
-
-  searchTerm: string = '';
-  // allCities: string[] = ['Krakow', 'Katowice', 'Warsaw', 'Wroclaw']; // Your list of cities
-  // suggestions: string[] = [];
-  allCities: City[] = []
-  suggestions: City[] = []
-  constructor(private service: ApiService,
-              private dataService: DataService) {
-    this.loadCities()
+  @ViewChild(DynamicComponentAnchorDirectiveEmployee, { static: true }) dynamicComponentAnchor!: DynamicComponentAnchorDirectiveEmployee;
+  private componentSubscribtion: Subscription
+  constructor(private sharedService: EmployeeSharedService,
+              private viewContainerRef: ViewContainerRef
+  ) {
+    this.componentSubscribtion = this.sharedService.componentToLoad.subscribe(component => this.loadDynamicComponent(component))
   }
 
-  loadCities() {
-    this.service.getAllCities().subscribe(cities => this.allCities = cities);
+  loadDynamicComponent(component: Type<any>) {
+    const viewContainerRef = this.dynamicComponentAnchor.viewContainerRef;
+    viewContainerRef.clear();
+    const componentRef = viewContainerRef.createComponent(component);
   }
 
-  getCities(){
-    let data = this.service.getAllCities().subscribe(cities =>{
-      this.allCities = cities
-    })
-    console.log(this.allCities)
-  }
-  getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-  searchCities() {
-    if (this.searchTerm) {
-      // this.getCities()
-      // this.suggestions = this.allCities.filter(city =>
-      //   city.cityName.toLowerCase().startsWith(this.searchTerm.toLowerCase())
-      // );
-      this.suggestions = this.allCities.filter(city => {
-        console.log(city.cityName);
-        return city.cityName && city.cityName.toLowerCase().includes(this.searchTerm.toLowerCase());
-      });
-      console.log("found")
-      console.log(this.suggestions)
-    } else {
-      console.log("didn't find")
-      this.suggestions = [];
+  ngOnDestroy(): void {
+    if (this.componentSubscribtion) {
+      this.componentSubscribtion.unsubscribe();
     }
   }
 
-  showCityInfo(cityId: number){
-    // this.searchTerm = ''
-    // this.suggestions = []
-    console.log("hello")
-    console.log(cityId)
-    this.container.clear();
-
-    this.dataService.setData(cityId);
-
-    this.componentRef = this.container.createComponent(CityDetailsComponent);
-
-  }
 
 }

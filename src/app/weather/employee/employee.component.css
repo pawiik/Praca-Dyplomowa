@@ -1,0 +1,27 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.fulls {
+  min-height: 100vh;
+}
+
+body {
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.container {
+  width: fit-content(100%);
+  height: auto;
+  max-width: 1903px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  min-height: 100vh;
+  justify-content: center;
+  padding-top: 5vh;
+}

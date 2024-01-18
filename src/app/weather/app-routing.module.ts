@@ -6,6 +6,7 @@ import {RegisterComponent} from "./register/register.component";
 import {UserInformationComponent} from "./user-information/user-information.component";
 import {MeasurementsTableComponent} from "./measurements-table/measurements-table.component";
 import {AlertsComponent} from "./alerts/alerts.component";
+import {EmployeeComponent} from "./employee/employee.component";
 
 const routes: Routes = [
   { path: 'home', component: WelcomeComponent },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'user-information', component: UserInformationComponent},
   { path: 'data-analysis', component: MeasurementsTableComponent},
-  { path: 'alerts', component: AlertsComponent}
+  { path: 'alerts', component: AlertsComponent},
+  { path: 'employee', component: EmployeeComponent}
 ];
 
 @NgModule({

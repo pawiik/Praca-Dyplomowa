@@ -26,6 +26,10 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import moment from "moment";
 import { UserAlertsComponent } from './weather/user-information/user-alerts/user-alerts.component';
+import {DynamicComponentAnchorDirectiveEmployee} from "./weather/employee/employee-dynamic-load";
+import { EmployeeNavBarComponent } from './weather/nav-bar/employee-nav-bar/employee-nav-bar.component';
+import { UserNavBarComponent } from './weather/nav-bar/user-nav-bar/user-nav-bar.component';
+import {DetailsComponent} from "./weather/welcome/details/details.component";
 
 @NgModule({
   declarations: [
@@ -46,7 +50,11 @@ import { UserAlertsComponent } from './weather/user-information/user-alerts/user
     AddAlertModalComponent,
     ModifyAlertModalComponent,
     DeleteAlertModalComponent,
-    UserAlertsComponent
+    UserAlertsComponent,
+    DynamicComponentAnchorDirectiveEmployee,
+    EmployeeNavBarComponent,
+    UserNavBarComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
