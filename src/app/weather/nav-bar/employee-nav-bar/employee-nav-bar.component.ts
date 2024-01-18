@@ -5,6 +5,7 @@ import {EmployeeSharedService} from "../../employee/employee-shared-service";
 import {MeasurementsTableComponent} from "../../measurements-table/measurements-table.component";
 import {AlertsComponent} from "../../alerts/alerts.component";
 import {DetailsComponent} from "../../welcome/details/details.component";
+import {CitiesComponent} from "../../employee/cities/cities.component";
 
 @Component({
   selector: 'app-employee-nav-bar',
@@ -43,5 +44,9 @@ export class EmployeeNavBarComponent {
 
   goToAlerts(){
     this.sharedService.loadComponent(AlertsComponent)
+  }
+
+  goToCities(){
+    this.sharedService.loadComponent(CitiesComponent)
   }
 }

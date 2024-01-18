@@ -30,6 +30,13 @@ import {DynamicComponentAnchorDirectiveEmployee} from "./weather/employee/employ
 import { EmployeeNavBarComponent } from './weather/nav-bar/employee-nav-bar/employee-nav-bar.component';
 import { UserNavBarComponent } from './weather/nav-bar/user-nav-bar/user-nav-bar.component';
 import {DetailsComponent} from "./weather/welcome/details/details.component";
+import { RegionsComponent } from './weather/employee/regions/regions.component';
+import { CitiesComponent } from './weather/employee/cities/cities.component';
+import { MeasurementStationsComponent } from './weather/employee/measurement-stations/measurement-stations.component';
+import { AddCityModalComponent } from './weather/employee/cities/add-city-modal/add-city-modal.component';
+import { AddMeasurementStationModalComponent } from './weather/employee/measurement-stations/add-measurement-station-modal/add-measurement-station-modal.component';
+import { AddRegionModalComponent } from './weather/employee/regions/add-region-modal/add-region-modal.component';
+import { AddMeasurementComponent } from './weather/employee/add-measurement/add-measurement.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +61,14 @@ import {DetailsComponent} from "./weather/welcome/details/details.component";
     DynamicComponentAnchorDirectiveEmployee,
     EmployeeNavBarComponent,
     UserNavBarComponent,
-    DetailsComponent
+    DetailsComponent,
+    RegionsComponent,
+    CitiesComponent,
+    MeasurementStationsComponent,
+    AddCityModalComponent,
+    AddMeasurementStationModalComponent,
+    AddRegionModalComponent,
+    AddMeasurementComponent
   ],
   imports: [
     BrowserModule,

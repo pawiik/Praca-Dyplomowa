@@ -40,11 +40,12 @@ export class MeasurementsTableComponent {
   }
 
   loadFalls(body:{}){
+    console.log("load falls")
     this.fallApiService.loadByTimePeriod(body).subscribe(
       falls =>
         falls.forEach(fall =>{
           console.log(fall)
-          let measurement = new Measurement(fall.measurementStationId.stationId, fall.time, fall.temperature, "")
+          let measurement = new Measurement(fall.measurementStationId, fall.time, fall.temperature, "")
           this.measurementsTable.push(measurement)
         })
     )}
@@ -80,45 +81,35 @@ export class MeasurementsTableComponent {
       humidities =>
         humidities.forEach(humidity =>{
           let measurement = new Measurement(humidity.measurementStation.stationId, humidity.time, humidity.humidity, "")
+          this.measurementsTable.push(measurement)
         })
     )
   }
 
   onSubmit() {
-    // console.log({
-    //   region: this.region,
-    //   startDate: this.startDate,
-    //   endDate: this.endDate,
-    //   parameter: this.parameter,
-    //   sort: this.sort
-    // });
-    let body:{} =
-      {
-        "regionId": 16,
-        "startTime": "2024-01-01T16:47:00",
-        "endTime": "2024-01-03T16:47:00"
-      }
-    //   {
-    //   "regionId": this.region?.toString(),
-    //   "startTime": this.startDate?.toString(),
-    //   "endTime": this.endDate?.toString()
-    // }
-
-    if(this.parameter == "wind"){
-      this.loadWinds(body)
-    }
-    else if(this.parameter == "fall"){
-      console.log(body)
-      this.loadFalls(body)
-    }
-    else if(this.parameter == "humidity"){
-      this.loadHumidity(body)
-    }
-    else if(this.parameter == "temperature"){
-      this.loadTemperatures(body)
-    }
-    else if(this.parameter == "uv"){
-      this.loadUV(body)
+    let body = {
+      "regionId": this.region,
+      "startTime": this.startDate,
+      "endTime": this.endDate
+    };
+    this.measurementsTable = []
+    switch(this.parameter) {
+      case "wind":
+        this.loadWinds(body);
+        break;
+      case "fall":
+        this.loadFalls(body);
+        break;
+      case "humidity":
+        this.loadHumidity(body);
+        break;
+      case "temperature":
+        this.loadTemperatures(body);
+        break;
+      case "uv":
+        this.loadUV(body);
+        break;
+      default:
     }
   }
 
@@ -130,7 +121,7 @@ class Measurement{
   markers: string
 
 
-  constructor(measurementStation: number, date: number, value: number, markers: string) {
+  constructor(measurementStation: any, date: number, value: number, markers: string) {
     this.measurementStationId = measurementStation;
     this.date = date;
     this.value = value;

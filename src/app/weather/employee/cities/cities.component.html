@@ -1,1 +1,22 @@
-<p>cities works!</p>
+<div class="con">
+  <div class="component-container">
+    <div class="header-section">
+      <button class="header-button" (click)="openAddModal()">Add Alert</button>
+<!--      <button class="header-button" (click)="openModifyModal()">Modify Alert</button>-->
+<!--      <button class="header-button" (click)="openDeleteModal()">Delete Alert</button>-->
+      <p>Some introductory text or message here.</p>
+    </div>
+    <table class="data-table">
+      <tr>
+        <th>City Id</th>
+        <th>Name</th>
+        <th>Region</th>
+      </tr>
+      <tr *ngFor="let city of cities">
+        <td>{{city.cityId}}</td>
+        <td>{{city.cityName}}</td>
+        <td>{{city.region.name}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
