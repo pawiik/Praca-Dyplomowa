@@ -1,20 +1,23 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Region} from "../../../../shared/model/Region";
 import {CityApiService} from "../../../services/city-api-service";
 import {RegionApiService} from "../../../services/region-api-service";
-import {Region} from "../../../../shared/model/Region";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {Alert} from "../../../../shared/model/Alert";
 
 @Component({
-  selector: 'app-add-city-modal',
-  templateUrl: './add-city-modal.component.html',
-  styleUrls: ['./add-city-modal.component.css']
+  selector: 'app-modify-city-modal',
+  templateUrl: './modify-city-modal.component.html',
+  styleUrls: ['./modify-city-modal.component.css']
 })
-export class AddCityModalComponent {
+export class ModifyCityModalComponent {
 
   form!: FormGroup;
   regions: Region[] = []
 
-  constructor(private cityService: CityApiService,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Alert,
+              private cityService: CityApiService,
               private regionService: RegionApiService) {
     this.loadRegions()
   }
@@ -38,5 +41,4 @@ export class AddCityModalComponent {
 
     this.cityService.addNewCity(this.form.value).subscribe()
   }
-
 }

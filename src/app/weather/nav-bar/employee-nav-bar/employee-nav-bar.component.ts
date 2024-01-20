@@ -6,6 +6,7 @@ import {MeasurementsTableComponent} from "../../measurements-table/measurements-
 import {AlertsComponent} from "../../alerts/alerts.component";
 import {DetailsComponent} from "../../welcome/details/details.component";
 import {CitiesComponent} from "../../employee/cities/cities.component";
+import {MeasurementStationsComponent} from "../../employee/measurement-stations/measurement-stations.component";
 
 @Component({
   selector: 'app-employee-nav-bar',
@@ -21,7 +22,7 @@ export class EmployeeNavBarComponent {
 
   logout(): void{
     this.auth.logoutUser()
-    this.router.navigate(['/employee'])
+    this.router.navigate(['/home'])
   }
 
   isEmployee(): boolean{
@@ -48,5 +49,9 @@ export class EmployeeNavBarComponent {
 
   goToCities(){
     this.sharedService.loadComponent(CitiesComponent)
+  }
+
+  goToStations(){
+    this.sharedService.loadComponent(MeasurementStationsComponent)
   }
 }

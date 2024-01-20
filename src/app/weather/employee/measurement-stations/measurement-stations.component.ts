@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, signal} from '@angular/core';
+import {MeasurementStationApiService} from "../../services/measurement-station-api-service";
+import {MeasurementStation} from "../../../shared/model/MeasurementStation";
 
 @Component({
   selector: 'app-measurement-stations',
@@ -6,5 +8,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./measurement-stations.component.css']
 })
 export class MeasurementStationsComponent {
+
+  stations: MeasurementStation[] = []
+
+
+  constructor(private measurermentStationService: MeasurementStationApiService) {
+    this.loadStations()
+  }
+
+
+  loadStations(){
+    this.measurermentStationService.getAllHumidity().subscribe(response => this.stations = response)
+  }
+
+  openAddModal(){
+
+  }
 
 }

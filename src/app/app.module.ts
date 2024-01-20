@@ -37,6 +37,10 @@ import { AddCityModalComponent } from './weather/employee/cities/add-city-modal/
 import { AddMeasurementStationModalComponent } from './weather/employee/measurement-stations/add-measurement-station-modal/add-measurement-station-modal.component';
 import { AddRegionModalComponent } from './weather/employee/regions/add-region-modal/add-region-modal.component';
 import { AddMeasurementComponent } from './weather/employee/add-measurement/add-measurement.component';
+import { AdminComponent } from './weather/admin/admin.component';
+import { EmployeesComponent } from './weather/admin/employees/employees.component';
+import { AdminNavBarComponent } from './weather/nav-bar/admin-nav-bar/admin-nav-bar.component';
+import { ModifyCityModalComponent } from './weather/employee/cities/modify-city-modal/modify-city-modal.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +72,11 @@ import { AddMeasurementComponent } from './weather/employee/add-measurement/add-
     AddCityModalComponent,
     AddMeasurementStationModalComponent,
     AddRegionModalComponent,
-    AddMeasurementComponent
+    AddMeasurementComponent,
+    AdminComponent,
+    EmployeesComponent,
+    AdminNavBarComponent,
+    ModifyCityModalComponent
   ],
   imports: [
     BrowserModule,

@@ -41,12 +41,15 @@ export class CityApiService {
   }
 
   public addNewCity(body: {}): Observable<City> {
+    console.log(body)
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
       headers: new HttpHeaders({
-        "Authorization": jwtToken
+        "Authorization": jwtToken,
+        "Content-Type": "application/json"
       })
     }
-    return this.httpClient.post<City>(this.apiUrl + "/", options, body)
+
+    return this.httpClient.post<City>(this.apiUrl + "/cities", options, body)
   }
 }

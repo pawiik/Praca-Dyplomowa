@@ -1,1 +1,22 @@
-<p>measurement-stations works!</p>
+<div class="con">
+  <div class="component-container">
+    <div class="header-section">
+      <button class="header-button" (click)="openAddModal()">Add Alert</button>
+      <!--      <button class="header-button" (click)="openModifyModal()">Modify Alert</button>-->
+      <!--      <button class="header-button" (click)="openDeleteModal()">Delete Alert</button>-->
+      <p>Some introductory text or message here.</p>
+    </div>
+    <table class="data-table">
+      <tr>
+        <th>Station Id</th>
+        <th>City</th>
+        <th>Address</th>
+      </tr>
+      <tr *ngFor="let station of stations">
+        <td>{{station.stationId}}</td>
+        <td>{{station.city?.cityName}}</td>
+        <td>{{station.address}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
