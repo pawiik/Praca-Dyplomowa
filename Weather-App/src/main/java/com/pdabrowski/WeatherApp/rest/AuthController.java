@@ -1,11 +1,11 @@
 package com.pdabrowski.WeatherApp.rest;
 
 import com.pdabrowski.WeatherApp.dao.AccountDAO;
-import com.pdabrowski.WeatherApp.entity.Account;
-import com.pdabrowski.WeatherApp.entity.City;
-import com.pdabrowski.WeatherApp.entity.User;
+import com.pdabrowski.WeatherApp.entity.*;
 import com.pdabrowski.WeatherApp.security.JwtUtil;
 import com.pdabrowski.WeatherApp.service.CityService;
+import com.pdabrowski.WeatherApp.service.EmployeeService;
+import com.pdabrowski.WeatherApp.service.MeasurementStationService;
 import com.pdabrowski.WeatherApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,8 +44,11 @@ public class AuthController {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final MeasurementStationService measurementStationService;
+    private final EmployeeService employeeService;
+
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, CityService cityService, PasswordEncoder passwordEncoder, AccountDAO accountDAO, UserService userService, UserDetailsManager userDetailsManager, JwtUtil jwtUtil) {
+    public AuthController(EmployeeService employeeService, MeasurementStationService measurementStationService, AuthenticationManager authenticationManager, CityService cityService, PasswordEncoder passwordEncoder, AccountDAO accountDAO, UserService userService, UserDetailsManager userDetailsManager, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
         this.accountRepository = accountDAO;
         this.passwordEncoder = passwordEncoder;
@@ -53,6 +56,8 @@ public class AuthController {
         this.cityService = cityService;
         this.userDetailsManager = (JdbcUserDetailsManager) userDetailsManager;
         this.jwtUtil = jwtUtil;
+        this.measurementStationService = measurementStationService;
+        this.employeeService = employeeService;
     }
 
     @PostMapping("/register")
@@ -120,12 +125,12 @@ public class AuthController {
             Map<String, Object> body = new HashMap<>();
             body.put("jwtToken", token);
 
-            User existingUser = userService.getUserById(email).orElse(null);
-            if (existingUser == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found.");
-            }
+//            User existingUser = userService.getUserById(email).orElse(null);
+//            if (existingUser == null) {
+//                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found.");
+//            }
 
-            body.put("user", existingUser);
+            body.put("user", email);
             body.put("roles", roles);
 
             System.out.println(token);
@@ -136,6 +141,53 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed.");
         }
     }
+
+    @PostMapping("/register/employee")
+//    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<?> registerEmployee(@RequestBody Map<String, String> registrationData) {
+        System.out.println("in register method");
+        MeasurementStation existingStation = measurementStationService.getStationById(Integer.parseInt(registrationData.get("stationId"))).orElse(null);
+        if (existingStation == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Station not found.");
+        }
+
+        String name = registrationData.get("name");
+        String lastName = registrationData.get("lastName");
+        String address = registrationData.get("address");
+        String email = registrationData.get("emailAddress");
+        String phoneNumber = registrationData.get("phoneNumber");
+        String password = registrationData.get("password");
+
+        UserDetails newUserDetails = org.springframework.security.core.userdetails.User.builder()
+                .username(email)
+                .password(passwordEncoder.encode(password))
+                .roles("EMPLOYEE")
+                .build();
+
+        userDetailsManager.createUser(newUserDetails);
+
+        Account savedAccount = accountRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Account not found after creation"));
+
+        Employee employee = new Employee();
+        employee.setEmployeeId(savedAccount.getAccountId());
+        employee.setAccount(savedAccount);
+        employee.setName(name);
+        employee.setLastName(lastName);
+        employee.setAddress(address);
+        employee.setPhoneNumber(Integer.parseInt(phoneNumber));
+        employee.setMeasurementStation(existingStation);
+        existingStation.addEmployee(employee);
+
+        employeeService.saveEmployee(employee);
+
+        List<String> roles = Collections.singletonList("ROLE_EMPLOYEE");
+        String token = jwtUtil.generateToken(email, roles);
+
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+
 }
 
 

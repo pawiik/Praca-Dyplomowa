@@ -51,4 +51,29 @@ public class MeasurementStationRestController {
         return null;
     }
 
+    @PutMapping("/")
+    public MeasurementStation modifyMeasurementStation(@RequestBody Map<String, String> data){
+        City existingCity = cityService.getCityById(Integer.parseInt(data.get("cityId"))).orElse(null);
+        MeasurementStation station = measurementStationService.getStationById(Integer.parseInt(data.get("stationId"))).orElse(null);
+
+        if(existingCity != null && station != null){
+            station.setAddress(data.get("address"));
+            station.setRegionId(existingCity.getRegion().getRegionId());
+
+            existingCity.addMeasurementStation(station);
+            cityService.saveCity(existingCity);
+
+            return measurementStationService.saveStation(station);
+        }
+
+        return null;
+    }
+
+    @DeleteMapping("/{stationId}")
+    public void deleteMeasurementStation(@PathVariable String stationId){
+        MeasurementStation station = measurementStationService.getStationById(Integer.parseInt(stationId)).orElse(null);
+
+        measurementStationService.deleteStation(station);
+    }
+
 }

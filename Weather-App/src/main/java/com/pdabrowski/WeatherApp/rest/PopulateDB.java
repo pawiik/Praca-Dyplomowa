@@ -1,8 +1,15 @@
 package com.pdabrowski.WeatherApp.rest;
 
+import com.pdabrowski.WeatherApp.dao.AccountDAO;
 import com.pdabrowski.WeatherApp.entity.*;
+import com.pdabrowski.WeatherApp.security.JwtUtil;
 import com.pdabrowski.WeatherApp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,17 +32,37 @@ public class PopulateDB {
     FallService fallService;
     AlertService alertService;
 
+    private final AuthenticationManager authenticationManager;
+    private final AccountDAO accountRepository;
+
+    private final UserService userService;
+
+    private final JdbcUserDetailsManager userDetailsManager;
+
+    private final JwtUtil jwtUtil;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final EmployeeService employeeService;
+
     @Autowired
     public PopulateDB(RegionService regionService,
                       CityService cityService,
                       MeasurementStationService measurementStationService,
                       FallService fallService,
-                      AlertService alertService){
+                      AlertService alertService, AuthenticationManager authenticationManager, AccountDAO accountRepository, UserService userService, JdbcUserDetailsManager userDetailsManager, JwtUtil jwtUtil, PasswordEncoder passwordEncoder, EmployeeService employeeService){
         this.regionService = regionService;
         this.cityService = cityService;
         this.measurementStationService = measurementStationService;
         this.fallService = fallService;
         this.alertService = alertService;
+        this.authenticationManager = authenticationManager;
+        this.accountRepository = accountRepository;
+        this.userService = userService;
+        this.userDetailsManager = userDetailsManager;
+        this.jwtUtil = jwtUtil;
+        this.passwordEncoder = passwordEncoder;
+        this.employeeService = employeeService;
     }
 
     @GetMapping("/")
@@ -132,6 +159,17 @@ public class PopulateDB {
                 System.out.println("Region not found for ID: " + i);
             }
         }
+
+        UserDetails newUserDetails = org.springframework.security.core.userdetails.User.builder()
+                .username("admin")
+                .password(passwordEncoder.encode("Admin"))
+                .roles("ADMIN")
+                .build();
+
+        userDetailsManager.createUser(newUserDetails);
+
+        Account savedAccount = accountRepository.findByEmail("admin")
+                .orElseThrow(() -> new UsernameNotFoundException("Account not found after creation"));
 
     }
 }

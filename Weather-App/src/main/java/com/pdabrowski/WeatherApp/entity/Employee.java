@@ -15,7 +15,7 @@ public class Employee {
     @Column(name = "employee_id")
     private String employeeId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id", referencedColumnName = "account_id")
     private Account account;
 
@@ -45,13 +45,22 @@ public class Employee {
         this.address = address;
     }
 
-//    public int getEmployeeId() {
-//        return employeeId;
-//    }
-//
-//    public void setEmployeeId(int employeeId) {
-//        this.employeeId = employeeId;
-//    }
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 
     public MeasurementStation getMeasurementStation() {
         return measurementStation;
