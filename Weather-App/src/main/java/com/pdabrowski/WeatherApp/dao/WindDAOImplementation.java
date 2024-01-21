@@ -1,9 +1,6 @@
 package com.pdabrowski.WeatherApp.dao;
 
-import com.pdabrowski.WeatherApp.entity.City;
-import com.pdabrowski.WeatherApp.entity.MeasurementStation;
-import com.pdabrowski.WeatherApp.entity.UV;
-import com.pdabrowski.WeatherApp.entity.Wind;
+import com.pdabrowski.WeatherApp.entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -68,6 +65,32 @@ public class WindDAOImplementation implements WindDAO{
         List<Wind> measurements = query.getResultList();
 
         return Optional.of(measurements);
+    }
+
+    @Override
+    public Optional<List<Wind>> findByTimePeriod(Instant startTime, Instant endTime, Integer regionId) {
+        String queryStr = "SELECT f FROM Wind f " +
+                "JOIN f.measurementStation s " +
+                "JOIN s.city c " +
+                "JOIN c.region r " +
+                "WHERE f.time BETWEEN :startTime AND :endTime AND r.id = :regionId";
+
+
+        String hql = "SELECT f FROM Fall f " +
+                "JOIN f.measurementStation ms " +
+                "WHERE ms.city.id = :cityId";
+
+        TypedQuery<Wind> query = entityManager.createQuery(queryStr, Wind.class);
+        query.setParameter("startTime", startTime);
+        query.setParameter("endTime", endTime);
+        query.setParameter("regionId", regionId);
+
+        System.out.println("query");
+        System.out.println(query.getResultList());
+        System.out.println("af");
+        return Optional.ofNullable(entityManager.createQuery(hql, Wind.class)
+                .setParameter("cityId", regionId)
+                .getResultList());
     }
 
     @Override

@@ -83,6 +83,11 @@ public class UVServiceImplementation implements UVService{
     }
 
     @Override
+    public Optional<List<UV>> getByTimePeriod(Instant startTime, Instant endTime, Integer regionId) {
+        return this.uvDao.findByTimePeriod(startTime, endTime, regionId);
+    }
+
+    @Override
     public Optional<UV> getLastFromCity(Integer cityId) {
         UV lastFall = this.uvDao.getLast(cityId).orElse(null);
         return Optional.ofNullable(lastFall);

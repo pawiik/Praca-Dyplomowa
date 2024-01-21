@@ -86,4 +86,31 @@ public class TemperatureRestController {
         return data;
     }
 
+    @PostMapping("/time")
+    public List<Temperature> getByTimePeriod(@RequestBody Map<String, String> data) {
+        System.out.println("here i am");
+        System.out.println();
+        System.out.println(data.get("regionId"));
+        System.out.println("a");
+        Integer regionId = Integer.parseInt(data.get("regionId"));
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime start = LocalDateTime.parse(data.get("startTime"), formatter);
+        Instant startTime = start.toInstant(ZoneOffset.UTC);
+
+        LocalDateTime end = LocalDateTime.parse(data.get("endTime"), formatter);
+        Instant endTime = end.toInstant(ZoneOffset.UTC);
+        System.out.println("start " + startTime);
+        System.out.println("end " + endTime);
+        List<Temperature> falls = this.temperatureService.getByTimePeriod(startTime, endTime, regionId).orElse(null);
+
+        if (falls != null) {
+
+            return falls;
+        } else {
+            System.out.println("no falls");
+            return null;
+        }
+    }
 }

@@ -65,27 +65,25 @@ public class FallDAOImplementation implements FallDAO{
         String queryStr = "SELECT f FROM Fall f " +
                 "JOIN f.measurementStation s " +
                 "JOIN s.city c " +
-                "JOIN c.regionId r " +
-//                "WHERE f.time BETWEEN :startTime AND :endTime " +
-                "WHERE r.id = :regionId";
+                "JOIN c.region r " +
+                "WHERE f.time BETWEEN :startTime AND :endTime AND r.id = :regionId";
+
 
         String hql = "SELECT f FROM Fall f " +
                 "JOIN f.measurementStation ms " +
                 "WHERE ms.city.id = :cityId";
 
         TypedQuery<Fall> query = entityManager.createQuery(queryStr, Fall.class);
-//        query.setParameter("startTime", startTime);
-//        query.setParameter("endTime", endTime);
+        query.setParameter("startTime", startTime);
+        query.setParameter("endTime", endTime);
         query.setParameter("regionId", regionId);
 
         System.out.println("query");
         System.out.println(query.getResultList());
         System.out.println("af");
-//        return Optional.of(query.getResultList());
         return Optional.ofNullable(entityManager.createQuery(hql, Fall.class)
                 .setParameter("cityId", regionId)
                 .getResultList());
-//        return Optional.ofNullable(query.getResultList());
     }
 
     @Override

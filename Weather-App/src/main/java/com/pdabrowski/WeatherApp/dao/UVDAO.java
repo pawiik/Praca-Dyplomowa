@@ -1,5 +1,6 @@
 package com.pdabrowski.WeatherApp.dao;
 
+import com.pdabrowski.WeatherApp.entity.Fall;
 import com.pdabrowski.WeatherApp.entity.Humidity;
 import com.pdabrowski.WeatherApp.entity.UV;
 
@@ -15,6 +16,8 @@ public interface UVDAO {
     void delete(UV uv);
 
     Optional<List<UV>> getAllFromCityDay(Integer cityId, Instant date) throws ParseException;
+
+    Optional<List<UV>> findByTimePeriod(Instant startTime, Instant endTime, Integer regionId);
 
     Optional<UV> getLast(Integer cityId);
 

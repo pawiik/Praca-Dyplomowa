@@ -53,6 +53,32 @@ public class TemperatureDAOImplementation implements TemperatureDAO{
     }
 
     @Override
+    public Optional<List<Temperature>> findByTimePeriod(Instant startTime, Instant endTime, Integer regionId) {
+        String queryStr = "SELECT f FROM Wind f " +
+                "JOIN f.measurementStation s " +
+                "JOIN s.city c " +
+                "JOIN c.region r " +
+                "WHERE f.time BETWEEN :startTime AND :endTime AND r.id = :regionId";
+
+
+        String hql = "SELECT f FROM Fall f " +
+                "JOIN f.measurementStation ms " +
+                "WHERE ms.city.id = :cityId";
+
+        TypedQuery<Temperature> query = entityManager.createQuery(queryStr, Temperature.class);
+        query.setParameter("startTime", startTime);
+        query.setParameter("endTime", endTime);
+        query.setParameter("regionId", regionId);
+
+        System.out.println("query");
+        System.out.println(query.getResultList());
+        System.out.println("af");
+        return Optional.ofNullable(entityManager.createQuery(hql, Temperature.class)
+                .setParameter("cityId", regionId)
+                .getResultList());
+    }
+
+    @Override
     @Transactional
     public Optional<List<Temperature>> getAllFromCityDay(Integer cityId, Instant date) throws ParseException {
 

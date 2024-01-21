@@ -15,5 +15,7 @@ public interface TemperatureService {
 
     Optional<Map<Integer, Double>> getByDay(Instant day, Integer cityId) throws ParseException;
 
+    Optional<List<Temperature>> getByTimePeriod(Instant startTime, Instant endTime, Integer regionId);
+
     Optional<Temperature> getLastFromCity(Integer cityId);
 }

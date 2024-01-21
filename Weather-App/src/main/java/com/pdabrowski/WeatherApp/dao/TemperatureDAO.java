@@ -14,6 +14,9 @@ public interface TemperatureDAO {
     List<Temperature> findAll();
     void delete(Temperature temperature);
 
+    Optional<List<Temperature>> findByTimePeriod(Instant startTime, Instant endTime, Integer regionId);
+
+
     Optional<List<Temperature>> getAllFromCityDay(Integer cityId, Instant date) throws ParseException;
 
     Optional<Temperature> getLast(Integer cityId);

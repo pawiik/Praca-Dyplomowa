@@ -1,9 +1,6 @@
 package com.pdabrowski.WeatherApp.dao;
 
-import com.pdabrowski.WeatherApp.entity.City;
-import com.pdabrowski.WeatherApp.entity.Humidity;
-import com.pdabrowski.WeatherApp.entity.MeasurementStation;
-import com.pdabrowski.WeatherApp.entity.Temperature;
+import com.pdabrowski.WeatherApp.entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -74,6 +71,32 @@ public class HumidityDAOImplementation implements HumidityDAO{
         System.out.println(measurements);
 
         return Optional.of(measurements);
+    }
+
+    @Override
+    public Optional<List<Humidity>> findByTimePeriod(Instant startTime, Instant endTime, Integer regionId) {
+        String queryStr = "SELECT f FROM Humidity f " +
+                "JOIN f.measurementStation s " +
+                "JOIN s.city c " +
+                "JOIN c.region r " +
+                "WHERE f.time BETWEEN :startTime AND :endTime AND r.id = :regionId";
+
+
+        String hql = "SELECT f FROM Humidity f " +
+                "JOIN f.measurementStation ms " +
+                "WHERE ms.city.id = :cityId";
+
+        TypedQuery<Humidity> query = entityManager.createQuery(queryStr, Humidity.class);
+        query.setParameter("startTime", startTime);
+        query.setParameter("endTime", endTime);
+        query.setParameter("regionId", regionId);
+
+        System.out.println("query");
+        System.out.println(query.getResultList());
+        System.out.println("af");
+        return Optional.ofNullable(entityManager.createQuery(hql, Humidity.class)
+                .setParameter("cityId", regionId)
+                .getResultList());
     }
 
     @Override

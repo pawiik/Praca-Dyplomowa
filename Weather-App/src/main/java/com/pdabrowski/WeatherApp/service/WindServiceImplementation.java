@@ -83,6 +83,11 @@ public class WindServiceImplementation implements WindService{
     }
 
     @Override
+    public Optional<List<Wind>> getByTimePeriod(Instant startTime, Instant endTime, Integer regionId) {
+        return this.windDao.findByTimePeriod(startTime, endTime, regionId);
+    }
+
+    @Override
     public Optional<Wind> getLastFromCity(Integer cityId) {
         Wind lastFall = this.windDao.getLast(cityId).orElse(null);
         return Optional.ofNullable(lastFall);

@@ -1,5 +1,6 @@
 package com.pdabrowski.WeatherApp.service;
 
+import com.pdabrowski.WeatherApp.entity.Fall;
 import com.pdabrowski.WeatherApp.entity.Humidity;
 import com.pdabrowski.WeatherApp.entity.Temperature;
 
@@ -15,6 +16,8 @@ public interface HumidityService {
     List<Humidity> getAllHumidities();
     void deleteHumidity(Humidity humidity);
     Optional<Map<Integer, Double>> getByDay(Instant day, Integer cityId) throws ParseException;
+
+    Optional<List<Humidity>> getByTimePeriod(Instant startTime, Instant endTime, Integer regionId);
 
     Optional<Humidity> getLastFromCity(Integer cityId);
 }

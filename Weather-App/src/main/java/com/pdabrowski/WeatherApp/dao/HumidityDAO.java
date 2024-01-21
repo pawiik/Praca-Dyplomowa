@@ -16,6 +16,8 @@ public interface HumidityDAO {
     void delete(Humidity humidity);
     Optional<List<Humidity>> getAllFromCityDay(Integer cityId, Instant date) throws ParseException;
 
+    Optional<List<Humidity>> findByTimePeriod(Instant startTime, Instant endTime, Integer regionId);
+
     Optional<Humidity> getLast(Integer cityId);
 
 }

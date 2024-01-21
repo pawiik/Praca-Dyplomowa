@@ -1,10 +1,14 @@
 package com.pdabrowski.WeatherApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "alert")
@@ -43,6 +47,26 @@ public class Alert {
         this.alertType = alertType;
     }
 
+    @JsonProperty("region")
+    public Map<String, Object> getRegionDetails() {
+        Map<String, Object> regionDetails = new HashMap<>();
+        if (region != null) {
+            regionDetails.put("regionId", region.getRegionId());
+            regionDetails.put("name", region.getName());
+        }
+        return regionDetails;
+    }
+
+    @JsonIgnore
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+
     @Override
     public String toString() {
         return "Alert{" +
@@ -55,9 +79,7 @@ public class Alert {
                 '}';
     }
 
-    public void setRegion(Region region) {
-        this.region = region;
-    }
+
 
     public int getAlertId() {
         return alertId;
@@ -83,9 +105,6 @@ public class Alert {
         this.endTime = endTime;
     }
 
-    public Region getRegion() {
-        return region;
-    }
 
     public String getMessage() {
         return message;

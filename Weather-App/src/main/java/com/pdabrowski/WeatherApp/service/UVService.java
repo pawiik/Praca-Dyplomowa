@@ -1,4 +1,5 @@
 package com.pdabrowski.WeatherApp.service;
+import com.pdabrowski.WeatherApp.entity.Fall;
 import com.pdabrowski.WeatherApp.entity.Humidity;
 import com.pdabrowski.WeatherApp.entity.UV;
 
@@ -14,6 +15,8 @@ public interface UVService {
     void deleteUV(UV uv);
 
     Optional<Map<Integer, Double>> getByDay(Instant day, Integer cityId) throws ParseException;
+
+    Optional<List<UV>> getByTimePeriod(Instant startTime, Instant endTime, Integer regionId);
 
     Optional<UV> getLastFromCity(Integer cityId);
 }

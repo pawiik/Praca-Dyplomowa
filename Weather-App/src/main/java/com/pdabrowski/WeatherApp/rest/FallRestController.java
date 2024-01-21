@@ -53,7 +53,7 @@ public class FallRestController {
         MeasurementStation existingMeasurementStation = measurementStationService.getStationById(Integer.parseInt(data.get("measurementStationId"))).orElse(null);
 
         if(existingMeasurementStation != null){
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime localDateTime = LocalDateTime.parse(data.get("time"), formatter);
             Instant time = localDateTime.toInstant(ZoneOffset.UTC);
 
@@ -77,9 +77,7 @@ public class FallRestController {
         System.out.println("a");
         Integer regionId = Integer.parseInt(data.get("regionId"));
 
-//        Region existingRegion = this.regionService.getRegionById(regionId);
-//
-//        if(existingRegion != null){
+
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
             LocalDateTime start = LocalDateTime.parse(data.get("startTime"), formatter);
@@ -90,7 +88,7 @@ public class FallRestController {
             System.out.println("start " + startTime);
             System.out.println("end " + endTime);
             List<Fall> falls = this.fallService.getByTimePeriod(startTime, endTime, regionId).orElse(null);
-//            System.out.println(falls);
+
             if(falls != null){
 
                 return falls;

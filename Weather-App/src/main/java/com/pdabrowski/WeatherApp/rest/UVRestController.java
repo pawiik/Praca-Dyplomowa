@@ -1,9 +1,6 @@
 package com.pdabrowski.WeatherApp.rest;
 
-import com.pdabrowski.WeatherApp.entity.Humidity;
-import com.pdabrowski.WeatherApp.entity.MeasurementStation;
-import com.pdabrowski.WeatherApp.entity.Temperature;
-import com.pdabrowski.WeatherApp.entity.UV;
+import com.pdabrowski.WeatherApp.entity.*;
 import com.pdabrowski.WeatherApp.service.MeasurementStationService;
 import com.pdabrowski.WeatherApp.service.UVService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +86,34 @@ public class UVRestController {
         UV data = this.uvService.getLastFromCity(city).orElse(null);
 
         return data;
+    }
+
+    @PostMapping("/time")
+    public List<UV> getByTimePeriod(@RequestBody Map<String, String> data) {
+        System.out.println("here i am");
+        System.out.println();
+        System.out.println(data.get("regionId"));
+        System.out.println("a");
+        Integer regionId = Integer.parseInt(data.get("regionId"));
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime start = LocalDateTime.parse(data.get("startTime"), formatter);
+        Instant startTime = start.toInstant(ZoneOffset.UTC);
+
+        LocalDateTime end = LocalDateTime.parse(data.get("endTime"), formatter);
+        Instant endTime = end.toInstant(ZoneOffset.UTC);
+        System.out.println("start " + startTime);
+        System.out.println("end " + endTime);
+        List<UV> falls = this.uvService.getByTimePeriod(startTime, endTime, regionId).orElse(null);
+
+        if (falls != null) {
+
+            return falls;
+        } else {
+            System.out.println("no falls");
+            return null;
+        }
     }
 
 }

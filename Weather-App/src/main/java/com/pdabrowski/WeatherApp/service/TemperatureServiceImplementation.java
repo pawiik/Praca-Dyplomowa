@@ -83,6 +83,11 @@ public class TemperatureServiceImplementation implements TemperatureService {
     }
 
     @Override
+    public Optional<List<Temperature>> getByTimePeriod(Instant startTime, Instant endTime, Integer regionId) {
+        return this.temperatureDao.findByTimePeriod(startTime, endTime, regionId);
+    }
+
+    @Override
     public Optional<Temperature> getLastFromCity(Integer cityId) {
         Temperature lastFall = this.temperatureDao.getLast(cityId).orElse(null);
         return Optional.ofNullable(lastFall);

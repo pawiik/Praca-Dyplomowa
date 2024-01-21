@@ -84,6 +84,11 @@ public class HumidityServiceImplementation implements HumidityService{
     }
 
     @Override
+    public Optional<List<Humidity>> getByTimePeriod(Instant startTime, Instant endTime, Integer regionId) {
+        return this.humidityDao.findByTimePeriod(startTime, endTime, regionId);
+    }
+
+    @Override
     public Optional<Humidity> getLastFromCity(Integer cityId) {
         Humidity lastFall = this.humidityDao.getLast(cityId).orElse(null);
         return Optional.ofNullable(lastFall);

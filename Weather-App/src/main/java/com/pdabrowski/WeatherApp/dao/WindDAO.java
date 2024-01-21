@@ -1,5 +1,6 @@
 package com.pdabrowski.WeatherApp.dao;
 
+import com.pdabrowski.WeatherApp.entity.Fall;
 import com.pdabrowski.WeatherApp.entity.UV;
 import com.pdabrowski.WeatherApp.entity.Wind;
 
@@ -17,6 +18,8 @@ public interface WindDAO {
     void delete(Wind wind);
 
     Optional<List<Wind>> getAllFromCityDay(Integer cityId, Instant date) throws ParseException;
+
+    Optional<List<Wind>> findByTimePeriod(Instant startTime, Instant endTime, Integer regionId);
 
     Optional<Wind> getLast(Integer cityId);
 
