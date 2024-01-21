@@ -32,7 +32,7 @@ export class MeasurementStationApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<MeasurementStation>(this.apiUrl + "/", options, body)
+    return this.httpClient.post<MeasurementStation>(this.apiUrl + "/", body, options)
   }
 
   public getStationById(body: {}): Observable<MeasurementStation>{

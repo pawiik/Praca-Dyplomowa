@@ -50,6 +50,6 @@ export class CityApiService {
       })
     }
 
-    return this.httpClient.post<City>(this.apiUrl + "/cities", options, body)
+    return this.httpClient.post<City>(this.apiUrl + "/cities", body, options)
   }
 }

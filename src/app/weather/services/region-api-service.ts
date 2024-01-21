@@ -52,7 +52,7 @@ export class RegionApiService {
         "Authorization": jwtToken,
       })
     }
-    return this.httpClient.post<Region>(this.apiUrl + "/", options, body)
+    return this.httpClient.post<Region>(this.apiUrl + "/", body, options)
 
   }
 
@@ -63,7 +63,7 @@ export class RegionApiService {
         "Authorization": jwtToken,
       })
     }
-    return this.httpClient.put<Region>(this.apiUrl + "/", options, body)
+    return this.httpClient.put<Region>(this.apiUrl + "/", body, options)
 
   }
 

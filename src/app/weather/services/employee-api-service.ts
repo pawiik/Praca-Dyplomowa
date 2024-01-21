@@ -42,6 +42,6 @@ export class EmployeeApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<Employee>(this.apiUrl + "/", options, body)
+    return this.httpClient.post<Employee>(this.apiUrl + "/", body, options)
   }
 }

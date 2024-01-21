@@ -31,7 +31,7 @@ export class FallApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<Fall>(this.apiUrl + "/", options, body)
+    return this.httpClient.post<Fall>(this.apiUrl + "/", body, options)
   }
 
   public loadByTimePeriod(body: {}): Observable<Fall[]>{

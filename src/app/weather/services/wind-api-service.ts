@@ -34,7 +34,7 @@ export class WindApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<Wind>(this.apiUrl + "/", options, body)
+    return this.httpClient.post<Wind>(this.apiUrl + "/", body, options)
   }
 
   public loadByTimePeriod(body: {}): Observable<Wind[]>{
@@ -44,7 +44,7 @@ export class WindApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<Wind[]>(this.apiUrl + "/time", options, body)
+    return this.httpClient.post<Wind[]>(this.apiUrl + "/time", body, options)
   }
 
   getDayData(date: string, cityId: string): Observable<Map<number, number>> {

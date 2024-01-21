@@ -33,7 +33,7 @@ export class HumidityApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<Humidity>(this.apiUrl + "/", options, body)
+    return this.httpClient.post<Humidity>(this.apiUrl + "/", body, options)
   }
 
   public loadByTimePeriod(body: {}): Observable<Humidity[]>{
@@ -43,7 +43,7 @@ export class HumidityApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<Humidity[]>(this.apiUrl + "/time", options, body)
+    return this.httpClient.post<Humidity[]>(this.apiUrl + "/time", body, options)
   }
 
   getDayData(date: string, cityId: string): Observable<Map<number, number>> {

@@ -33,7 +33,7 @@ export class UvApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<UV>(this.apiUrl + "/", options, body)
+    return this.httpClient.post<UV>(this.apiUrl + "/", body, options)
   }
 
   public loadByTimePeriod(body: {}): Observable<UV[]>{
@@ -43,7 +43,7 @@ export class UvApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<UV[]>(this.apiUrl + "/time", options, body)
+    return this.httpClient.post<UV[]>(this.apiUrl + "/time", body, options)
   }
 
   getDayData(date: string, cityId: string): Observable<Map<number, number>> {

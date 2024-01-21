@@ -33,7 +33,7 @@ export class TemperatureApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<Temperature>(this.apiUrl + "/", options, body)
+    return this.httpClient.post<Temperature>(this.apiUrl + "/", body, options)
   }
 
   public loadByTimePeriod(body: {}): Observable<Temperature[]>{
@@ -43,7 +43,7 @@ export class TemperatureApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.post<Temperature[]>(this.apiUrl + "/time", options, body)
+    return this.httpClient.post<Temperature[]>(this.apiUrl + "/time", body, options)
   }
 
   getDayData(date: string, cityId: string): Observable<Map<number, number>> {
