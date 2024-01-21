@@ -54,7 +54,7 @@ export class WindApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`);
+    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`, options);
   }
 
   getLast(cityId: string):Observable<Wind>{
@@ -64,6 +64,6 @@ export class WindApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.get<Wind>(`${this.apiUrl}/last?cityId=${cityId}`);
+    return this.httpClient.get<Wind>(`${this.apiUrl}/last?cityId=${cityId}`, options);
   }
 }

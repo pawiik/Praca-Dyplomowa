@@ -2,18 +2,18 @@
 <div class="login-container">
   <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="address">City Name:</label>
+      <label for="address">Address:</label>
       <input type="text" id="address" formControlName="address" name="address">
     </div>
     <div class="form-group">
-      <label for="cityId">Region:</label>
+      <label for="cityId">City:</label>
       <select id="cityId" formControlName="cityId" name="cityId">
         <option *ngFor="let city of cities" [value]="city.cityId">
           {{ city.cityName }}
         </option>
       </select>
     </div>
-    <button type="submit" [mat-dialog-close]="true">Submit</button>
+    <button class="login-button" type="submit" [mat-dialog-close]="true">Submit</button>
   </form>
 </div>
 

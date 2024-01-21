@@ -6,7 +6,7 @@
         <label >Region</label>
         <select id="id_oddzialu" [(ngModel)]="region" name="id_oddzialu">
           <option *ngFor="let unit of regions" [value]="unit.regionId">
-            {{ unit.regionId }}
+            {{ unit.name }}
           </option>
         </select>
 <!--        <input type="text" id="region" [(ngModel)]="region" placeholder="region" class="form-control" name="region">-->
@@ -41,7 +41,7 @@
   <table class="data-table">
     <thead>
     <tr>
-      <th>Region</th>
+      <th>Measurement station id</th>
       <th>Date</th>
       <th>Value</th>
       <th>Markers</th>

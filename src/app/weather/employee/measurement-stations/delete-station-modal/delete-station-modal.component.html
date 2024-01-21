@@ -1,1 +1,4 @@
-<p>delete-station-modal works!</p>
+<div mat-dialog-actions>
+  <button mat-button class="custom-close-button" mat-dialog-close>Abort</button>
+  <button mat-button color="primary" (click)="submit()" [mat-dialog-close]="true">Confirm</button>
+</div>

@@ -36,14 +36,14 @@ export class FallApiService {
 
   public loadByTimePeriod(body: {}): Observable<Fall[]>{
     let jwtToken: string = this.authService.authData.jwtToken
-    // let options: {} = {
-    //   headers: new HttpHeaders({
-    //     "Authorization": jwtToken
-    //   })
-    // }
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken
+      })
+    }
 
     console.log(body)
-    return this.httpClient.post<Fall[]>(this.apiUrl + "/time", body)
+    return this.httpClient.post<Fall[]>(this.apiUrl + "/time", body, options)
   }
 
   getDayData(date: string, cityId: string): Observable<Map<number, number>> {
@@ -53,7 +53,7 @@ export class FallApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`);
+    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`, options);
   }
 
   getLast(cityId: string):Observable<Fall>{
@@ -63,7 +63,7 @@ export class FallApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.get<Fall>(`${this.apiUrl}/last?cityId=${cityId}`);
+    return this.httpClient.get<Fall>(`${this.apiUrl}/last?cityId=${cityId}`, options);
   }
 
 }

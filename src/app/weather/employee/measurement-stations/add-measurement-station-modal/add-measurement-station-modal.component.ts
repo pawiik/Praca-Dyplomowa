@@ -42,6 +42,6 @@ export class AddMeasurementStationModalComponent {
   onSubmit(){
     console.log(this.form.value)
 
-    this.stationService.addNewHumidity(this.form.value).subscribe(response => console.log(response))
+    this.stationService.addNewMeasurementStation(this.form.value).subscribe(response => console.log(response))
   }
 }

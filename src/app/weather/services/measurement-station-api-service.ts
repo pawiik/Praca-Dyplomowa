@@ -4,6 +4,7 @@ import {AuthService} from "./auth-service";
 import {Observable} from "rxjs";
 import {Humidity} from "../../shared/model/Humidity";
 import {MeasurementStation} from "../../shared/model/MeasurementStation";
+import {City} from "../../shared/model/City";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class MeasurementStationApiService {
   constructor(private httpClient: HttpClient, private authService: AuthService) {
   }
 
-  public getAllHumidity(): Observable<MeasurementStation[]> {
+  public getAllMeasurementStations(): Observable<MeasurementStation[]> {
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
       headers: new HttpHeaders({
@@ -25,7 +26,7 @@ export class MeasurementStationApiService {
     return this.httpClient.get<MeasurementStation[]>(this.apiUrl + "/stations", options);
   }
 
-  public addNewHumidity(body: {}): Observable<MeasurementStation> {
+  public addNewMeasurementStation(body: {}): Observable<MeasurementStation> {
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
       headers: new HttpHeaders({
@@ -44,4 +45,27 @@ export class MeasurementStationApiService {
     }
     return this.httpClient.get<MeasurementStation>(this.apiUrl + "/stations", options);
   }
+
+  public modifyMeasurementStation(body:{}){
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+
+    return this.httpClient.put<City>(this.apiUrl + "/", body, options)
+  }
+
+  public deleteMeasurementStation(stationId: string){
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+
+    return this.httpClient.delete<City>( `${this.apiUrl}/?stationId=${stationId}`, options)
+  }
+
 }

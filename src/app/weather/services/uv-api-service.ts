@@ -53,7 +53,7 @@ export class UvApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`);
+    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`, options);
   }
 
   getLast(cityId: string):Observable<UV>{
@@ -63,6 +63,6 @@ export class UvApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.get<UV>(`${this.apiUrl}/last?cityId=${cityId}`);
+    return this.httpClient.get<UV>(`${this.apiUrl}/last?cityId=${cityId}`, options);
   }
 }

@@ -1,1 +1,21 @@
-<p>modify-station-modal works!</p>
+<h1 mat-dialog-title id="exampleModalLabel">Modify City: {{data.stationId}}</h1>
+<div class="login-container">
+  <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-group" >
+      <label for="address">City Name:</label>
+      <input type="text" id="address"  formControlName="address" required>
+    </div>
+
+    <div class="form-group">
+      <label for="cityId">Region</label>
+      <select id="cityId" formControlName="cityId">
+        <option *ngFor="let city of cities" [value]="city.cityId">
+          {{ city.cityName }}
+        </option>
+      </select>
+    </div>
+    <button type="submit" class="login-button" [mat-dialog-close]="true">Updade data</button>
+  </form>
+</div>
+

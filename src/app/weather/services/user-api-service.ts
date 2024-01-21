@@ -16,8 +16,13 @@ export class UserApiService {
 
   getUserInformation(userId: string){
     let address = this.apiUrl + '/' + userId
-    console.log(address)
-    return this.httpClient.get<User>(address);
+    let jwtToken = this.authService.authData.jwtToken
+    let options = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+    return this.httpClient.get<User>(address, options);
 
   }
 

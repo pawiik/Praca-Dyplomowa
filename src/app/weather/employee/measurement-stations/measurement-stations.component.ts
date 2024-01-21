@@ -27,7 +27,7 @@ export class MeasurementStationsComponent {
 
 
   loadStations(){
-    this.measurementStationService.getAllHumidity().subscribe(response => this.stations = response)
+    this.measurementStationService.getAllMeasurementStations().subscribe(response => this.stations = response)
   }
 
   openAddModal(){
@@ -36,8 +36,10 @@ export class MeasurementStationsComponent {
       panelClass: 'custom-mat-dialog-container',
     });
 
-    dialogRef.afterClosed().subscribe();
-    this.loadStations()
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadStations()
+
+    });
 
   }
 
@@ -48,8 +50,9 @@ export class MeasurementStationsComponent {
       data: station
     });
 
-    dialogRef.afterClosed().subscribe();
-    this.loadStations()
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadStations()
+    });
   }
 
   openDeleteModal(station: MeasurementStation){
@@ -60,6 +63,9 @@ export class MeasurementStationsComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.measurementStationService.deleteMeasurementStation(station.stationId.toString())
+      this.loadStations()
+
     });
   }
 

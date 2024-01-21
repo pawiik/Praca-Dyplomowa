@@ -53,7 +53,7 @@ export class TemperatureApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`);
+    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`, options);
   }
 
   getLast(cityId: string):Observable<Temperature>{
@@ -63,6 +63,6 @@ export class TemperatureApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.get<Temperature>(`${this.apiUrl}/last?cityId=${cityId}`);
+    return this.httpClient.get<Temperature>(`${this.apiUrl}/last?cityId=${cityId}`, options);
   }
 }

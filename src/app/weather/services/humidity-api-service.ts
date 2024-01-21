@@ -53,7 +53,7 @@ export class HumidityApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`);
+    return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`, options);
   }
 
   getLast(cityId: string):Observable<Humidity>{
@@ -63,6 +63,6 @@ export class HumidityApiService {
         "Authorization": jwtToken
       })
     }
-    return this.httpClient.get<Humidity>(`${this.apiUrl}/last?cityId=${cityId}`);
+    return this.httpClient.get<Humidity>(`${this.apiUrl}/last?cityId=${cityId}`, options);
   }
 }
