@@ -1,1 +1,19 @@
-<p>add-measurement-station-modal works!</p>
+<h1 mat-dialog-title id="exampleModalLabel">Add new measurement station</h1>
+<div class="login-container">
+  <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="address">City Name:</label>
+      <input type="text" id="address" formControlName="address" name="address">
+    </div>
+    <div class="form-group">
+      <label for="cityId">Region:</label>
+      <select id="cityId" formControlName="cityId" name="cityId">
+        <option *ngFor="let city of cities" [value]="city.cityId">
+          {{ city.cityName }}
+        </option>
+      </select>
+    </div>
+    <button type="submit" [mat-dialog-close]="true">Submit</button>
+  </form>
+</div>
+

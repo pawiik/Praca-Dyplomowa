@@ -1,4 +1,4 @@
-<h1 mat-dialog-title id="exampleModalLabel">Modify alert: {{data.alertId}}</h1>
+<h1 mat-dialog-title id="exampleModalLabel">Modify City: {{data.cityName}}</h1>
 <div class="login-container">
   <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
 
@@ -16,10 +16,7 @@
       </select>
     </div>
 
-    <button type="submit" class="login-button">Updade data</button>
+    <button type="submit" class="login-button" [mat-dialog-close]="true">Updade data</button>
   </form>
 </div>
-<div mat-dialog-actions>
-  <button mat-button class="custom-close-button" mat-dialog-close>Close</button>
-  <button mat-button color="primary" [mat-dialog-close]="true">Save changes</button>
-</div>
+

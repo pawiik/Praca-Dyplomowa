@@ -21,6 +21,10 @@
 .navbar-button button {
   padding: 10px 20px;
   cursor: pointer;
+  border: none;
+  margin: 0 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
 .navbar-spacer {

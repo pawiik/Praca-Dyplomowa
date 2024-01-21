@@ -1,10 +1,8 @@
 <div class="con">
   <div class="component-container">
     <div class="header-section">
-      <button class="header-button" (click)="openAddCityModal()">Add Alert</button>
-<!--      <button class="header-button" (click)="openModifyModal()">Modify Alert</button>-->
-<!--      <button class="header-button" (click)="openDeleteModal()">Delete Alert</button>-->
-      <p>Some introductory text or message here.</p>
+      <button class="header-button" (click)="openAddCityModal()">Add City</button>
+
     </div>
     <table class="data-table">
       <tr>
@@ -18,8 +16,8 @@
         <td>{{city.cityName}}</td>
         <td>{{city.region.name}}</td>
         <td>
-          <button (click)="openModifyCityModal(city)">Modify</button>
-          <button>Delete</button>
+          <button class="header-button" (click)="openModifyCityModal(city)">Modify</button>
+          <button class="header-button" (click)="openDeleteModal(city)">Delete</button>
         </td>
       </tr>
     </table>

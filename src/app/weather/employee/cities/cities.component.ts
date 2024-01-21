@@ -6,6 +6,8 @@ import {AddAlertModalComponent} from "../../alerts/add-alert-modal/add-alert-mod
 import {AddCityModalComponent} from "./add-city-modal/add-city-modal.component";
 import {ModifyAlertModalComponent} from "../../alerts/modify-alert-modal/modify-alert-modal.component";
 import {ModifyCityModalComponent} from "./modify-city-modal/modify-city-modal.component";
+import {withHashLocation} from "@angular/router";
+import {DeleteCityModalComponent} from "./delete-city-modal/delete-city-modal.component";
 
 @Component({
   selector: 'app-cities',
@@ -32,6 +34,7 @@ export class CitiesComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.loadCities()
     });
   }
 
@@ -42,8 +45,25 @@ export class CitiesComponent {
       data: city
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(response => {
+      this.loadCities()
+      }
+    );
+
+  }
+
+  openDeleteModal(city: City){
+    const dialogRef = this.dialog.open(DeleteCityModalComponent, {
+      width: '40%',
+      panelClass: 'custom-mat-dialog-container',
+      data: city
     });
+
+    dialogRef.afterClosed().subscribe(response => {
+      this.cityService.deleteCity(city.cityId.toString()).subscribe()
+      this.loadCities()
+      }
+    );
   }
 
 }

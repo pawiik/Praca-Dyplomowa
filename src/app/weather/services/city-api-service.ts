@@ -52,4 +52,27 @@ export class CityApiService {
 
     return this.httpClient.post<City>(this.apiUrl + "/cities", body, options)
   }
+
+  public modifyCity(body:{}){
+    console.log(body)
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+
+    return this.httpClient.put<City>(this.apiUrl + "/", body, options)
+  }
+
+  public deleteCity(cityId: string){
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+
+    return this.httpClient.delete<City>( `${this.apiUrl}/?cityId=${cityId}`, options)
+  }
 }

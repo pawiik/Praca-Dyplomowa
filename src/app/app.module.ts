@@ -41,6 +41,9 @@ import { AdminComponent } from './weather/admin/admin.component';
 import { EmployeesComponent } from './weather/admin/employees/employees.component';
 import { AdminNavBarComponent } from './weather/nav-bar/admin-nav-bar/admin-nav-bar.component';
 import { ModifyCityModalComponent } from './weather/employee/cities/modify-city-modal/modify-city-modal.component';
+import { DeleteStationModalComponent } from './weather/employee/measurement-stations/delete-station-modal/delete-station-modal.component';
+import { ModifyStationModalComponent } from './weather/employee/measurement-stations/modify-station-modal/modify-station-modal.component';
+import { DeleteCityModalComponent } from './weather/employee/cities/delete-city-modal/delete-city-modal.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +79,10 @@ import { ModifyCityModalComponent } from './weather/employee/cities/modify-city-
     AdminComponent,
     EmployeesComponent,
     AdminNavBarComponent,
-    ModifyCityModalComponent
+    ModifyCityModalComponent,
+    DeleteStationModalComponent,
+    ModifyStationModalComponent,
+    DeleteCityModalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-<h1 mat-dialog-title id="exampleModalLabel">Add new alert</h1>
+<h1 mat-dialog-title id="exampleModalLabel">Add new city</h1>
 <div class="login-container">
   <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -13,10 +13,6 @@
         </option>
       </select>
     </div>
-    <button type="submit">Submit</button>
+    <button type="submit" [mat-dialog-close]="true">Submit</button>
   </form>
-</div>
-<div mat-dialog-actions>
-  <button mat-button class="custom-close-button" mat-dialog-close>Close</button>
-  <button mat-button color="primary" [mat-dialog-close]="true">Save changes</button>
 </div>

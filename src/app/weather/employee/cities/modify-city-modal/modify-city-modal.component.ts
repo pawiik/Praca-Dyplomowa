@@ -5,6 +5,7 @@ import {CityApiService} from "../../../services/city-api-service";
 import {RegionApiService} from "../../../services/region-api-service";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {Alert} from "../../../../shared/model/Alert";
+import {City} from "../../../../shared/model/City";
 
 @Component({
   selector: 'app-modify-city-modal',
@@ -16,7 +17,7 @@ export class ModifyCityModalComponent {
   form!: FormGroup;
   regions: Region[] = []
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Alert,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: City,
               private cityService: CityApiService,
               private regionService: RegionApiService) {
     this.loadRegions()
@@ -30,15 +31,20 @@ export class ModifyCityModalComponent {
 
   ngOnInit() {
     this.form = new FormGroup({
-      cityName: new FormControl("", Validators.required),
-      regionId: new FormControl(null, Validators.required),
+      cityName: new FormControl(this.data.cityName, Validators.required),
+      regionId: new FormControl(this.data.region.name, Validators.required),
     });
   }
 
 
   onSubmit(){
     console.log(this.form.value)
-
-    this.cityService.addNewCity(this.form.value).subscribe()
+    let cityId = this.data.cityId
+    let body = {
+      cityId: cityId,
+      cityName: this.form.value.cityName,
+      regionId: this.form.value.regionId
+    }
+    this.cityService.modifyCity(body).subscribe()
   }
 }

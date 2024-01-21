@@ -11,11 +11,16 @@
         <th>Station Id</th>
         <th>City</th>
         <th>Address</th>
+        <th></th>
       </tr>
       <tr *ngFor="let station of stations">
         <td>{{station.stationId}}</td>
         <td>{{station.city?.cityName}}</td>
         <td>{{station.address}}</td>
+        <td>
+          <button class="header-button" (click)="openModifyModal(station)">Modify</button>
+          <button class="header-button" (click)="openDeleteModal(station)">Delete</button>
+        </td>
       </tr>
     </table>
   </div>

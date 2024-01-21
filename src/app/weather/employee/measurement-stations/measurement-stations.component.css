@@ -134,3 +134,7 @@
   justify-content: center;
   z-index: 1050;
 }
+
+.buttons-space{
+  width: 10%
+}

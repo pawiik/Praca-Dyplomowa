@@ -4,9 +4,9 @@ import {User} from "./User";
 export class City {
   private _cityId: number;
   private _cityName: string;
-  private _region: Region; // Assuming 'Region' is another class you have defined
-  private _measurementStations: MeasurementStation[]; // Assuming 'MeasurementStation' is an array of another class or interface
-  private _users: User[]; // Assuming 'User' is an array of another class or interface
+  private _region: Region;
+  private _measurementStations: MeasurementStation[];
+  private _users: User[];
 
   constructor(
     cityId: number,
@@ -17,7 +17,7 @@ export class City {
   ) {
     this._cityId = cityId;
     this._cityName = cityName || '';
-    this._region = region || new Region(); // Replace with actual default if necessary
+    this._region = region || new Region();
     this._measurementStations = measurementStations || [];
     this._users = users || [];
   }
