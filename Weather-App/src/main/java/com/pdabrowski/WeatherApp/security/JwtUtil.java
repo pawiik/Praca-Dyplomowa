@@ -1,6 +1,7 @@
 package com.pdabrowski.WeatherApp.security;
 
 import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.pdabrowski.WeatherApp.entity.AccountType;
@@ -24,10 +25,11 @@ public class JwtUtil {
     private static final String SECRET_KEY = "your_secret_key";
 
 
-    public String generateToken(String username) {
+    public String generateToken(String username, List<String> roles) {
         return JWT.create()
                 .withSubject(username)
-                .withExpiresAt(new Date(System.currentTimeMillis() + 86400000)) // 24 hours validity
+                .withClaim("roles", roles)
+                .withExpiresAt(new Date(System.currentTimeMillis() + 86400000))
                 .sign(Algorithm.HMAC512(SECRET_KEY));
     }
 
@@ -38,6 +40,15 @@ public class JwtUtil {
             return jwt.getSubject();
         } catch (JWTVerificationException exception){
             return null;
+        }
+    }
+
+    public List<String> getRolesFromToken(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("roles").asList(String.class);
+        } catch (JWTDecodeException exception) {
+            return Collections.emptyList();
         }
     }
 }

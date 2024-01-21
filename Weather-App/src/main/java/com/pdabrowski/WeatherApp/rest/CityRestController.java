@@ -37,19 +37,6 @@ public class CityRestController {
 
     @PostMapping("/cities")
     public City addCity(@RequestBody Map<String, String> data){
-//        System.out.println(data);
-//        Region existingRegion = regionService.getRegionById(Integer.valueOf(data.get("regionId")));
-//
-//        City newCity = new City();
-//        newCity.setCityName(data.get("cityName"));
-//
-//        existingRegion.addCity(newCity);
-//
-//        City dbCity = cityService.saveCity(newCity);
-//
-////        regionService.saveRegion(existingRegion);
-//
-//        return dbCity;
 
         Region existingRegion = regionService.getRegionById(Integer.valueOf(data.get("regionId")));
 
@@ -62,6 +49,24 @@ public class CityRestController {
         regionService.saveRegion(existingRegion);
 
         return db;
+    }
+
+    @PutMapping("/")
+    public City modifyCity(@RequestBody Map<String, String> data){
+
+        City existingCity = cityService.getCityById(Integer.parseInt(data.get("cityId"))).orElse(null);
+        assert existingCity != null;
+        Region previousRegion = existingCity.getRegion();
+        String cityName = data.get("cityName");
+
+        Region newRegion = regionService.getRegionById(Integer.valueOf(data.get("regionId")));
+
+        existingCity.setCityName(cityName);
+        newRegion.addCity(existingCity);
+        existingCity.setRegion(newRegion);
+
+        return cityService.saveCity(existingCity);
+
     }
 
     @DeleteMapping("/{cityId}")

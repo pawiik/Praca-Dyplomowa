@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/auth")
@@ -77,7 +78,8 @@ public class AuthController {
 
         userDetailsManager.createUser(newUserDetails);
 
-        Account savedAccount = accountRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Account not found after creation"));
+        Account savedAccount = accountRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Account not found after creation"));
 
         com.pdabrowski.WeatherApp.entity.User newUser = new com.pdabrowski.WeatherApp.entity.User();
         newUser.setUserId(savedAccount.getAccountId());
@@ -91,9 +93,8 @@ public class AuthController {
 
         userService.saveUser(newUser);
 
-        String token = jwtUtil.generateToken(newUser.toString());
-
-        System.out.println(newUser);
+        List<String> roles = Collections.singletonList("ROLE_USER");
+        String token = jwtUtil.generateToken(email, roles);
 
         return ResponseEntity.ok(new JwtResponse(token));
     }
@@ -107,28 +108,35 @@ public class AuthController {
 
         try {
             Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(email, password)
+                    new UsernamePasswordAuthenticationToken(email, password)
             );
 
-            String token = jwtUtil.generateToken(email);
+            List<String> roles = authentication.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+
+            String token = jwtUtil.generateToken(email, roles);
 
             Map<String, Object> body = new HashMap<>();
             body.put("jwtToken", token);
 
             User existingUser = userService.getUserById(email).orElse(null);
+            if (existingUser == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found.");
+            }
 
             body.put("user", existingUser);
-            List<GrantedAuthority> li = (List<GrantedAuthority>) authentication.getAuthorities();
-            body.put("role", li.get(0));
+            body.put("roles", roles);
+
             System.out.println(token);
             return ResponseEntity.ok().body(body);
 
         } catch (AuthenticationException e) {
-            System.out.println("Error");
+            System.out.println("Authentication Error: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed.");
         }
     }
-
-
 }
+
+
 

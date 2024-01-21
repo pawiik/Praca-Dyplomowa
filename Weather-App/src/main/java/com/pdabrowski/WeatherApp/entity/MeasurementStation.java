@@ -2,11 +2,14 @@ package com.pdabrowski.WeatherApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "measurement_station")
@@ -61,6 +64,25 @@ public class MeasurementStation {
     public MeasurementStation(String address, int regionId) {
         this.address = address;
         this.regionId = regionId;
+    }
+
+    @JsonProperty("city")
+    public Map<String, Object> getRegionDetails() {
+        Map<String, Object> regionDetails = new HashMap<>();
+        if (city != null) {
+            regionDetails.put("cityId", city.getCityId());
+            regionDetails.put("cityName", city.getCityName());
+        }
+        return regionDetails;
+    }
+
+    @JsonIgnore
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public void addEmployee(Employee newEmployee){
@@ -120,14 +142,6 @@ public class MeasurementStation {
         return stationId;
     }
 
-    public void setCity(City stationId) {
-        this.city = stationId;
-        System.out.println("dupa");
-    }
-
-    public City getCity() {
-        return city;
-    }
 
 //    public void setCityId(int cityId) {
 //        this.cityId = cityId;

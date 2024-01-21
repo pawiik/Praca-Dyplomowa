@@ -11,6 +11,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -50,20 +51,17 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(configurer ->
                         configurer
+                                .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
+                                .anyRequest().authenticated()
 
-                                .requestMatchers(HttpMethod.GET, "/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/**").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/**").permitAll()
+//                                .requestMatchers(HttpMethod.GET, "/**").permitAll()
+//                                .requestMatchers(HttpMethod.POST, "/**").permitAll()
+//                                .requestMatchers(HttpMethod.PUT, "/**").permitAll()
+//                                .requestMatchers(HttpMethod.DELETE, "/**").hasRole("EMPLOYEE")
 
-//                                .requestMatchers(HttpMethod.GET, "/api/employees/**").hasRole("EMPLOYEE")
-//                                .requestMatchers(HttpMethod.POST, "/api/employees").hasRole("MANAGER")
-//                                .requestMatchers(HttpMethod.PUT, "/api/employees").hasRole("MANAGER")
-//                                .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
                 )
-                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
-
-
-        ;
+                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
