@@ -22,18 +22,18 @@ public class Account {
     private String pwVarchar;
 
     @Column(name = "active")
-    private String active;  // Assuming 'active' is a string that indicates the status
+    private String active;
 
     @OneToMany(mappedBy = "account")
     private Set<com.pdabrowski.WeatherApp.entity.Role> roles;
 
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-    private User users;  // Collection of User entities related to this Account
+    private User users;
 
     // Assuming you're using bidirectional relationships
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
     private Employee employee;
-    // Getters and setters
+
 
     public String getAccountId() {
         return accountId;

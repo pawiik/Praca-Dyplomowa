@@ -26,16 +26,19 @@ public class Region {
     @Column(name = "name")
     private String name;
 
+//    @JsonIgnore
+    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    @OneToMany(mappedBy = "regionId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER)
     private List<City> cities;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "region", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER)
+
     private List<Alert> alerts;
 
-    @JsonIgnore
+//    @JsonIgnore
     @ManyToMany(mappedBy = "regions")
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
     public Region(){

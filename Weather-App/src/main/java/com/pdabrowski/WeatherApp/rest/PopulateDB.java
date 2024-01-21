@@ -72,7 +72,7 @@ public class PopulateDB {
 
             if (existingCity != null) {
                 MeasurementStation newStation = new MeasurementStation();
-                newStation.setAddress(stationAddresses.get(cityId - 1)); // Using cityId-1 since list indices start at 0
+                newStation.setAddress(stationAddresses.get(cityId - 1));
                 newStation.setRegionId(existingCity.getRegion().getRegionId());
 
                 existingCity.addMeasurementStation(newStation);
@@ -106,14 +106,12 @@ public class PopulateDB {
             }
         }
 
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime baseStart = LocalDateTime.of(2024, Month.JANUARY, 1, 0, 0);
-        LocalDateTime baseEnd = baseStart.plusHours(2); // Example end time, 2 hours after start
+        LocalDateTime baseEnd = baseStart.plusHours(2);
 
         for (int i = 1; i <= 10; i++) {
-            Region region = regionService.getRegionById(i); // Assuming regions 1-10 exist
+            Region region = regionService.getRegionById(i);
 
-            // Increment start and end times for each alert
             LocalDateTime start = baseStart.plusDays(i - 1);
             LocalDateTime end = baseEnd.plusDays(i - 1);
             Instant startTime = start.toInstant(ZoneOffset.UTC);

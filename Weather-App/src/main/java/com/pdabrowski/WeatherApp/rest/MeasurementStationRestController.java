@@ -43,6 +43,7 @@ public class MeasurementStationRestController {
             newStation.setRegionId(existingCity.getRegion().getRegionId());
 
             existingCity.addMeasurementStation(newStation);
+            cityService.saveCity(existingCity);
 
             return measurementStationService.saveStation(newStation);
         }

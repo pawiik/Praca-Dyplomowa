@@ -21,6 +21,7 @@ public class MeasurementStationDAOImplementation implements MeasurementStationDA
     }
 
     @Override
+    @Transactional
     public MeasurementStation save(MeasurementStation station) {
         return entityManager.merge(station);
     }

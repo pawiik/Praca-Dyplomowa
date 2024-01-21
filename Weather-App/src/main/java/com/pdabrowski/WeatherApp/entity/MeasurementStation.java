@@ -35,23 +35,23 @@ public class MeasurementStation {
     @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
     private List<Fall> fall;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
     private List<Humidity> humidity;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
     private List<Temperature> temperature;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
     private List<UV> uv;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
     private List<Wind> wind;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
     private List<Employee> employees;
 

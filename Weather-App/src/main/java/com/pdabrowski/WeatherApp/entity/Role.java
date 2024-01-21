@@ -21,7 +21,7 @@ public class Role {
 
     // Constructors, getters, and setters
     @ManyToOne
-    @JoinColumn(name = "account_id")  // This column should exist in your roles table
+    @JoinColumn(name = "account_id")
     private Account account;
     public Role() {
 

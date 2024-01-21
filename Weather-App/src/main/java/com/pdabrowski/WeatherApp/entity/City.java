@@ -2,11 +2,14 @@ package com.pdabrowski.WeatherApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "city")
@@ -25,13 +28,14 @@ public class City {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "region_id")
-    private Region regionId;
+//    @JsonIgnore
+    private Region region;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "city", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
     private List<MeasurementStation> measurementStations;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "city")
     private List<User> users;
 
@@ -58,6 +62,25 @@ public class City {
         theUser.setCity(this);
     }
 
+    @JsonProperty("region")
+    public Map<String, Object> getRegionDetails() {
+        Map<String, Object> regionDetails = new HashMap<>();
+        if (region != null) {
+            regionDetails.put("regionId", region.getRegionId());
+            regionDetails.put("name", region.getName());
+        }
+        return regionDetails;
+    }
+
+    @JsonIgnore
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
 
     public int getCityId() {
         return cityId;
@@ -75,20 +98,13 @@ public class City {
         this.cityName = cityName;
     }
 
-    public Region getRegion() {
-        return regionId;
-    }
-
-    public void setRegion(Region regionId) {
-        this.regionId = regionId;
-    }
 
     @Override
     public String toString() {
         return "City{" +
                 "cityId=" + cityId +
                 ", cityName='" + cityName + '\'' +
-                ", regionId=" + regionId +
+                ", regionId=" + region +
                 '}';
     }
 }
