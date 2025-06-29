@@ -30,8 +30,8 @@ public class EmployeeRestController {
     }
 
     @GetMapping("/")
-    public Employee getEmployeeById(@RequestBody Map<String, Integer> data){
-        return employeeService.getEmployeeById(data.get("employeeId")).orElse(null);
+    public Employee getEmployeeById(@RequestParam String data){
+        return employeeService.getEmployeeById(Integer.parseInt(data)).orElse(null);
     }
 
     @PostMapping("/")
@@ -40,6 +40,7 @@ public class EmployeeRestController {
         Employee newEmployee = new Employee();
         if(existingMeasurementStation != null)
         {
+            newEmployee.setEmployeeId("super");
             newEmployee.setAddress(data.get("address"));
             newEmployee.setName(data.get("name"));
             newEmployee.setLastName(data.get("lastName"));

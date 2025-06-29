@@ -10,4 +10,6 @@ public interface AccountDAO {
     Optional<Account> findByEmail(String email);
 
     Account save(Account newAccount);
+
+    void delete(Account account);
 }

@@ -29,6 +29,7 @@ public class TemperatureDAOImplementation implements TemperatureDAO{
     }
 
     @Override
+    @Transactional
     public Temperature save(Temperature temperature) {
         return entityManager.merge(temperature);
     }
@@ -44,6 +45,7 @@ public class TemperatureDAOImplementation implements TemperatureDAO{
     }
 
     @Override
+    @Transactional
     public void delete(Temperature temperature) {
         if (entityManager.contains(temperature)) {
             entityManager.remove(temperature);
@@ -53,6 +55,7 @@ public class TemperatureDAOImplementation implements TemperatureDAO{
     }
 
     @Override
+    @Transactional
     public Optional<List<Temperature>> findByTimePeriod(Instant startTime, Instant endTime, Integer regionId) {
         String queryStr = "SELECT f FROM Wind f " +
                 "JOIN f.measurementStation s " +
@@ -103,6 +106,7 @@ public class TemperatureDAOImplementation implements TemperatureDAO{
     }
 
     @Override
+    @Transactional
     public Optional<Temperature> getLast(Integer cityId) {
 
         Temperature lastMeasurement = null;

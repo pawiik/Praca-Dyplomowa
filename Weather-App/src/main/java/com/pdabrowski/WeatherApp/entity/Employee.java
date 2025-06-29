@@ -19,7 +19,7 @@ public class Employee {
     @JoinColumn(name = "employee_id", referencedColumnName = "account_id")
     private Account account;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "measurement_station_id")
     private MeasurementStation measurementStation;
 
@@ -105,7 +105,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-//                "employeeId=" + employeeId +
+                "employeeId=" + employeeId +
                 ", measurementStationId=" + measurementStation +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +

@@ -2,6 +2,7 @@ package com.pdabrowski.WeatherApp.rest;
 
 import com.pdabrowski.WeatherApp.dao.AccountDAO;
 import com.pdabrowski.WeatherApp.entity.*;
+import com.pdabrowski.WeatherApp.security.Decryptor;
 import com.pdabrowski.WeatherApp.security.JwtUtil;
 import com.pdabrowski.WeatherApp.service.CityService;
 import com.pdabrowski.WeatherApp.service.EmployeeService;
@@ -24,6 +25,12 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -104,12 +111,12 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
     @PostMapping("/login")
-//    @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         String email = loginData.get("emailAddress");
         String password = loginData.get("password");
-        System.out.println(email);
-        System.out.println(password);
+
+        email = Decryptor.decrypt(email);
+        password = Decryptor.decrypt(password);
 
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -133,7 +140,6 @@ public class AuthController {
             body.put("user", email);
             body.put("roles", roles);
 
-            System.out.println(token);
             return ResponseEntity.ok().body(body);
 
         } catch (AuthenticationException e) {
@@ -171,6 +177,7 @@ public class AuthController {
 
         Employee employee = new Employee();
         employee.setEmployeeId(savedAccount.getAccountId());
+        System.out.println(savedAccount.getAccountId());
         employee.setAccount(savedAccount);
         employee.setName(name);
         employee.setLastName(lastName);
@@ -178,6 +185,11 @@ public class AuthController {
         employee.setPhoneNumber(Integer.parseInt(phoneNumber));
         employee.setMeasurementStation(existingStation);
         existingStation.addEmployee(employee);
+
+
+        System.out.println("Employee");
+        System.out.println(employee.getEmployeeId());
+        System.out.println(employee);
 
         employeeService.saveEmployee(employee);
 

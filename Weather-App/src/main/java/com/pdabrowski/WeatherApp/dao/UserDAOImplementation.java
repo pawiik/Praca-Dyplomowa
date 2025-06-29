@@ -39,6 +39,7 @@ public class UserDAOImplementation implements UserDAO{
     }
 
     @Override
+    @Transactional
     public void delete(User user) {
         if (entityManager.contains(user)) {
             entityManager.remove(user);

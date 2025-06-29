@@ -50,7 +50,7 @@ public class FallServiceImplementation implements FallService{
     }
 
     @Override
-    public Optional<Map<Integer, Double>> getByDay(Instant day, Integer cityId) throws ParseException {
+    public Optional<Map<Integer, Double>> getByDay(String day, Integer cityId) throws ParseException {
 
         List<Fall> falls = this.fallDao.getAllFromCityDay(cityId, day).orElse(null);
 
@@ -64,7 +64,7 @@ public class FallServiceImplementation implements FallService{
             calendar.setTime(dateFromInstant);
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
-            sumOfFallsPerHour.merge(hour, fall.getTemperature(), Double::sum);
+            sumOfFallsPerHour.merge(hour, fall.getFall(), Double::sum);
             countOfFallsPerHour.merge(hour, 1, Integer::sum);
         }
 

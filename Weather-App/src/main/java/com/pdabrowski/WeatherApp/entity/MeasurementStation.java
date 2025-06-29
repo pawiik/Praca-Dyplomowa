@@ -31,31 +31,31 @@ public class MeasurementStation {
     @Column(name = "region_id")
     private int regionId;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "city_id")
     private City city;
 
-    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     private List<Fall> fall;
 
 //    @JsonIgnore
-    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     private List<Humidity> humidity;
 
 //    @JsonIgnore
-    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     private List<Temperature> temperature;
 
 //    @JsonIgnore
-    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     private List<UV> uv;
 
 //    @JsonIgnore
-    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     private List<Wind> wind;
 
 //    @JsonIgnore
-    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    @OneToMany(mappedBy = "measurementStation", cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     private List<Employee> employees;
 
     public MeasurementStation(){

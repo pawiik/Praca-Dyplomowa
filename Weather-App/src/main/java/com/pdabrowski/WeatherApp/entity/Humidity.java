@@ -1,11 +1,13 @@
 package com.pdabrowski.WeatherApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "humidity")
@@ -23,17 +25,17 @@ public class Humidity {
     private Instant time;
 
     @Column(name="humidity")
-    private double temperature;
+    private double humidity;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "measurement_station_id")
     private MeasurementStation measurementStation;
 
     public Humidity(){}
 
-    public Humidity(Instant time, double temperature) {
+    public Humidity(Instant time, double humidity) {
         this.time = time;
-        this.temperature = temperature;
+        this.humidity = humidity;
     }
 
     public int getMeasurement_id() {
@@ -52,16 +54,23 @@ public class Humidity {
         this.time = time;
     }
 
-    public double getTemperature() {
-        return temperature;
+    public double getHumidity() {
+        return humidity;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
+    public void setHumidity(double temperature) {
+        this.humidity = temperature;
     }
 
-    public MeasurementStation getMeasurementStation() {
-        return measurementStation;
+    @JsonProperty("measurementStationId")
+    public Map<String, Object> getRegionDetails() {
+        Map<String, Object> station = new HashMap<>();
+        if (measurementStation != null) {
+            station.put("stationId", measurementStation.getStationId());
+            station.put("address", measurementStation.getAddress());
+            station.put("city", measurementStation.getRegionDetails());
+        }
+        return station;
     }
 
     public void setMeasurementStation(MeasurementStation measurementStationId) {
@@ -73,7 +82,7 @@ public class Humidity {
         return "Humidity{" +
                 "measurement_id=" + measurement_id +
                 ", time=" + time +
-                ", temperature=" + temperature +
+                ", temperature=" + humidity +
                 ", measurementStationId=" + measurementStation +
                 '}';
     }

@@ -125,7 +125,7 @@ public class PopulateDB {
 
                 Fall newFall = new Fall();
                 newFall.setTime(time);
-                newFall.setTemperature(fallValue);
+                newFall.setFall(fallValue);
 
                 existingMeasurementStation.addFall(newFall);
 

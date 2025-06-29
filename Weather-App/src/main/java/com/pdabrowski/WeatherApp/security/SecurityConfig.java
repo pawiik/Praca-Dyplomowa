@@ -51,15 +51,17 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(configurer ->
                         configurer
-                                .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/populate/").permitAll()
-                                .anyRequest().authenticated()
-
-//                                .requestMatchers(HttpMethod.GET, "/**").permitAll()
-//                                .requestMatchers(HttpMethod.POST, "/**").permitAll()
-//                                .requestMatchers(HttpMethod.PUT, "/**").permitAll()
-//                                .requestMatchers(HttpMethod.DELETE, "/**").hasRole("EMPLOYEE")
+                                .requestMatchers(HttpMethod.GET, "/alert/alerts", "/alert/{cityId}", "/city/cities", "/fall/day", "/humidity/day", "/temperature/day", "/uv/day", "/wind/day", "/fall/last", "/temperature/last", "/humidity/last", "/temperature/last", "/uv/last", "/wind/last", "city/{cityId}", "/region/regions").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/alert/", "/measurementStation/stations").hasRole("EMPLOYEE")
+                                .requestMatchers(HttpMethod.GET, "/user/{userId}").hasRole("USER")
+                                .requestMatchers(HttpMethod.GET, "/employee/employees", "/employee/").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/measurementStation/", "/region/", "/alert/", "/city/cities", "/fall/time", "/humidity/time", "temperature/time", "/uv/time", "/wind/time", "/fall/", "/humidity/", "/temperature/", "/uv/", "wind/").hasRole("EMPLOYEE")
+                                .requestMatchers(HttpMethod.POST, "/auth/register/employee", "/employee/").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/measurementStation/", "/city/", "/region/", "/alert/").hasRole("EMPLOYEE")
+                                .requestMatchers(HttpMethod.PUT, "/**", "user/").hasRole("USER")
+                                .requestMatchers(HttpMethod.DELETE, "/city/**", "/measurementStation/**", "/alert/**").hasRole("EMPLOYEE")
+                                .requestMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
 
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
@@ -81,7 +83,6 @@ public class SecurityConfig {
         theUserDetailManager.setCreateAuthoritySql("insert into roles (user_id, role) values (?,?)");
         theUserDetailManager.setDeleteUserAuthoritiesSql("delete from roles where user_id = ?");
         theUserDetailManager.setChangePasswordSql("update accounts set pw = ? where account_id = ?");
-
 
         return theUserDetailManager;
 

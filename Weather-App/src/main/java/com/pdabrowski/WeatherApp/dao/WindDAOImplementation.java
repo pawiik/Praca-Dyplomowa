@@ -28,6 +28,7 @@ public class WindDAOImplementation implements WindDAO{
     }
 
     @Override
+    @Transactional
     public Wind save(Wind wind) {
         return entityManager.merge(wind);
     }
@@ -43,6 +44,7 @@ public class WindDAOImplementation implements WindDAO{
     }
 
     @Override
+    @Transactional
     public void delete(Wind wind) {
         Wind mergedWind = entityManager.merge(wind);
         entityManager.remove(mergedWind);
@@ -68,6 +70,7 @@ public class WindDAOImplementation implements WindDAO{
     }
 
     @Override
+    @Transactional
     public Optional<List<Wind>> findByTimePeriod(Instant startTime, Instant endTime, Integer regionId) {
         String queryStr = "SELECT f FROM Wind f " +
                 "JOIN f.measurementStation s " +
@@ -94,6 +97,7 @@ public class WindDAOImplementation implements WindDAO{
     }
 
     @Override
+    @Transactional
     public Optional<Wind> getLast(Integer cityId) {
 
         Wind lastMeasurement = null;

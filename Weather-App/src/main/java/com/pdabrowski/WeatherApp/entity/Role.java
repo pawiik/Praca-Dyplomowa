@@ -19,7 +19,6 @@ public class Role {
     @Column(name = "role")
     private String roleName;
 
-    // Constructors, getters, and setters
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;

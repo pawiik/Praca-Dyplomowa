@@ -26,13 +26,13 @@ public class City {
     @Column(name = "name")
     private String cityName;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "region_id")
 //    @JsonIgnore
     private Region region;
 
 //    @JsonIgnore
-    @OneToMany(mappedBy = "city", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER,orphanRemoval = true)
+    @OneToMany(mappedBy = "city", cascade = {CascadeType.ALL},fetch = FetchType.EAGER,orphanRemoval = true)
     private List<MeasurementStation> measurementStations;
 
 //    @JsonIgnore

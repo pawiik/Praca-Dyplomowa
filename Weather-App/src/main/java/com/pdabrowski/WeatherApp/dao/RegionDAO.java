@@ -16,4 +16,6 @@ public interface RegionDAO {
 
     public Optional<Region> findById(int theId);
 
+    public void delete(Region region);
+
 }

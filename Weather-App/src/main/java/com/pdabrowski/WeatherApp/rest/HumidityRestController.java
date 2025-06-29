@@ -1,9 +1,7 @@
 package com.pdabrowski.WeatherApp.rest;
 
-import com.pdabrowski.WeatherApp.entity.Fall;
 import com.pdabrowski.WeatherApp.entity.Humidity;
 import com.pdabrowski.WeatherApp.entity.MeasurementStation;
-import com.pdabrowski.WeatherApp.entity.Temperature;
 import com.pdabrowski.WeatherApp.service.HumidityService;
 import com.pdabrowski.WeatherApp.service.MeasurementStationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +51,7 @@ public class HumidityRestController {
 
             Humidity newHumidity = new Humidity();
             newHumidity.setTime(time);
-            newHumidity.setTemperature(Double.parseDouble(data.get("humidity")));
+            newHumidity.setHumidity(Double.parseDouble(data.get("humidity")));
 
             existingMeasurementStation.addHumidity(newHumidity);
 

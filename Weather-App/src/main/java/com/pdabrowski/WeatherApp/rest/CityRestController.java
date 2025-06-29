@@ -69,8 +69,8 @@ public class CityRestController {
 
     }
 
-    @DeleteMapping("/{cityId}")
-    public void deleteCity(@PathVariable String cityId){
+    @DeleteMapping("/")
+    public void deleteCity(@RequestParam String cityId){
 
         City existingCity = this.cityService.getCityById(Integer.parseInt(cityId)).orElse(null);
 

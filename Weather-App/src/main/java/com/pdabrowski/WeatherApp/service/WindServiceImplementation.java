@@ -1,7 +1,6 @@
 package com.pdabrowski.WeatherApp.service;
 
 import com.pdabrowski.WeatherApp.dao.WindDAO;
-import com.pdabrowski.WeatherApp.entity.UV;
 import com.pdabrowski.WeatherApp.entity.Wind;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +60,7 @@ public class WindServiceImplementation implements WindService{
             calendar.setTime(dateFromInstant);
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
-            sumOfMeasurementsPerHour.merge(hour, measurement.getTemperature(), Double::sum);
+            sumOfMeasurementsPerHour.merge(hour, measurement.getWind(), Double::sum);
             countOfMeasurementsPerHour.merge(hour, 1, Integer::sum);
         }
 

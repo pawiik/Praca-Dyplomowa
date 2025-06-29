@@ -2,6 +2,7 @@ package com.pdabrowski.WeatherApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -32,7 +33,7 @@ public class Region {
     private List<City> cities;
 
 //    @JsonIgnore
-    @OneToMany(mappedBy = "region", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "region", cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
 
     private List<Alert> alerts;
 
@@ -54,6 +55,7 @@ public class Region {
         cities.add(newCity);
         newCity.setRegion(this);
     }
+
 
     public void addAlert(Alert newAlert){
 
@@ -94,6 +96,11 @@ public class Region {
         this.name = name;
     }
 
+    public void removeAlert(Alert alert){
+        this.alerts.remove(alert);
+    }
+
+    @JsonIgnore
     public Set<User> getRegionUsers() {
         return users;
     }

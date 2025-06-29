@@ -28,7 +28,7 @@ public class Alert {
     @Column(name = "end_time")
     private Instant endTime;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "region_id")
     private Region region;
 

@@ -26,6 +26,7 @@ public class HumidityDAOImplementation implements HumidityDAO{
     }
 
     @Override
+    @Transactional
     public Humidity save(Humidity humidity) {
         return entityManager.merge(humidity);
     }
@@ -41,6 +42,7 @@ public class HumidityDAOImplementation implements HumidityDAO{
     }
 
     @Override
+    @Transactional
     public void delete(Humidity humidity) {
         if (entityManager.contains(humidity)) {
             entityManager.remove(humidity);
@@ -100,6 +102,7 @@ public class HumidityDAOImplementation implements HumidityDAO{
     }
 
     @Override
+    @Transactional
     public Optional<Humidity> getLast(Integer cityId) {
 
         Humidity lastMeasurement = null;

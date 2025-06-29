@@ -37,6 +37,7 @@ public class MeasurementStationDAOImplementation implements MeasurementStationDA
     }
 
     @Override
+    @Transactional
     public void delete(MeasurementStation station) {
         if (entityManager.contains(station)) {
             entityManager.remove(station);

@@ -2,6 +2,7 @@ package com.pdabrowski.WeatherApp.dao;
 
 import com.pdabrowski.WeatherApp.entity.Employee;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,7 @@ public class EmployeeDAOImplementation implements EmployeeDAO{
 
 
     @Override
+    @Transactional
     public Employee save(Employee employee) {
         return entityManager.merge(employee);
     }

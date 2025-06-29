@@ -1,10 +1,13 @@
 package com.pdabrowski.WeatherApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "wind")
@@ -24,7 +27,7 @@ public class Wind {
     @Column(name="wind")
     private double wind;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "measurement_station_id")
     private MeasurementStation measurementStation;
 
@@ -51,7 +54,7 @@ public class Wind {
         this.time = time;
     }
 
-    public double getTemperature() {
+    public double getWind() {
         return wind;
     }
 
@@ -59,8 +62,15 @@ public class Wind {
         this.wind = temperature;
     }
 
-    public MeasurementStation getMeasurementStation() {
-        return measurementStation;
+    @JsonProperty("measurementStationId")
+    public Map<String, Object> getRegionDetails() {
+        Map<String, Object> station = new HashMap<>();
+        if (measurementStation != null) {
+            station.put("stationId", measurementStation.getStationId());
+            station.put("address", measurementStation.getAddress());
+            station.put("city", measurementStation.getRegionDetails());
+        }
+        return station;
     }
 
     public void setMeasurementStation(MeasurementStation measurementStationId) {

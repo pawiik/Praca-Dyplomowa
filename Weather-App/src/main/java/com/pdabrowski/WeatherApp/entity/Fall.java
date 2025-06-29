@@ -1,11 +1,13 @@
 package com.pdabrowski.WeatherApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "fall")
@@ -23,17 +25,17 @@ public class Fall {
     private Instant time;
 
     @Column(name="fall")
-    private double temperature;
+    private double fall;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "measurement_station_Id")
     private MeasurementStation measurementStation;
 
     public Fall(){}
 
-    public Fall(Instant time, double temperature) {
+    public Fall(Instant time, double fall) {
         this.time = time;
-        this.temperature = temperature;
+        this.fall = fall;
     }
 
     public int getMeasurement_id() {
@@ -52,12 +54,12 @@ public class Fall {
         this.time = time;
     }
 
-    public double getTemperature() {
-        return temperature;
+    public double getFall() {
+        return fall;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
+    public void setFall(double temperature) {
+        this.fall = temperature;
     }
 
     public MeasurementStation getMeasurementStationId() {
@@ -68,12 +70,23 @@ public class Fall {
         this.measurementStation = measurementStationId;
     }
 
+    @JsonProperty("measurementStationId")
+    public Map<String, Object> getRegionDetails() {
+        Map<String, Object> station = new HashMap<>();
+        if (measurementStation != null) {
+            station.put("stationId", measurementStation.getStationId());
+            station.put("address", measurementStation.getAddress());
+            station.put("city", measurementStation.getRegionDetails());
+        }
+        return station;
+    }
+
     @Override
     public String toString() {
         return "Fall{" +
                 "measurement_id=" + measurement_id +
                 ", time=" + time +
-                ", temperature=" + temperature +
+                ", temperature=" + fall +
                 ", measurementStationId=" + measurementStation +
                 '}';
     }

@@ -44,5 +44,14 @@ public class RegionDAOImplementation implements RegionDAO{
         return Optional.ofNullable(theRegion);
     }
 
+    @Transactional
+    @Override
+    public void delete(Region region) {
+        Region managedRegion = entityManager.find(Region.class, region.getRegionId());
+        if (managedRegion != null) {
+            entityManager.remove(managedRegion);
+        }
+    }
+
 
 }

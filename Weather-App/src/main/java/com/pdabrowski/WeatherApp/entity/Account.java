@@ -30,7 +30,6 @@ public class Account {
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
     private User users;
 
-    // Assuming you're using bidirectional relationships
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
     private Employee employee;
 

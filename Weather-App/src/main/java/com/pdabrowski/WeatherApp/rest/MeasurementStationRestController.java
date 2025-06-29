@@ -4,6 +4,7 @@ import com.pdabrowski.WeatherApp.entity.City;
 import com.pdabrowski.WeatherApp.entity.MeasurementStation;
 import com.pdabrowski.WeatherApp.service.CityService;
 import com.pdabrowski.WeatherApp.service.MeasurementStationService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,8 +70,8 @@ public class MeasurementStationRestController {
         return null;
     }
 
-    @DeleteMapping("/{stationId}")
-    public void deleteMeasurementStation(@PathVariable String stationId){
+    @DeleteMapping("/")
+    public void deleteMeasurementStation(@RequestParam String stationId){
         MeasurementStation station = measurementStationService.getStationById(Integer.parseInt(stationId)).orElse(null);
 
         measurementStationService.deleteStation(station);

@@ -80,7 +80,6 @@ public class AlertRestController {
 
     @GetMapping("/alerts")
     public ResponseEntity<?> getAlertsForUser(@RequestParam String userId) {
-        System.out.println("d " + userId);
         List<Alert> alerts = alertService.getAlertsForUser(userId);
         if (alerts != null) {
             return ResponseEntity.ok(alerts);
@@ -89,4 +88,49 @@ public class AlertRestController {
         }
     }
 
+    @DeleteMapping("/")
+    public void deleteAlert(@RequestParam String alertId){
+
+
+        Alert existingAlert = alertService.getAlertById(Integer.parseInt(alertId)).orElse(null);
+        assert existingAlert != null;
+
+        Region region = existingAlert.getRegion();
+
+        region.removeAlert(existingAlert);
+
+        alertService.deleteAlert(existingAlert);
+    }
+
+    @PutMapping("/")
+    public Alert modifyAlert(@RequestBody Map<String, String> data){
+
+        Region newRegion = regionService.getRegionById(Integer.valueOf(data.get("region")));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime start = LocalDateTime.parse(data.get("startTime"), formatter);
+        LocalDateTime end = LocalDateTime.parse(data.get("endTime"), formatter);
+        Instant startTime = start.toInstant(ZoneOffset.UTC);
+        Instant endTime = end.toInstant(ZoneOffset.UTC);
+
+        Alert existingAlert = alertService.getAlertById(Integer.parseInt(data.get("alertId"))).orElse(null);
+        assert existingAlert != null;
+        Region oldRegion = regionService.getRegionById(existingAlert.getRegion().getRegionId());
+
+        if(oldRegion != null){
+            existingAlert.setAlertType(Integer.parseInt(data.get("alertType")));
+            existingAlert.setStartTime(startTime);
+            existingAlert.setEndTime(endTime);
+            existingAlert.setMessage(data.get("message"));
+
+            oldRegion.removeAlert(existingAlert);
+            newRegion.addAlert(existingAlert);
+
+            Alert dbAlert = alertService.saveAlert(existingAlert);
+            return dbAlert;
+        }
+        else{
+            return null;
+        }
+    }
 }

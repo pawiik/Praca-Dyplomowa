@@ -2,7 +2,6 @@ package com.pdabrowski.WeatherApp.service;
 
 import com.pdabrowski.WeatherApp.dao.HumidityDAO;
 import com.pdabrowski.WeatherApp.entity.Humidity;
-import com.pdabrowski.WeatherApp.entity.Temperature;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,7 +61,7 @@ public class HumidityServiceImplementation implements HumidityService{
             calendar.setTime(dateFromInstant);
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
-            sumOfMeasurementsPerHour.merge(hour, measurement.getTemperature(), Double::sum);
+            sumOfMeasurementsPerHour.merge(hour, measurement.getHumidity(), Double::sum);
             countOfMeasurementsPerHour.merge(hour, 1, Integer::sum);
         }
 

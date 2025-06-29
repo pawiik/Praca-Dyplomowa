@@ -22,6 +22,7 @@ public class AlertDAOImplementation implements AlertDAO{
     }
 
     @Override
+    @Transactional
     public Alert save(Alert alert) {
        return entityManager.merge(alert);
     }
@@ -38,6 +39,7 @@ public class AlertDAOImplementation implements AlertDAO{
     }
 
     @Override
+    @Transactional
     public void delete(Alert alert) {
         if (entityManager.contains(alert)) {
             entityManager.remove(alert);
@@ -46,23 +48,20 @@ public class AlertDAOImplementation implements AlertDAO{
         }
     }
 
+    @Transactional
     public Optional<List<Alert>> getAlertsForCity(Integer cityId) {
-        EntityManager em = this.entityManager;
         List<Alert> alerts = null;
         try {
-            em.getTransaction().begin();
-
-            TypedQuery<Integer> regionQuery = em.createQuery(
-                    "SELECT c.regionId FROM City c WHERE c.cityId = :cityId", Integer.class);
+            TypedQuery<Integer> regionQuery = entityManager.createQuery(
+                    "SELECT c.region.id FROM City c WHERE c.cityId = :cityId", Integer.class);
             regionQuery.setParameter("cityId", cityId);
             Integer regionId = regionQuery.getSingleResult();
 
-            TypedQuery<Alert> alertQuery = em.createQuery(
+            TypedQuery<Alert> alertQuery = entityManager.createQuery(
                     "SELECT a FROM Alert a WHERE a.region.id = :regionId", Alert.class);
             alertQuery.setParameter("regionId", regionId);
 
             alerts = alertQuery.getResultList();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -26,6 +26,7 @@ public class UVDAOImplementation implements UVDAO{
     }
 
     @Override
+    @Transactional
     public UV save(UV uv) {
         return entityManager.merge(uv);
     }
@@ -41,6 +42,7 @@ public class UVDAOImplementation implements UVDAO{
     }
 
     @Override
+    @Transactional
     public void delete(UV uv) {
         UV mergedUV = entityManager.merge(uv);
         entityManager.remove(mergedUV);
@@ -67,6 +69,7 @@ public class UVDAOImplementation implements UVDAO{
     }
 
     @Override
+    @Transactional
     public Optional<List<UV>> findByTimePeriod(Instant startTime, Instant endTime, Integer regionId) {
         String queryStr = "SELECT f FROM UV f " +
                 "JOIN f.measurementStation s " +
@@ -93,6 +96,7 @@ public class UVDAOImplementation implements UVDAO{
     }
 
     @Override
+    @Transactional
     public Optional<UV> getLast(Integer cityId) {
 
         UV lastMeasurement = null;

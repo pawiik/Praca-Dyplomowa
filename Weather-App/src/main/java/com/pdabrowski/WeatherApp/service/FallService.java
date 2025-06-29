@@ -17,7 +17,7 @@ public interface FallService {
 
     Optional<List<Fall>> getByTimePeriod(Instant startTime, Instant endTime, Integer regionId);
 
-    Optional<Map<Integer, Double>> getByDay(Instant day, Integer cityId) throws ParseException;
+    Optional<Map<Integer, Double>> getByDay(String day, Integer cityId) throws ParseException;
 
     Optional<Fall> getLastFromCity(Integer cityId);
 

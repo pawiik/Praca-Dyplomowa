@@ -39,7 +39,6 @@ public class UVRestController {
         return uvService.getUVById(data.get("measurementId")).orElse(null);
     }
 
-    @PreAuthorize("hasRole('ROLE_employee')")
     @PostMapping("/")
     public UV addUV(@RequestBody Map<String, String> data){
         MeasurementStation existingMeasurementStation = measurementStationService.getStationById(Integer.parseInt(data.get("measurementStationId"))).orElse(null);

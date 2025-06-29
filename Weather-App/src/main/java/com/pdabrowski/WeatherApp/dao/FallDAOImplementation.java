@@ -27,13 +27,13 @@ public class FallDAOImplementation implements FallDAO{
 
     EntityManager entityManager;
 
-
     @Autowired
     public FallDAOImplementation(EntityManager entityManager){
         this.entityManager = entityManager;
     }
 
     @Override
+    @Transactional
     public Fall save(Fall fall) {
         return entityManager.merge(fall);
     }
@@ -48,9 +48,8 @@ public class FallDAOImplementation implements FallDAO{
         return entityManager.createQuery("SELECT f FROM Fall f", Fall.class).getResultList();
     }
 
-
-
     @Override
+    @Transactional
     public void delete(Fall fall) {
         if (entityManager.contains(fall)) {
             entityManager.remove(fall);
@@ -88,8 +87,7 @@ public class FallDAOImplementation implements FallDAO{
 
     @Override
     @Transactional
-    public Optional<List<Fall>> getAllFromCityDay(Integer cityId, Instant date) throws ParseException {
-
+    public Optional<List<Fall>> getAllFromCityDay(Integer cityId, String date) throws ParseException {
         String hql = "SELECT f FROM Fall f " +
                 "JOIN f.measurementStation ms " +
                 "JOIN ms.city c " +
@@ -98,19 +96,16 @@ public class FallDAOImplementation implements FallDAO{
                 "ORDER BY FUNCTION('hour', f.time), f.time";
 
         TypedQuery<Fall> query = this.entityManager.createQuery(hql, Fall.class);
-        query.setParameter("cityId", "10");
-        query.setParameter("date", java.sql.Date.valueOf("2024-01-06"));
+        query.setParameter("cityId", cityId);
+        query.setParameter("date", java.sql.Date.valueOf(date));
 
         List<Fall> falls = query.getResultList();
-        for (Fall fall : falls) {
-            System.out.println(fall);
-        }
-        System.out.println(falls);
 
         return Optional.of(falls);
     }
 
     @Override
+    @Transactional
     public Optional<Fall> getLast(Integer cityId) {
 
         Fall lastFall = null;

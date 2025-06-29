@@ -41,4 +41,14 @@ public class AccountDAOImplementation implements AccountDAO{
     public Account save(Account newAccount) {
        return entityManager.merge(newAccount);
     }
+
+    @Override
+    @Transactional
+    public void delete(Account account) {
+        if (entityManager.contains(account)) {
+            entityManager.remove(account);
+        } else {
+            entityManager.remove(entityManager.merge(account));
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.pdabrowski.WeatherApp.dao;
 
 import com.pdabrowski.WeatherApp.entity.City;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,8 @@ public class CityDAOImplementation implements CityDAO{
         this.entityManager = entityManager;
     }
 
+    @Override
+    @Transactional
     public City save(City city) {
         return entityManager.merge(city);
     }
@@ -33,6 +36,7 @@ public class CityDAOImplementation implements CityDAO{
     }
 
     @Override
+    @Transactional
     public void delete(City city) {
         if (entityManager.contains(city)) {
             entityManager.remove(city);

@@ -1,12 +1,12 @@
 package com.pdabrowski.WeatherApp.rest;
 
+import com.pdabrowski.WeatherApp.entity.City;
 import com.pdabrowski.WeatherApp.entity.Fall;
 import com.pdabrowski.WeatherApp.entity.MeasurementStation;
-import com.pdabrowski.WeatherApp.entity.Region;
+import com.pdabrowski.WeatherApp.service.CityService;
 import com.pdabrowski.WeatherApp.service.FallService;
 import com.pdabrowski.WeatherApp.service.MeasurementStationService;
 import com.pdabrowski.WeatherApp.service.RegionService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -27,15 +27,18 @@ public class FallRestController {
     FallService fallService;
     MeasurementStationService measurementStationService;
     RegionService regionService;
+    CityService cityService;
 
 
     @Autowired
     public FallRestController(FallService fallService,
                               MeasurementStationService measurementStationService,
-                              RegionService regionService){
+                              RegionService regionService,
+                              CityService cityService){
         this.fallService = fallService;
         this.measurementStationService = measurementStationService;
         this.regionService = regionService;
+        this.cityService = cityService;
     }
 
     @GetMapping("/falls")
@@ -59,7 +62,7 @@ public class FallRestController {
 
             Fall newFall = new Fall();
             newFall.setTime(time);
-            newFall.setTemperature(Double.parseDouble(data.get("fall")));
+            newFall.setFall(Double.parseDouble(data.get("fall")));
 
             existingMeasurementStation.addFall(newFall);
 
@@ -107,15 +110,26 @@ public class FallRestController {
     @GetMapping("/day")
     public Map<Integer, Double> getData(@RequestParam String date, @RequestParam String cityId) throws ParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate startDate = LocalDate.parse(date, formatter);
-        LocalDateTime startDateTime = startDate.atStartOfDay();
-        Instant startTime = startDateTime.toInstant(ZoneOffset.UTC);
+        LocalDate startDate;
+        System.out.println("DATA");
+        System.out.println(date);
+        System.out.println(cityId);
+        try {
+            startDate = LocalDate.parse(date, formatter);
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Invalid date format. Expected format: yyyy-MM-dd", 0);
+        }
 
-        Integer city = Integer.parseInt(cityId);
+        City existingCity;
+        try {
+            existingCity = this.cityService.getCityById(Integer.parseInt(cityId)).orElseThrow(() ->
+                    new IllegalArgumentException("City not found with ID: " + cityId));
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid city ID: " + cityId);
+        }
 
-        Map<Integer, Double> falls = this.fallService.getByDay(startTime, city).orElse(null);
-
-        System.out.println(falls);
+        Map<Integer, Double> falls = this.fallService.getByDay(date, existingCity.getCityId())
+                .orElseThrow(() -> new IllegalStateException("No data available for the specified day and city"));
 
         return falls;
     }
