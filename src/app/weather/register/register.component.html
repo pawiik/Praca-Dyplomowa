@@ -1,3 +1,8 @@
+<div class="center">
+  <app-nav-bar></app-nav-bar>
+
+</div>
+
 <div class="registration-container">
   <form class="registration-form" #regForm="ngForm" (ngSubmit)="register()">
 
@@ -34,10 +39,10 @@
 
     <div class="form-group">
       <label for="password">Password:</label>
-      <input type="password" id="password" [(ngModel)]="formData.password" name="password" required #password="ngModel" pattern="YourPasswordRegex">
+      <input type="password" id="password" [(ngModel)]="formData.password" name="password" required #password="ngModel" [pattern]="passwordRegex">
       <div *ngIf="password.touched && password.invalid" class="error-message">
         <div *ngIf="password.errors?.['required']">Password is required</div>
-        <div *ngIf="password.errors?.['pattern']">Password does not meet the standards</div>
+        <div *ngIf="password.errors?.['pattern']">Password must have at least 8 characters and contain 1 capital letter, one special character and one number</div>
       </div>
     </div>
 

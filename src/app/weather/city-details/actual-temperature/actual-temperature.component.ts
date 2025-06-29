@@ -16,7 +16,7 @@ interface Measurement{
 }
 
 @Component({
-  selector: 'app-actual-temperature',
+  selector: 'app-actual-fall',
   templateUrl: './actual-temperature.component.html',
   styleUrls: ['./actual-temperature.component.css']
 })
@@ -29,9 +29,11 @@ export class ActualTemperatureComponent {
               private uvService: UvApiService,
               private WindService: WindApiService
               ) {
+    console.log("getData")
+    console.log(this.dataService.getData())
     this.getApiData()
   }
-  cityId: string = "10"
+  cityId: number = this.dataService.getData().cityId
   data: Measurement = {
     temperature: "No data to display",
     fall: "No data to display",
@@ -41,14 +43,16 @@ export class ActualTemperatureComponent {
   }
 
   private getApiData() {
-    this.fallService.getLast(this.cityId).subscribe(response => this.data.fall = response.temperature.toString())
-    this.temperatureService.getLast(this.cityId).subscribe(response => {
-      let value = response.temperature.valueOf()
-      let rounded = Math.round((value + Number.EPSILON) * 10) / 10;
-      this.data.temperature = rounded.toString()
-    } )
-    this.humidityService.getLast(this.cityId).subscribe(response => this.data.humidity = response.humidity.toString())
-    this.uvService.getLast(this.cityId).subscribe(response => this.data.wind = response.uv.toString())
+    this.fallService.getLast(this.cityId.toString()).subscribe(response => this.data.fall = this.round(response.fall.valueOf()))
+    this.temperatureService.getLast(this.cityId.toString()).subscribe(response => this.data.temperature = this.round(response.temperature.valueOf()))
+    this.humidityService.getLast(this.cityId).subscribe(response => this.data.humidity = this.round(response.humidity.valueOf()))
+    this.uvService.getLast(this.cityId.toString()).subscribe(response => this.data.uv = this.round(response.uv.valueOf()))
+    this.WindService.getLast(this.cityId.toString()).subscribe(response => this.data.wind = this.round(response.wind.valueOf()))
+  }
+
+  private round(value: number): string {
+    let rounded = Math.round((value + Number.EPSILON) * 10) / 10;
+    return rounded.toString()
   }
 
 }

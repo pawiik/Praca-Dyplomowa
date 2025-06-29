@@ -44,6 +44,9 @@ import { ModifyCityModalComponent } from './weather/employee/cities/modify-city-
 import { DeleteStationModalComponent } from './weather/employee/measurement-stations/delete-station-modal/delete-station-modal.component';
 import { ModifyStationModalComponent } from './weather/employee/measurement-stations/modify-station-modal/modify-station-modal.component';
 import { DeleteCityModalComponent } from './weather/employee/cities/delete-city-modal/delete-city-modal.component';
+import { EmployeeFormComponent } from './weather/admin/employee-form/employee-form.component';
+import { ModifyRegionModalComponent } from './weather/employee/regions/modify-region-modal/modify-region-modal.component';
+import { DeleteRegionModalComponent } from './weather/employee/regions/delete-region-modal/delete-region-modal.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +85,10 @@ import { DeleteCityModalComponent } from './weather/employee/cities/delete-city-
     ModifyCityModalComponent,
     DeleteStationModalComponent,
     ModifyStationModalComponent,
-    DeleteCityModalComponent
+    DeleteCityModalComponent,
+    EmployeeFormComponent,
+    ModifyRegionModalComponent,
+    DeleteRegionModalComponent
   ],
   imports: [
     BrowserModule,
@@ -94,6 +100,7 @@ import { DeleteCityModalComponent } from './weather/employee/cities/delete-city-
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

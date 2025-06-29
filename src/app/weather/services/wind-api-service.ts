@@ -61,7 +61,7 @@ export class WindApiService {
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
       headers: new HttpHeaders({
-        "Authorization": jwtToken
+        // "Authorization": jwtToken
       })
     }
     return this.httpClient.get<Wind>(`${this.apiUrl}/last?cityId=${cityId}`, options);

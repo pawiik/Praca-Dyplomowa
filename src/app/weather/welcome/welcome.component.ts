@@ -5,6 +5,7 @@ import {CityDetailsComponent, DataService} from "../city-details/city-details.co
 import {DynamicComponentAnchorDirectiveEmployee} from "../employee/employee-dynamic-load";
 import {Subscription} from "rxjs";
 import {EmployeeSharedService} from "../employee/employee-shared-service";
+import {DetailsComponent} from "./details/details.component";
 
 @Component({
   selector: 'app-welcome',
@@ -30,6 +31,9 @@ export class WelcomeComponent {
     if (this.componentSubscribtion) {
       this.componentSubscribtion.unsubscribe();
     }
+  }
+  ngOnInit(){
+    this.sharedService.loadComponent(DetailsComponent)
   }
 
 

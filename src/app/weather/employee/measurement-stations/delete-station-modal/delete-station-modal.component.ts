@@ -15,7 +15,7 @@ export class DeleteStationModalComponent {
   }
 
   submit(){
-    this.stationService.deleteMeasurementStation(this.data.stationId.toString())
+    this.stationService.deleteMeasurementStation(this.data.stationId.toString()).subscribe()
   }
 
 }

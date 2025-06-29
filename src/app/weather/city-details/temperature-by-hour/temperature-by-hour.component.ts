@@ -16,7 +16,7 @@ interface HourlyWeather {
 }
 
 @Component({
-  selector: 'app-temperature-by-hour',
+  selector: 'app-fall-by-hour',
   templateUrl: './temperature-by-hour.component.html',
   styleUrls: ['./temperature-by-hour.component.css']
 })
@@ -24,7 +24,7 @@ export class TemperatureByHourComponent {
 
   hourlyWeather: HourlyWeather[]=[]
   date: string = "2024-01-06"
-  cityId: string = "10"
+  cityId: string = "1"
   currentDate: Date = new Date();
 
 
@@ -39,6 +39,7 @@ export class TemperatureByHourComponent {
   }
 
   getData(){
+    this.hourlyWeather = []
     this.fallService.getDayData(this.date, this.cityId).subscribe(response => {
       console.log(response)
         Object.entries(response).forEach(([key, value]) => {
@@ -104,12 +105,28 @@ export class TemperatureByHourComponent {
   }
 
   prevDate() {
-    this.currentDate = new Date(this.currentDate.setDate(this.currentDate.getDate() - 1));
+    let date = new Date(this.currentDate.setDate(this.currentDate.getDate() - 1));
+    const year = this.currentDate.getFullYear();
+    const month = this.currentDate.getMonth() + 1;
+    const day = this.currentDate.getDate();
+
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    const formattedDay = day < 10 ? `0${day}` : day;
+
+    this.date = `${year}-${formattedMonth}-${formattedDay}`;
     this.getData();
   }
 
   nextDate() {
-    this.currentDate = new Date(this.currentDate.setDate(this.currentDate.getDate() + 1));
+    let date = new Date(this.currentDate.setDate(this.currentDate.getDate() + 1));
+    const year = this.currentDate.getFullYear();
+    const month = this.currentDate.getMonth() + 1;
+    const day = this.currentDate.getDate();
+
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    const formattedDay = day < 10 ? `0${day}` : day;
+
+    this.date = `${year}-${formattedMonth}-${formattedDay}`;
     this.getData();
   }
 
@@ -127,7 +144,7 @@ export class TemperatureByHourComponent {
     } else if (this.currentDate.toDateString() === yesterday.toDateString()) {
       return 'Yesterday';
     } else {
-      return this.currentDate.toDateString(); // Or format as you wish
+      return this.currentDate.toDateString();
     }
   }
 

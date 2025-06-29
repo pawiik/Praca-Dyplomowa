@@ -43,44 +43,43 @@ export class AlertsComponent {
     });
   }
 
-  openModifyModal(){
+  openModifyModal(alert: Alert){
     const selectedItems = this.alerts.filter(item => item.selected);
-    if (selectedItems.length > 0) {
-      let firstElement = selectedItems[0]
+
       const dialogRef = this.dialog.open(ModifyAlertModalComponent, {
         width: '40%',
-        data: firstElement
+        data: alert
       });
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(result)
+        this.loadAlerts()
       });
-    } else {
     }
-  }
 
-  openDeleteModal(){
+  openDeleteModal(alert: Alert){
     const selectedItems = this.alerts.filter(item => item.selected);
-    if (selectedItems.length > 0) {
+
       const dialogRef = this.dialog.open(DeleteAlertModalComponent, {
         width: '40%',
-        data: { selectedItems }
+        data:  alert
       });
       dialogRef.afterClosed().subscribe(result => {
-        if(result === 'delete') {
-          this.deleteSelected();
+        if(result === "true") {
+          this.deleteSelected(alert);
         }
+        this.loadAlerts()
       });
-  }}
+  }
 
-  deleteSelected(){
-
+  deleteSelected(alert: Alert){
+    this.alertService.deleteAlert(alert.alertId.toString()).subscribe()
   }
 
   getAlertsFromCity(cityId: number){
     this.alertService.getAlertForCity(this.selectedCity).subscribe(response => {
-      this.alerts = []
-      this.alerts.push(response)
+      this.alerts = response
+
     })
   }
 

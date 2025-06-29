@@ -21,18 +21,18 @@
 </script>
 <div class="city-container">
   <h1 class="city-name">{{selectedCity.cityName}}</h1>
-  <button class="button" (click)="scrollTo(section1)">Go to Section 1</button>
-  <button class="button" (click)="scrollTo(section2)">Go to Section 2</button>
-  <button class="button" (click)="scrollTo(section3)">Go to Section 3</button>
+  <button class="button" (click)="scrollTo(section1)">Weather Now</button>
+  <button class="button" (click)="scrollTo(section2)">Alerts</button>
+  <button class="button" (click)="scrollTo(section3)">Weather Hourly</button>
 
-  <div #section1 class="section">
+  <div #section1 class="section spacer">
     <ng-template class="details" #section1 ></ng-template>
   </div>
-  <div #section2 class="section">
+  <div #section2 class="section spacer">
     <ng-template class="details" #section2 ></ng-template>
   </div>
 
-  <div #section3 class="section">
+  <div #section3 class="section spacer">
     <ng-template class="details" #section3 ></ng-template>
   </div>
 </div>

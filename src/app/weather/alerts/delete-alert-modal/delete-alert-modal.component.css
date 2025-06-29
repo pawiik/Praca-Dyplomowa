@@ -10,10 +10,9 @@
 }
 
 .mat-dialog-content {
-  color: #6c757d; /* Bootstrap modal body text color */
+  color: #6c757d;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  /* Your custom styles here */
 }
 
 .mat-dialog-actions {
@@ -21,14 +20,13 @@
   justify-content: flex-end;
   padding: 1rem;
   margin-top: 1rem;
-  border-top: 1px solid #dee2e6; /* Bootstrap modal-footer border color */
+  border-top: 1px solid #dee2e6;
 }
 
 .mat-dialog-actions button {
   margin-left: 0.5rem;
 }
 
-/* Style for the close button */
 .custom-close-button {
   font-size: 1.5rem;
   font-weight: 700;

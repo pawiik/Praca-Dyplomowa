@@ -8,13 +8,13 @@ import {TemperatureByHourComponent} from "./temperature-by-hour/temperature-by-h
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
-  private _data: any;
+  private _data!: City;
 
-  setData(value: any) {
+  setData(value: City) {
     this._data = value;
   }
 
-  getData(): any {
+  getData(): City {
     return this._data;
   }
 }
@@ -37,7 +37,7 @@ export class CityDetailsComponent {
 
   constructor(private dataService: DataService,
               private cityService: CityApiService) {
-    this.cityId = this.dataService.getData();
+    this.cityId = this.dataService.getData().cityId;
     console.log("aa")
     this.getCityData()
   }
@@ -62,7 +62,7 @@ export class CityDetailsComponent {
     this.generateComponents();
     setTimeout(() => {
       const element = this.section1.element.nativeElement;
-      const specificElement = element.querySelector('.section1'); // Modify as needed
+      const specificElement = element.querySelector('.section1');
       if (specificElement) {
         specificElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -77,7 +77,7 @@ export class CityDetailsComponent {
     console.log("generating alerts")
     this.componentRef2 = this.section2.createComponent(CityAlertsComponent)
 
-    console.log("generrating hourly")
+    console.log("generating hourly")
     this.componentRef3 = this.section3.createComponent(TemperatureByHourComponent)
   }
 }

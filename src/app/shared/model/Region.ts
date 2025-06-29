@@ -4,20 +4,20 @@ import {Alert} from "./Alert";
 import {User} from "./User";
 
 export class Region {
-  regionId: number | null;
+  regionId: number;
   name: string;
   cities: City[];
   alerts: Alert[];
   users: Set<User>;
 
   constructor(
-    regionId?: number,
+    regionId: number,
     name?: string,
     cities?: City[],
     alerts?: Alert[],
     users?: Set<User>
   ) {
-    this.regionId = regionId ?? null;
+    this.regionId = regionId;
     this.name = name || '';
     this.cities = cities || [];
     this.alerts = alerts || [];

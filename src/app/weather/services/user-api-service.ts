@@ -36,4 +36,22 @@ export class UserApiService {
     return this.httpClient.put<User>(this.apiUrl + '/', body, options)
   }
 
+  addAlertToUser(regionId: string, userId: string){
+    let jwtToken = this.authService.authData.jwtToken
+    let body = {
+      userId: userId,
+      regionId: regionId
+    }
+    let options = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+    return this.httpClient.put<User>(this.apiUrl + '/region', body, options)
+  }
+
+  getUserAlerts(){
+
+  }
+
 }

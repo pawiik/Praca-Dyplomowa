@@ -5,6 +5,8 @@ import {AuthService} from "../services/auth-service";
 import {City} from "../../shared/model/City";
 import {CityApiService} from "../services/city-api-service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import CryptoJS from 'crypto-js';
+
 
 
 
@@ -18,6 +20,7 @@ export class RegisterComponent {
   formData = {cityId: '', name: '', lastName: '', emailAddress: '', password: '', confirmPassword: ''};
   cities: City [] = []
   registrationForm: FormGroup;
+  passwordRegex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#?$\\]]).{8,}$';
 
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService, private cityService: CityApiService) {
@@ -29,7 +32,7 @@ export class RegisterComponent {
       emailAddress: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#?$\\]]).{8,}$')
+        Validators.pattern(this.passwordRegex)
       ]),
       confirmPassword: new FormControl('', Validators.required),
     });
@@ -48,7 +51,11 @@ export class RegisterComponent {
       alert("Passwords do not match.");
       return;
     }
+
     let body = this.formData
+    body.password = this.encryptString(body.password)
+    body.confirmPassword = this.encryptString(body.confirmPassword)
+    body.emailAddress = this.encryptString(body.emailAddress)
 
     this.authService.registerUser(body)
     this.router.navigate(['/login'])
@@ -56,6 +63,10 @@ export class RegisterComponent {
 
   checkIfEmailExists(email: string): boolean {
     return false;
+  }
+
+  encryptString(plainText: string): string {
+    return CryptoJS.AES.encrypt(plainText, 'SECRET-KEY').toString();
   }
 }
 

@@ -1,8 +1,17 @@
 <div id="weatherAlerts" class="alert-container">
+  <h1>Alerts</h1>
   <ul class="alerts-list">
-    <li *ngFor="let alert of alerts" [ngClass]="alert.severity" class="alert-item">
-      <div class="alert-date">{{alert.date}}</div>
+    <li *ngFor="let alert of alerts" [ngClass]="alert.alertType.toString()" class="alert-item">
+      <div class="alert-date">{{alert.startTime}}</div>
       {{alert.message}}
     </li>
   </ul>
+  <h1 *ngIf="isUser()">
+    <button class="register-button" *ngIf="doesSubscribe()" (click)="sub()">
+      Subscribe alerts
+    </button>
+    <button class="register-button" *ngIf="!doesSubscribe()" (click)="unsub()">
+      Unsubscribe alerts
+    </button>
+  </h1>
 </div>

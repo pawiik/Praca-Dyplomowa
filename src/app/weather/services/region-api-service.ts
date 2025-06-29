@@ -67,4 +67,14 @@ export class RegionApiService {
 
   }
 
+  deleteRegion(regionId: string){
+    let jwtToken = this.authService.authData.jwtToken
+    let options = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+    return this.httpClient.delete<Region>(this.apiUrl + "/" + regionId, options)
+  }
+
 }

@@ -23,7 +23,7 @@
           <option value="wind">Wind</option>
           <option value="humidity">Humidity</option>
           <option value="fall">Fall</option>
-          <option value="temperature">Temperature</option>
+          <option value="fall">Temperature</option>
           <option value="uv">UV</option>
         </select>
 
@@ -41,18 +41,19 @@
   <table class="data-table">
     <thead>
     <tr>
+      <th>City</th>
       <th>Measurement station id</th>
       <th>Date</th>
       <th>Value</th>
-      <th>Markers</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let item of measurementsTable">
+      <td>{{item.city}}</td>
       <td>{{ item.measurementStationId }}</td>
       <td>{{ item.date }}</td>
       <td>{{ item.value }}</td>
-      <td>{{ item.markers }}</td>
+
     </tr>
     </tbody>
   </table>

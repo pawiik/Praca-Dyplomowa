@@ -18,7 +18,6 @@ export class MeasurementStation {
   winds: Wind[];
   employees: Employee[];
 
-  // @ts-ignore
   constructor(
     stationId: number,
     address?: string,

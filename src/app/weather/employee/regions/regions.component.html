@@ -1,1 +1,22 @@
-<p>regions works!</p>
+<div class="con">
+  <div class="component-container">
+    <div class="header-section">
+      <button class="header-button" (click)="openAddModal()">Add measurement station</button>
+    </div>
+    <table class="data-table">
+      <tr>
+        <th>Region Id</th>
+        <th>Name</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let region of regions">
+        <td>{{region.regionId}}</td>
+        <td>{{region.name}}</td>
+        <td>
+          <button class="header-button" (click)="openModifyModal(region)">Modify</button>
+          <button class="header-button" (click)="openDeleteModal(region)">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

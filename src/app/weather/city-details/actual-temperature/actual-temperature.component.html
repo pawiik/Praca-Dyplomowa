@@ -1,21 +1,27 @@
 <div class="weather-widget">
-  <div class="weather-header">OBECNA POGODA</div>
+  <div class="weather-header">Weather Now</div>
   <div class="temperature">
     <div class="temperature-icon">
     </div>
-    {{data.temperature}}
+    {{data.temperature}}C
   </div>
-  <div class="real-feel">RealFeel® -5°</div>
   <div class="details">
     <div class="detail-item">
-      <div class="detail-label">Opady</div>
+      <div class="detail-label">Fall</div>
       <div>{{data.fall}}</div>
     </div>
     <div class="detail-item">
-      <div class="detail-label">Jakość powietrza</div>
-      <div>Niedobre</div>
+      <div class="detail-label">UV </div>
+      <div>{{data.uv}}</div>
+    </div>
+    <div class="detail-item">
+      <div class="detail-label">Wind</div>
+      <div>{{data.wind}}</div>
+    </div>
+    <div class="detail-item">
+      <div class="detail-label">Humidity</div>
+      <div>{{data.humidity}}</div>
     </div>
   </div>
-  <a href="#" class="more-info">WIĘCEJ SZCZEGÓŁÓW</a>
 </div>
 

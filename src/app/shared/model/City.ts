@@ -17,7 +17,7 @@ export class City {
   ) {
     this._cityId = cityId;
     this._cityName = cityName || '';
-    this._region = region || new Region();
+    this._region = region || new Region(1);
     this._measurementStations = measurementStations || [];
     this._users = users || [];
   }

@@ -15,7 +15,7 @@ export class AlertApiService {
   }
 
   public getAllAlerts(): Observable<Alert[]>{
-    let jwtToken: string = this.authService.authData.jwtToken
+    let jwtToken: string = this.authService.getUserData().jwtToken
     let options: HttpHeaders = new HttpHeaders({
       "Authorization": jwtToken
     })
@@ -43,7 +43,7 @@ export class AlertApiService {
       })
     }
 
-    return this.httpClient.get<Alert>(`${this.apiUrl}/last?cityId=${cityId}`, options)
+    return this.httpClient.get<Alert[]>(`${this.apiUrl}/${cityId}`, options)
   }
 
   public getAlertsForUser(userId: string){
@@ -58,8 +58,26 @@ export class AlertApiService {
     return this.httpClient.get<Alert[]>(`${this.apiUrl}/alerts?userId=${userId}`, options)
   }
 
-  public modifyAlert(value: ɵTypedOrUntyped<any, ɵFormGroupValue<any>, any>){
+  public modifyAlert(body:{}){
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+    console.log(body)
+    return this.httpClient.put<Alert>(`${this.apiUrl}/`,body ,  options)
+  }
 
+  public deleteAlert(alertId: string){
+    let jwtToken: string = this.authService.authData.jwtToken
+    let options: {} = {
+      headers: new HttpHeaders({
+        "Authorization": jwtToken,
+      })
+    }
+
+    return this.httpClient.delete(`${this.apiUrl}/?alertId=${alertId}`, options)
   }
 
 }

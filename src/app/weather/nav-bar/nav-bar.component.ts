@@ -22,6 +22,10 @@ export class NavBarComponent {
     return this.auth.authData.userRole === "ROLE_EMPLOYEE"
   }
 
+  isAdmin():boolean{
+    return this.auth.authData.userRole === "ROLE_ADMIN"
+  }
+
   isAuthenticated(): boolean{
     return this.auth.isUserAuthenticated();
   }
@@ -46,6 +50,10 @@ export class NavBarComponent {
 
   goToAlerts(){
     this.router.navigate(['alerts'])
+  }
+
+  goToRegister(){
+    this.router.navigate(['/register'])
   }
 
 }

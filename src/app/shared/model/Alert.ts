@@ -13,7 +13,7 @@ export class Alert {
     this.alertId = alertId;
     this.startTime = startTime || 0;
     this.endTime = endTime || 0;
-    this.region = region || new Region();
+    this.region = region || new Region(1);
     this.message = message || '';
     this.alertType = alertType || 0;
     this.selected = false

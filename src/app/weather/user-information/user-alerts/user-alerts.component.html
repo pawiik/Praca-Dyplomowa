@@ -1,6 +1,7 @@
 <div id="weatherAlerts" class="alert-container">
   <ul class="alerts-list">
     <li *ngFor="let alert of alerts" [ngClass]="alert.alertType.toString()" class="alert-item">
+      {{alert.region.name}}
       <div class="alert-date">From: {{alert.startTime}} To: {{alert.endTime}}</div>
       {{alert.message}}
     </li>

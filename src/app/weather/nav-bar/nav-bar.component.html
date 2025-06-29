@@ -1,14 +1,17 @@
 <nav class="navbar" *ngIf="!isAuthenticated()">
   <div class="navbar-container" *ngIf="!isAuthenticated()">
     <div class="navbar-icon">
-      <img src="favicon.ico" alt="Icon" (click)="goToMain()">
+      <h1 (click)="goToMain()">WEATHER APP</h1>
     </div>
     <div class="navbar-spacer"></div>
     <div class="navbar-spacer"></div>
     <div *ngIf="!isAuthenticated()">
       <button class="navbar-button" (click)="goToLogin()">Login</button>
+      <button class="navbar-button" (click)="goToRegister()">Register</button>
     </div>
-    <button class="navbar-button" (click)="logout()">Logout</button>
+    <button class="navbar-button" *ngIf="isAuthenticated()" (click)="logout()">Logout</button>
   </div>
 </nav>
-<app-employee-nav-bar *ngIf="isEmployee()"></app-employee-nav-bar>
+<app-user-nav-bar *ngIf="isClient() && isAuthenticated()"></app-user-nav-bar>
+<app-employee-nav-bar *ngIf="isEmployee() && isAuthenticated()"></app-employee-nav-bar>
+<app-admin-nav-bar *ngIf="isAdmin() && isAuthenticated()"></app-admin-nav-bar>

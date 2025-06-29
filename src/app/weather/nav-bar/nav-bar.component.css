@@ -1,16 +1,19 @@
 .navbar {
-  display: flex;
+  display: inline-block;
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
   background-color: #28a745;
   color: #fff;
+  width: 95%;
+  align-self: center;
+
 }
 
 .navbar-container {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
@@ -18,7 +21,7 @@
   height: 50px;
 }
 
-.navbar-button button {
+.navbar-button {
   padding: 10px 20px;
   cursor: pointer;
   border: none;

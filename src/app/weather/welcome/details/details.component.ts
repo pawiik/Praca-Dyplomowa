@@ -33,12 +33,12 @@ getCities(){
   console.log(this.allCities)
 }
 getRandomColor() {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
+  // const letters = '0123456789ABCDEF';
+  // let color = '#';
+  // for (let i = 0; i < 6; i++) {
+  //   color += letters[Math.floor(Math.random() * 16)];
+  // }
+  // return color;
 }
 searchCities() {
   if (this.searchTerm) {
@@ -58,14 +58,15 @@ searchCities() {
   }
 }
 
-showCityInfo(cityId: number){
+showCityInfo(city: City){
   // this.searchTerm = ''
   // this.suggestions = []
-  console.log("hello")
-  console.log(cityId)
-  this.container.clear();
 
-  this.dataService.setData(cityId);
+  this.container.clear();
+  this.suggestions = []
+  this.searchTerm = ""
+
+  this.dataService.setData(city);
 
   this.componentRef = this.container.createComponent(CityDetailsComponent);
 

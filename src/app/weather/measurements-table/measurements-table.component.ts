@@ -45,7 +45,8 @@ export class MeasurementsTableComponent {
       falls =>
         falls.forEach(fall =>{
           console.log(fall)
-          let measurement = new Measurement(fall.measurementStationId, fall.time, fall.temperature, "")
+          // @ts-ignore
+          let measurement = new Measurement(fall.measurementStationId.city.cityName, fall.measurementStationId.stationId, fall.time, fall.fall )
           this.measurementsTable.push(measurement)
         })
     )}
@@ -53,7 +54,8 @@ export class MeasurementsTableComponent {
     this.windApiService.loadByTimePeriod(body).subscribe(
       winds =>
         winds.forEach(wind =>{
-          let measurement = new Measurement(wind.measurementStation.stationId, wind.time, wind.wind, "")
+          // @ts-ignore
+          let measurement = new Measurement(wind.measurementStation.city.cityName, wind.measurementStation.stationId, wind.time, wind.wind )
         })
     )
   }
@@ -62,7 +64,8 @@ export class MeasurementsTableComponent {
     this.temperatureApiService.loadByTimePeriod(body).subscribe(
       temperatures =>
         temperatures.forEach(temperature =>{
-          let measurement = new Measurement(temperature.measurementStation.stationId, temperature.time, temperature.temperature, "")
+          // @ts-ignore
+          let measurement = new Measurement(temperature.measurementStation.city.cityName, temperature.measurementStation.stationId, temperature.time, temperature.temperature )
         })
     )
   }
@@ -71,7 +74,8 @@ export class MeasurementsTableComponent {
     this.uvApiService.loadByTimePeriod(body).subscribe(
       uvs =>
         uvs.forEach(uv =>{
-          let measurement = new Measurement(uv.measurementStationId.stationId, uv.time, uv.uv, "")
+          // @ts-ignore
+          let measurement = new Measurement(uv.measurementStationId.city.cityName, uv.measurementStationId.stationId, uv.time, uv.uv, )
         })
     )
   }
@@ -80,7 +84,8 @@ export class MeasurementsTableComponent {
     this.humidityApiService.loadByTimePeriod(body).subscribe(
       humidities =>
         humidities.forEach(humidity =>{
-          let measurement = new Measurement(humidity.measurementStation.stationId, humidity.time, humidity.humidity, "")
+          // @ts-ignore
+          let measurement = new Measurement(humidity.measurementStation.city.cityName, humidity.measurementStation.stationId, humidity.time, humidity.humidity, )
           this.measurementsTable.push(measurement)
         })
     )
@@ -92,6 +97,7 @@ export class MeasurementsTableComponent {
       "startTime": this.startDate,
       "endTime": this.endDate
     };
+    console.log(body)
     this.measurementsTable = []
     switch(this.parameter) {
       case "wind":
@@ -115,16 +121,16 @@ export class MeasurementsTableComponent {
 
 }
 class Measurement{
+  city: string
   measurementStationId: number
   date: number
   value: number
-  markers: string
 
 
-  constructor(measurementStation: any, date: number, value: number, markers: string) {
+  constructor(city: string, measurementStation: any, date: number, value: number) {
+    this.city = city
     this.measurementStationId = measurementStation;
     this.date = date;
     this.value = value;
-    this.markers = markers;
   }
 }

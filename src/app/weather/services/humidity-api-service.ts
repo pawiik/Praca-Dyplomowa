@@ -56,7 +56,7 @@ export class HumidityApiService {
     return this.httpClient.get<Map<number, number>>(`${this.apiUrl}/day?date=${date}&cityId=${cityId}`, options);
   }
 
-  getLast(cityId: string):Observable<Humidity>{
+  getLast(cityId: number):Observable<Humidity>{
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
       headers: new HttpHeaders({

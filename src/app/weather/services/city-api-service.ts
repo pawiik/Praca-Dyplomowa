@@ -31,11 +31,13 @@ export class CityApiService {
     console.log("req")
     console.log(cityId)
     let jwtToken: string = this.authService.authData.jwtToken
+    console.log(jwtToken)
     let options: {} = {
       headers: new HttpHeaders({
         "Authorization": jwtToken
       })
     }
+    console.log(options)
     let url = `${this.apiUrl}/${cityId}`
     return this.httpClient.get<City>(url , options);
   }

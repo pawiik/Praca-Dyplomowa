@@ -59,9 +59,9 @@ export class FallApiService {
   getLast(cityId: string):Observable<Fall>{
     let jwtToken: string = this.authService.authData.jwtToken
     let options: {} = {
-      headers: new HttpHeaders({
-        "Authorization": jwtToken
-      })
+      // headers: new HttpHeaders({
+      //   "Authorization": jwtToken
+      // })
     }
     return this.httpClient.get<Fall>(`${this.apiUrl}/last?cityId=${cityId}`, options);
   }

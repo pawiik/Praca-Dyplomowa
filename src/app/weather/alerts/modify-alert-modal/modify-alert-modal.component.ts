@@ -25,6 +25,7 @@ export class ModifyAlertModalComponent {
               private regionService: RegionApiService,
               private alertService: AlertApiService) {
     this.userForm = new FormGroup({
+        alertId: new FormControl(data.alertId),
         startTime: new FormControl(new Date(data.startTime).toISOString().slice(0, 16)),
         endTime: new FormControl(new Date(data.startTime).toISOString().slice(0, 16)),
         region: new FormControl(data.region.regionId),
@@ -57,7 +58,7 @@ export class ModifyAlertModalComponent {
 
   }
   updateData(){
-
+    this.alertService.modifyAlert(this.userForm.value).subscribe()
   }
 
   loadRegions(){

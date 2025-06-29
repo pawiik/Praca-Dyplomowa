@@ -1,14 +1,14 @@
 <nav class="navbar">
 <div class="navbar-container">
   <div class="navbar-icon">
-    <img src="favicon.ico" alt="Icon" (click)="goToMain()">
+    <h1 (click)="goToMain()">WEATHER APP</h1>
   </div>
   <div class="navbar-spacer"></div>
 
   <div *ngIf="isAuthenticated()">
     <button class="navbar-button" (click)="goToAnalyseData()">Analyse Data</button>
     <button class="navbar-button" *ngIf="isEmployee()" (click)="goToAlerts()">Alerts</button>
-    <button class="navbar-button" *ngIf="isEmployee()">Add Measurements</button>
+    <button class="navbar-button" *ngIf="isEmployee()" (click)="goToRegions()">Regions</button>
     <button class="navbar-button" (click)="goToCities()">Cities</button>
     <button class="navbar-button" (click)="goToStations()">Measurement stations</button>
   </div>

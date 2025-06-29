@@ -1,1 +1,10 @@
-<p>add-region-modal works!</p>
+<h1 mat-dialog-title id="exampleModalLabel">Add new measurement station</h1>
+<div class="login-container">
+  <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="regionName">Name:</label>
+      <input type="text" id="regionName" formControlName="regionName" name="regionName">
+    </div>
+    <button class="login-button" type="submit" [mat-dialog-close]="true" [disabled]="!form.valid">Submit</button>
+  </form>
+</div>
